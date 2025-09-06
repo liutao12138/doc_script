@@ -1,0 +1,31 @@
+# API配置
+URL1=http://localhost:8000/api/files
+URL2=http://localhost:8000/api/download
+URL3=http://localhost:8000/api/vectorize
+URL4=http://localhost:8000/api/save
+
+# Celery配置 - Redis服务
+REDIS_HOST=localhost
+REDIS_PORT=6379
+REDIS_DB=0
+CELERY_BROKER_URL=redis://localhost:6379/0
+CELERY_RESULT_BACKEND=redis://localhost:6379/0
+
+# 数据库配置
+DATABASE_URL=sqlite:///./doc_processing.db
+
+# 文件存储配置
+DOWNLOAD_DIR=./downloads
+OUTPUT_DIR=./outputs
+
+# OpenAI配置
+OPENAI_API_KEY=your_openai_api_key_here
+
+# 日志配置
+LOG_LEVEL=INFO
+LOG_FILE=./logs/doc_processing.log
+
+# 处理配置
+MAX_RETRIES=3
+CHUNK_SIZE=1000
+CHUNK_OVERLAP=200
