@@ -5,6 +5,8 @@
   "main": "index.tsx",
   "scripts": {
     "start": "webpack serve --mode development",
+    "start:dev": "node start-dev.js",
+    "start:mock": "set REACT_APP_USE_MOCK=true && npm start",
     "build": "webpack --mode production"
   },
   "dependencies": {
@@ -19,6 +21,7 @@
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.2.0",
     "babel-loader": "^9.1.0",
+    "body-parser": "^2.2.0",
     "css-loader": "^6.8.0",
     "html-webpack-plugin": "^5.5.0",
     "style-loader": "^3.3.0",
@@ -27,7 +30,12 @@
     "webpack-cli": "^5.1.0",
     "webpack-dev-server": "^4.15.0"
   },
-  "keywords": ["react", "typescript", "frontend", "webpack"],
+  "keywords": [
+    "react",
+    "typescript",
+    "frontend",
+    "webpack"
+  ],
   "author": "",
   "license": "MIT"
 }

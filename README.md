@@ -1,94 +1,167 @@
-# 简单React + TypeScript应用
+# 文件管理系统
 
-这是一个使用React和TypeScript构建的最简单前端工程示例。
+一个现代化的文件管理系统，支持代理和本地打桩数据功能。
 
-## 项目特性
+## ✨ 特性
 
-- ⚛️ React 18 - 最新的React版本
-- 🔷 TypeScript 5 - 类型安全的JavaScript
-- 🎨 现代化UI设计 - 渐变背景和毛玻璃效果
-- 📱 响应式设计 - 支持移动端和桌面端
-- 🔧 Webpack 5 - 现代化的构建工具
-- 🎯 交互式计数器 - 展示React状态管理
-- 🛡️ 类型安全 - TypeScript提供编译时类型检查
+- 🎨 现代化 UI 设计
+- 🔄 智能代理切换
+- 📊 本地打桩数据
+- 🔍 高级搜索和过滤
+- 📱 响应式设计
+- ⚡ 实时状态监控
 
-## 项目结构
+## 🚀 快速开始
 
-```
-doc_script/
-├── public/
-│   └── index.html          # HTML模板
-├── src/
-│   ├── App.tsx            # 主React TypeScript组件
-│   ├── App.css            # 样式文件
-│   └── index.tsx          # 应用入口
-├── package.json           # 项目配置和依赖
-├── tsconfig.json          # TypeScript配置
-├── webpack.config.js      # Webpack配置
-└── README.md             # 项目说明
-```
-
-## 快速开始
-
-### 1. 安装依赖
-
+### 安装依赖
 ```bash
 npm install
 ```
 
-### 2. 启动开发服务器
+### 启动开发环境
 
+#### 方式一：使用打桩数据（推荐）
+```bash
+npm run start:mock
+```
+
+#### 方式二：使用智能代理
+```bash
+npm run start:dev
+```
+
+#### 方式三：标准启动
 ```bash
 npm start
 ```
 
-应用将在 http://localhost:3000 打开
+## 🔧 配置说明
 
-### 3. 构建生产版本
+### 环境变量
 
+创建 `.env` 文件（可选）：
+```bash
+NODE_ENV=development
+REACT_APP_API_URL=http://localhost:3000/api
+REACT_APP_API_TARGET=http://localhost:8080
+REACT_APP_USE_MOCK=true
+REACT_APP_MOCK_DELAY=500
+```
+
+### 代理配置
+
+项目支持两种模式：
+
+1. **代理模式**：当后端服务可用时，自动代理到真实后端
+2. **打桩模式**：当后端不可用时，自动使用本地打桩数据
+
+## 📊 打桩数据
+
+### 数据特性
+- **20条模拟数据**：包含各种文件类型和状态
+- **完整功能支持**：
+  - NID 搜索
+  - 状态过滤（待处理、处理中、已完成、已拒绝）
+  - 文件类型过滤
+  - 分页功能
+- **真实网络延迟**：200-700ms 随机延迟
+
+### 支持的文件类型
+PDF, DOCX, PNG, SQL, MD, XLSX, SH, JSON, LOG, PPTX, TXT, XML, BAT, YAML, CSV, DRAWIO
+
+### 支持的状态
+- 🟡 待处理
+- 🔵 处理中  
+- 🟢 已完成
+- 🔴 已拒绝
+
+## 🛠️ 开发
+
+### 项目结构
+```
+src/
+├── components/          # React 组件
+│   ├── FileList.tsx    # 文件列表组件
+│   └── FileList.css    # 样式文件
+├── mock/               # 打桩数据
+│   └── mockData.json   # 模拟数据
+├── api.ts              # API 接口
+├── types.ts            # TypeScript 类型定义
+└── App.tsx             # 主应用组件
+```
+
+### 添加新的打桩数据
+
+编辑 `src/mock/mockData.json` 文件，添加新的数据项：
+
+```json
+{
+  "id": 21,
+  "nid": "DOC021",
+  "file_name": "新文件.pdf",
+  "file_path": "/uploads/docs/new_file.pdf",
+  "file_size": 1024000,
+  "file_type": "PDF",
+  "handle_status": "待处理",
+  "upload_time": "2024-01-17 10:00:00",
+  "handle_time": null,
+  "handle_user": null,
+  "remark": "新文件描述"
+}
+```
+
+### 自定义代理目标
+
+修改 `webpack.config.js` 中的代理配置：
+
+```javascript
+proxy: {
+  '/api': {
+    target: 'http://your-backend-server:port',
+    changeOrigin: true,
+    secure: false
+  }
+}
+```
+
+## 📱 界面预览
+
+- **现代化设计**：采用卡片式布局和渐变色彩
+- **响应式布局**：支持桌面端和移动端
+- **状态指示器**：实时显示 API 连接状态
+- **交互反馈**：悬停效果和加载动画
+
+## 🔍 API 接口
+
+### 健康检查
+```
+GET /api/health
+```
+
+### 文件列表
+```
+POST /api/doc/list
+Content-Type: application/json
+
+{
+  "nid": "DOC001",
+  "page": 1,
+  "pageSize": 10,
+  "handle_status": ["待处理", "处理中"],
+  "file_type": ["PDF", "DOCX"]
+}
+```
+
+## 🚀 部署
+
+### 构建生产版本
 ```bash
 npm run build
 ```
 
-构建文件将输出到 `dist` 目录
+### 生产环境配置
+设置环境变量 `REACT_APP_API_URL` 为生产环境 API 地址。
 
-## 功能说明
+## 📄 许可证
 
-- **计数器组件**: 展示React的useState钩子使用和TypeScript类型定义
-- **事件处理**: 按钮点击事件处理，包含TypeScript类型注解
-- **现代样式**: 使用CSS3特性如渐变、毛玻璃效果等
-- **响应式布局**: 适配不同屏幕尺寸
-- **类型安全**: TypeScript提供编译时类型检查和智能提示
-
-## 技术栈
-
-- React 18.2.0
-- TypeScript 5.1.0
-- Webpack 5
-- Babel (ES6+、JSX 和 TypeScript 转换)
-- CSS3 (现代样式特性)
-
-## 学习要点
-
-这个项目展示了React + TypeScript的核心概念：
-
-1. **组件化开发** - 将UI拆分为可复用的组件
-2. **状态管理** - 使用useState管理组件状态
-3. **事件处理** - 响应用户交互
-4. **TypeScript类型系统** - 类型定义和类型安全
-5. **现代构建工具** - Webpack配置和开发服务器
-
-## 下一步
-
-您可以基于这个简单项目继续学习：
-
-- 添加更多组件和TypeScript接口定义
-- 学习React Router进行路由管理
-- 集成状态管理库(如Redux Toolkit)
-- 添加API调用和类型定义
-- 学习测试(如Jest, React Testing Library)
-- 探索TypeScript高级特性(泛型、装饰器等)
-
----
-
-Happy Coding! 🚀
+MIT License
