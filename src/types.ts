@@ -12,7 +12,6 @@ export interface FileItem {
   created_at?: number; // 时间戳
   updated_at?: number; // 时间戳
   upload_time?: number; // 时间戳
-  handle_time?: number; // 时间戳
   update_time?: number; // 时间戳
   last_update_time?: number; // 时间戳
   handle_update_time?: number; // 时间戳

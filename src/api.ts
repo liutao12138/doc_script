@@ -91,7 +91,6 @@ export interface StatusUpdateResponse {
     id: number;
     old_status: number;
     new_status: number;
-    handle_time: number; // 时间戳
     handle_user: string;
   } | null;
 }

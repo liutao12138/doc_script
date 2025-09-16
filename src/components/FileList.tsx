@@ -615,7 +615,6 @@ const FileList: React.FC = () => {
                     <th>处理状态</th>
                     <th>切片数量</th>
                     <th>文件类型</th>
-                    <th>处理时间</th>
                     <th>更新时间</th>
                     <th>最后更新时间</th>
                     <th>最近处理开始时间</th>
@@ -641,7 +640,6 @@ const FileList: React.FC = () => {
                         <td title={Array.isArray(file.file_type) ? file.file_type.join(', ') : file.file_type}>
                           {Array.isArray(file.file_type) ? file.file_type.join(', ') : file.file_type}
                         </td>
-                        <td title={formatTimestamp(file.handle_time)}>{formatTimestamp(file.handle_time)}</td>
                         <td title={formatTimestamp(file.update_time)}>{formatTimestamp(file.update_time)}</td>
                         <td title={formatTimestamp(file.last_update_time)}>{formatTimestamp(file.last_update_time)}</td>
                         <td title={formatTimestamp(file.handle_update_time)}>{formatTimestamp(file.handle_update_time)}</td>
