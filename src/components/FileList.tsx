@@ -30,7 +30,6 @@ const FileList: React.FC = () => {
   const [filters, setFilters] = useState<SearchFilters>({
     nid: '',
     name: '',
-    file_name: '',
     handle_status: [],
     file_type: []
   });
@@ -147,7 +146,6 @@ const FileList: React.FC = () => {
     setFilters({
       nid: '',
       name: '',
-      file_name: '',
       handle_status: [],
       file_type: []
     });
@@ -447,15 +445,6 @@ const FileList: React.FC = () => {
                 value={filters.name}
                 onChange={(e) => handleFilterChange('name', e.target.value)}
                 placeholder="输入名称"
-              />
-            </div>
-            <div className="filter-group">
-              <label>文件名:</label>
-              <input
-                type="text"
-                value={filters.file_name}
-                onChange={(e) => handleFilterChange('file_name', e.target.value)}
-                placeholder="输入文件名"
               />
             </div>
           </div>

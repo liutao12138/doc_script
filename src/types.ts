@@ -20,7 +20,6 @@ export interface FileItem {
 export interface FileListRequest {
   nid?: string;
   name?: string;
-  file_name?: string;
   handle_status?: string[];
   file_type?: string[];
   page: number;
@@ -38,7 +37,6 @@ export interface FileListResponse {
 export interface SearchFilters {
   nid: string;
   name: string;
-  file_name: string;
   handle_status: string[];
   file_type: string[];
 }
