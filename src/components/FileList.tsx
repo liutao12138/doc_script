@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { FileItem, SearchFilters } from '../types';
+import { FileItem, SearchFilters, FileListRequest } from '../types';
 import { fetchFileList, checkApiHealth, retryFileProcessing, resetFileStatus, pullData } from '../api';
 import ToastContainer, { useToast } from './ToastContainer';
 import './FileList.css';
@@ -98,7 +98,7 @@ const FileList: React.FC = () => {
           value !== '' && value !== null && value !== undefined && 
           !(Array.isArray(value) && value.length === 0)
         )
-      );
+      ) as unknown as FileListRequest;
 
       const response = await fetchFileList(cleanParams);
       
@@ -511,7 +511,18 @@ const FileList: React.FC = () => {
         ) : (
           <>
             <div className="file-list-stats">
-              共找到 {total} 个文件，当前第 {currentPage} / {totalPages} 页
+              <div className="stats-info">
+                共找到 {total} 个文件，当前第 {currentPage} / {totalPages} 页
+              </div>
+              <button 
+                onClick={() => loadFiles(currentPage)} 
+                className={`refresh-btn ${loading ? 'loading' : ''}`}
+                disabled={loading}
+                title="刷新当前页面数据"
+              >
+                <span className="refresh-icon">🔄</span>
+                {loading ? '刷新中...' : '刷新'}
+              </button>
             </div>
             
             <div className="file-table">
@@ -525,6 +536,7 @@ const FileList: React.FC = () => {
                     <th>文件类型</th>
                     <th>更新时间</th>
                     <th>最后更新时间</th>
+                    <th>最近处理开始时间</th>
                     <th>操作</th>
                   </tr>
                 </thead>
@@ -543,6 +555,7 @@ const FileList: React.FC = () => {
                         <td>{Array.isArray(file.file_type) ? file.file_type.join(', ') : file.file_type}</td>
                         <td>{formatTimestamp(file.update_time)}</td>
                         <td>{formatTimestamp(file.last_update_time)}</td>
+                        <td>{formatTimestamp(file.handle_update_time)}</td>
                         <td>
                           <div className="action-buttons">
                             <button 
@@ -552,7 +565,7 @@ const FileList: React.FC = () => {
                             >
                               查看
                             </button>
-                            {file.handle_status !== 1 && (
+                            {file.handle_status !== '1' && (
                               <button 
                                 className="action-btn retry-btn" 
                                 title="重试处理"
@@ -574,7 +587,7 @@ const FileList: React.FC = () => {
                     ))
                   ) : (
                     <tr>
-                      <td colSpan={6} style={{ textAlign: 'center', padding: '2rem' }}>
+                      <td colSpan={8} style={{ textAlign: 'center', padding: '2rem' }}>
                         {loading ? '正在加载...' : '暂无数据'}
                       </td>
                     </tr>

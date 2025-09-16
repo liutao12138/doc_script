@@ -12,6 +12,7 @@ export interface FileItem {
   updated_at?: string;
   update_time?: number;
   last_update_time?: number;
+  handle_update_time?: number;
 }
 
 export interface FileListRequest {

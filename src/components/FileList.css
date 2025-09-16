@@ -299,9 +299,16 @@
   font-weight: 500;
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  justify-content: space-between;
+  gap: 1rem;
   border: 1px solid #e2e8f0;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.stats-info {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .file-list-stats::before {
@@ -730,6 +737,22 @@
   background: linear-gradient(135deg, #5a6fd8, #6b46c1);
   transform: translateY(-1px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* 更新时间按钮特殊样式 */
+.update-time-btn {
+  background: linear-gradient(135deg, #f093fb, #f5576c) !important;
+  position: relative;
+}
+
+.update-time-btn::before {
+  content: '⏰' !important;
+}
+
+.update-time-btn:hover {
+  background: linear-gradient(135deg, #e879f9, #f43f5e) !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(240, 147, 251, 0.3);
 }
 
 .pagination {
@@ -1222,4 +1245,92 @@
   opacity: 0.6;
   cursor: not-allowed;
   transform: none;
+}
+
+/* 刷新按钮样式 */
+.refresh-btn {
+  padding: 10px 20px;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+  box-shadow: 0 4px 14px rgba(102, 126, 234, 0.25);
+  position: relative;
+  overflow: hidden;
+  min-width: 120px;
+  justify-content: center;
+}
+
+.refresh-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.refresh-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+  background: linear-gradient(135deg, #5a67d8, #6b46c1);
+}
+
+.refresh-btn:hover:not(:disabled)::before {
+  left: 100%;
+}
+
+.refresh-btn:active:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(102, 126, 234, 0.3);
+}
+
+.refresh-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+  background: linear-gradient(135deg, #a0aec0, #718096);
+  box-shadow: 0 2px 4px rgba(160, 174, 192, 0.2);
+}
+
+.refresh-btn:disabled:hover {
+  transform: none;
+  box-shadow: 0 2px 4px rgba(160, 174, 192, 0.2);
+}
+
+.refresh-btn:disabled::before {
+  display: none;
+}
+
+/* 刷新图标动画 */
+.refresh-icon {
+  transition: transform 0.3s ease;
+}
+
+.refresh-btn:hover:not(:disabled) .refresh-icon {
+  transform: rotate(180deg);
+}
+
+.refresh-btn:disabled .refresh-icon {
+  animation: none;
+}
+
+/* 加载状态动画 */
+.refresh-btn.loading .refresh-icon {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }

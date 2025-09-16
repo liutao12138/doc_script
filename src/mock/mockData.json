@@ -13,6 +13,7 @@
     "remark": "项目初期需求分析文档",
     "update_time": 1705287000,
     "last_update_time": 1705287000,
+    "handle_update_time": null,
     "view_url": "https://view.officeapps.live.com/op/embed.aspx?src=https://example.com/uploads/docs/requirements.pdf"
   },
   {
@@ -29,6 +30,7 @@
     "remark": "系统架构设计文档，正在审核中",
     "update_time": 1705302000,
     "last_update_time": 1705315200,
+    "handle_update_time": 1705302000,
     "view_url": "https://view.officeapps.live.com/op/embed.aspx?src=https://example.com/uploads/docs/architecture.docx"
   },
   {
@@ -45,6 +47,7 @@
     "remark": "UI设计稿已通过审核",
     "update_time": 1705311000,
     "last_update_time": 1705311000,
+    "handle_update_time": 1705302000,
     "view_url": "https://example.com/uploads/images/ui_design.png"
   },
   {
@@ -61,6 +64,7 @@
     "remark": "数据库设计不符合规范，需要重新设计",
     "update_time": 1705302000,
     "last_update_time": 1705302000,
+    "handle_update_time": 1705302000,
     "view_url": "https://example.com/uploads/sql/database_design.sql"
   },
   {
@@ -77,6 +81,7 @@
     "remark": "RESTful API接口文档",
     "update_time": 1705365000,
     "last_update_time": 1705365000,
+    "handle_update_time": null,
     "view_url": "https://example.com/uploads/docs/api_docs.md"
   },
   {
@@ -93,6 +98,7 @@
     "remark": "单元测试和集成测试用例",
     "update_time": 1705368000,
     "last_update_time": 1705379100,
+    "handle_update_time": 1705368000,
     "view_url": "https://view.officeapps.live.com/op/embed.aspx?src=https://example.com/uploads/tests/test_cases.xlsx"
   },
   {
@@ -109,6 +115,7 @@
     "remark": "生产环境部署脚本",
     "update_time": 1705383000,
     "last_update_time": 1705383000,
+    "handle_update_time": null,
     "view_url": "https://example.com/uploads/scripts/deploy.sh"
   },
   {
@@ -125,6 +132,7 @@
     "remark": "应用配置文件正在验证中",
     "update_time": 1705311000,
     "last_update_time": 1705311000,
+    "handle_update_time": 1705311000,
     "view_url": "https://example.com/uploads/config/app_config.json"
   },
   {
@@ -141,6 +149,7 @@
     "remark": "系统运行日志已分析完成",
     "update_time": 1705311000,
     "last_update_time": 1705311000,
+    "handle_update_time": 1705311000,
     "view_url": "https://example.com/uploads/logs/system.log"
   },
   {
@@ -157,6 +166,7 @@
     "remark": "项目演示文稿正在审核中",
     "update_time": 1705368000,
     "last_update_time": 1705374000,
+    "handle_update_time": 1705368000,
     "view_url": "https://view.officeapps.live.com/op/embed.aspx?src=https://example.com/uploads/presentations/demo.pptx"
   },
   {
@@ -173,6 +183,7 @@
     "remark": "用户操作手册已审核通过",
     "update_time": 1705311000,
     "last_update_time": 1705311000,
+    "handle_update_time": 1705311000,
     "view_url": "https://example.com/uploads/manuals/user_manual.txt"
   },
   {
@@ -189,6 +200,7 @@
     "remark": "数据模型定义文件",
     "update_time": 1705374000,
     "last_update_time": 1705374000,
+    "handle_update_time": null,
     "view_url": "https://example.com/uploads/models/data_model.xml"
   },
   {
@@ -205,6 +217,7 @@
     "remark": "Windows启动脚本正在测试中",
     "update_time": 1705374000,
     "last_update_time": 1705374000,
+    "handle_update_time": 1705374000,
     "view_url": "https://example.com/uploads/scripts/startup.bat"
   },
   {
@@ -221,6 +234,7 @@
     "remark": "环境配置文件已验证通过",
     "update_time": 1705311000,
     "last_update_time": 1705311000,
+    "handle_update_time": 1705311000,
     "view_url": "https://example.com/uploads/config/environment.yaml"
   },
   {
@@ -237,6 +251,7 @@
     "remark": "数据导出格式不正确，需要重新生成",
     "update_time": 1705374000,
     "last_update_time": 1705374000,
+    "handle_update_time": 1705374000,
     "view_url": "https://example.com/uploads/data/export.csv"
   },
   {
@@ -253,6 +268,7 @@
     "remark": "业务流程图正在审核中",
     "update_time": 1705374000,
     "last_update_time": 1705374000,
+    "handle_update_time": 1705374000,
     "view_url": "https://app.diagrams.net/?lightbox=1&highlight=0000ff&edit=_blank&layers=1&nav=1&title=flowchart.drawio#Uhttps%3A%2F%2Fexample.com%2Fuploads%2Fdiagrams%2Fflowchart.drawio"
   },
   {
@@ -269,6 +285,7 @@
     "remark": "系统监控配置文件",
     "update_time": 1705387200,
     "last_update_time": 1705391700,
+    "handle_update_time": 1705387200,
     "view_url": "https://example.com/uploads/config/monitoring.yaml"
   },
   {
@@ -285,6 +302,7 @@
     "remark": "用户反馈数据已分析完成",
     "update_time": 1705311000,
     "last_update_time": 1705311000,
+    "handle_update_time": 1705311000,
     "view_url": "https://example.com/uploads/feedback/user_feedback.csv"
   },
   {
@@ -301,6 +319,7 @@
     "remark": "系统架构流程图",
     "update_time": 1705392000,
     "last_update_time": 1705392000,
+    "handle_update_time": null,
     "view_url": "https://app.diagrams.net/?lightbox=1&highlight=0000ff&edit=_blank&layers=1&nav=1&title=architecture.drawio#Uhttps%3A%2F%2Fexample.com%2Fuploads%2Fdiagrams%2Farchitecture.drawio"
   },
   {
@@ -317,6 +336,7 @@
     "remark": "v1.2.0版本发布说明",
     "update_time": 1705393800,
     "last_update_time": 1705395600,
+    "handle_update_time": 1705393800,
     "view_url": "https://example.com/uploads/releases/v1.2.0.md"
   }
 ]

@@ -173,3 +173,45 @@ export const pullData = async (): Promise<void> => {
     throw error;
   }
 };
+
+// 更新时间接口
+export interface UpdateTimeRequest {
+  nid: string;
+  update_time?: number;
+  last_update_time?: number;
+}
+
+export interface UpdateTimeResponse {
+  code: number;
+  message: string;
+  data: {
+    nid: string;
+    old_update_time?: number;
+    new_update_time?: number;
+    old_last_update_time?: number;
+    new_last_update_time?: number;
+    update_time: string;
+  } | null;
+}
+
+export const handleUpdateTime = async (params: UpdateTimeRequest): Promise<UpdateTimeResponse> => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/doc/update/time`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(params),
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Error updating time:', error);
+    throw error;
+  }
+};

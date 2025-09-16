@@ -59,8 +59,10 @@ module.exports = {
       }
     },
     setupMiddlewares: (middlewares, devServer) => {
-      // 检查是否启用mock
-      const useMock = process.env.REACT_APP_USE_MOCK === 'true';
+        // 检查是否启用mock
+        const useMock = String(process.env.REACT_APP_USE_MOCK).trim() === 'true';
+        console.log('[WEBPACK] REACT_APP_USE_MOCK:', process.env.REACT_APP_USE_MOCK);
+        console.log('[WEBPACK] useMock:', useMock);
       
       if (!devServer) {
         throw new Error('webpack-dev-server is not defined');
@@ -71,21 +73,43 @@ module.exports = {
       devServer.app.use(bodyParser.json());
       devServer.app.use(bodyParser.urlencoded({ extended: true }));
 
-      // 只有在启用mock时才加载mock数据
-      if (useMock) {
-        const mockData = require('./src/mock/mockData.json');
+      // 加载mock数据（无论是否启用mock都要加载，用于调试）
+      let mockData = null;
+      try {
+        mockData = require('./src/mock/mockData.json');
+        console.log('[MOCK] Mock数据加载成功，记录数:', mockData.length);
+      } catch (error) {
+        console.error('[MOCK] 加载Mock数据失败:', error.message);
+      }
       
-      // 健康检查端点
-      devServer.app.get('/api/health', (req, res) => {
-        res.json({
-          code: 200,
-          message: 'Mock server is running',
-          data: {
-            timestamp: new Date().toISOString(),
-            mockDataCount: mockData.length
-          }
+      // 只有在启用mock时才注册mock端点
+      if (useMock) {
+        console.log('[MOCK] 启用Mock模式，注册桩数据端点');
+      
+        // 健康检查端点
+        devServer.app.get('/api/health', (req, res) => {
+          res.json({
+            code: 200,
+            message: 'Mock server is running',
+            data: {
+              timestamp: new Date().toISOString(),
+              mockDataCount: mockData ? mockData.length : 0
+            }
+          });
         });
-      });
+        
+        // 测试端点
+        devServer.app.get('/api/test', (req, res) => {
+          res.json({
+            code: 200,
+            message: 'Mock test endpoint',
+            data: {
+              useMock: useMock,
+              mockDataLoaded: !!mockData,
+              mockDataCount: mockData ? mockData.length : 0
+            }
+          });
+        });
       
       devServer.app.post('/api/doc/list', (req, res) => {
         console.log('[MOCK] 收到文件列表请求:', req.body);
@@ -389,6 +413,60 @@ module.exports = {
           // 无返回参数，直接返回 200 状态码
           res.status(200).end();
         }, Math.random() * 300 + 100); // 100-400ms 随机延迟
+      });
+      
+      // 更新时间接口
+      devServer.app.post('/api/doc/update/time', (req, res) => {
+        console.log('[MOCK] 收到更新时间请求:', req.body);
+        
+        // 模拟网络延迟
+        setTimeout(() => {
+          const { nid, update_time, last_update_time } = req.body;
+          
+          if (!nid) {
+            return res.json({
+              code: 400,
+              message: '参数错误：nid 不能为空',
+              data: null
+            });
+          }
+          
+          const fileIndex = mockData.findIndex(item => item.nid === nid);
+          if (fileIndex === -1) {
+            return res.json({
+              code: 404,
+              message: '文件不存在',
+              data: null
+            });
+          }
+          
+          const file = mockData[fileIndex];
+          const oldUpdateTime = file.update_time;
+          const oldLastUpdateTime = file.last_update_time;
+          
+          // 更新文件时间
+          if (update_time !== undefined) {
+            file.update_time = update_time;
+          }
+          if (last_update_time !== undefined) {
+            file.last_update_time = last_update_time;
+          }
+          
+          console.log(`[MOCK] 文件 ${nid} 时间更新完成`);
+          
+          res.json({
+            code: 200,
+            message: '更新时间成功',
+            data: {
+              nid: nid,
+              old_update_time: oldUpdateTime,
+              new_update_time: file.update_time,
+              old_last_update_time: oldLastUpdateTime,
+              new_last_update_time: file.last_update_time,
+              update_time: new Date().toISOString().replace('T', ' ').substring(0, 19)
+            }
+          });
+        }, Math.random() * 400 + 200); // 200-600ms 随机延迟
       });
       } // 结束 useMock 条件块
       
