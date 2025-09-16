@@ -767,7 +767,7 @@ const FileList: React.FC = () => {
               确定要重试所有已选择文件类型的文件吗？
               <br />
               已选择的文件类型：{filters.file_type.join(', ')}
-            </p>
+            </p> 
             <div className="warning-message">
               ⚠️ 批量重试将重新处理未处理、正在处理中和失败的文件，已完成的文件将被跳过。
             </div>

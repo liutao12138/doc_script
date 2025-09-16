@@ -2,15 +2,9 @@
 
 import { FileListRequest, FileListResponse } from './types';
 
-// 根据环境自动选择API地址
+// 直接使用相对路径，通过代理处理
 const getApiBaseUrl = () => {
-  // 开发环境：使用代理，直接使用相对路径
-  if (process.env.NODE_ENV === 'development') {
-    return '/api';
-  }
-  
-  // 生产环境：使用环境变量或默认值
-  return process.env.REACT_APP_API_URL || 'http://localhost:8000/api';
+  return '/api';
 };
 
 const API_BASE_URL = getApiBaseUrl();
