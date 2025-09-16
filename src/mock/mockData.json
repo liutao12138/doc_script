@@ -2,7 +2,7 @@
   {
     "id": 1,
     "nid": "DOC001",
-    "file_name": "项目需求文档.pdf",
+    "name": "项目需求文档.pdf",
     "file_path": "/uploads/docs/requirements.pdf",
     "file_size": 2048576,
     "file_type": ["PDF"],
@@ -20,7 +20,7 @@
   {
     "id": 2,
     "nid": "DOC002",
-    "file_name": "技术架构设计.docx",
+    "name": "技术架构设计.docx",
     "file_path": "/uploads/docs/architecture.docx",
     "file_size": 1536000,
     "file_type": ["DOCX"],
@@ -38,7 +38,7 @@
   {
     "id": 3,
     "nid": "DOC003",
-    "file_name": "用户界面设计.png",
+    "name": "用户界面设计.png",
     "file_path": "/uploads/images/ui_design.png",
     "file_size": 1024000,
     "file_type": ["PNG"],
@@ -56,7 +56,7 @@
   {
     "id": 4,
     "nid": "DOC004",
-    "file_name": "数据库设计.sql",
+    "name": "数据库设计.sql",
     "file_path": "/uploads/sql/database_design.sql",
     "file_size": 512000,
     "file_type": ["SQL"],
@@ -74,7 +74,7 @@
   {
     "id": 5,
     "nid": "DOC005",
-    "file_name": "API接口文档.md",
+    "name": "API接口文档.md",
     "file_path": "/uploads/docs/api_docs.md",
     "file_size": 256000,
     "file_type": ["MD"],
@@ -92,7 +92,7 @@
   {
     "id": 6,
     "nid": "DOC006",
-    "file_name": "测试用例.xlsx",
+    "name": "测试用例.xlsx",
     "file_path": "/uploads/tests/test_cases.xlsx",
     "file_size": 768000,
     "file_type": ["XLSX"],
@@ -110,7 +110,7 @@
   {
     "id": 7,
     "nid": "DOC007",
-    "file_name": "部署脚本.sh",
+    "name": "部署脚本.sh",
     "file_path": "/uploads/scripts/deploy.sh",
     "file_size": 128000,
     "file_type": ["SH"],
@@ -128,7 +128,7 @@
   {
     "id": 8,
     "nid": "DOC008",
-    "file_name": "配置文件.json",
+    "name": "配置文件.json",
     "file_path": "/uploads/config/app_config.json",
     "file_size": 64000,
     "file_type": ["JSON"],
@@ -146,7 +146,7 @@
   {
     "id": 9,
     "nid": "DOC009",
-    "file_name": "系统日志.log",
+    "name": "系统日志.log",
     "file_path": "/uploads/logs/system.log",
     "file_size": 2048000,
     "file_type": ["LOG"],
@@ -164,7 +164,7 @@
   {
     "id": 10,
     "nid": "DOC010",
-    "file_name": "项目演示.pptx",
+    "name": "项目演示.pptx",
     "file_path": "/uploads/presentations/demo.pptx",
     "file_size": 5120000,
     "file_type": ["PPTX"],
@@ -182,7 +182,7 @@
   {
     "id": 11,
     "nid": "DOC011",
-    "file_name": "用户手册.txt",
+    "name": "用户手册.txt",
     "file_path": "/uploads/manuals/user_manual.txt",
     "file_size": 320000,
     "file_type": ["TXT"],
@@ -200,7 +200,7 @@
   {
     "id": 12,
     "nid": "DOC012",
-    "file_name": "数据模型.xml",
+    "name": "数据模型.xml",
     "file_path": "/uploads/models/data_model.xml",
     "file_size": 256000,
     "file_type": ["XML"],
@@ -218,7 +218,7 @@
   {
     "id": 13,
     "nid": "DOC013",
-    "file_name": "启动脚本.bat",
+    "name": "启动脚本.bat",
     "file_path": "/uploads/scripts/startup.bat",
     "file_size": 64000,
     "file_type": ["BAT"],
@@ -236,7 +236,7 @@
   {
     "id": 14,
     "nid": "DOC014",
-    "file_name": "环境配置.yaml",
+    "name": "环境配置.yaml",
     "file_path": "/uploads/config/environment.yaml",
     "file_size": 128000,
     "file_type": ["YAML"],
@@ -254,7 +254,7 @@
   {
     "id": 15,
     "nid": "DOC015",
-    "file_name": "数据导出.csv",
+    "name": "数据导出.csv",
     "file_path": "/uploads/data/export.csv",
     "file_size": 896000,
     "file_type": ["CSV"],
@@ -272,7 +272,7 @@
   {
     "id": 16,
     "nid": "DOC016",
-    "file_name": "流程图.drawio",
+    "name": "流程图.drawio",
     "file_path": "/uploads/diagrams/flowchart.drawio",
     "file_size": 384000,
     "file_type": ["DRAWIO"],
@@ -290,7 +290,7 @@
   {
     "id": 17,
     "nid": "DOC017",
-    "file_name": "监控配置.yaml",
+    "name": "监控配置.yaml",
     "file_path": "/uploads/config/monitoring.yaml",
     "file_size": 192000,
     "file_type": ["YAML"],
@@ -308,7 +308,7 @@
   {
     "id": 18,
     "nid": "DOC018",
-    "file_name": "用户反馈.csv",
+    "name": "用户反馈.csv",
     "file_path": "/uploads/feedback/user_feedback.csv",
     "file_size": 448000,
     "file_type": ["CSV"],
@@ -326,7 +326,7 @@
   {
     "id": 19,
     "nid": "DOC019",
-    "file_name": "系统架构图.drawio",
+    "name": "系统架构图.drawio",
     "file_path": "/uploads/diagrams/architecture.drawio",
     "file_size": 640000,
     "file_type": ["DRAWIO"],
@@ -344,7 +344,7 @@
   {
     "id": 20,
     "nid": "DOC020",
-    "file_name": "版本发布说明.md",
+    "name": "版本发布说明.md",
     "file_path": "/uploads/releases/v1.2.0.md",
     "file_size": 128000,
     "file_type": ["MD"],

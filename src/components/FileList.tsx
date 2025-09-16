@@ -627,7 +627,7 @@ const FileList: React.FC = () => {
                     files.map((file) => (
                       <tr key={file.id}>
                         <td title={file.nid}>{file.nid}</td>
-                        <td title={file.file_name}>{file.file_name}</td>
+                        <td title={file.name}>{file.name}</td>
                         <td>
                           <span className={`status-badge status-${file.handle_status}`}>
                             {getStatusText(file.handle_status)}
