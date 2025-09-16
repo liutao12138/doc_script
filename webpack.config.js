@@ -66,7 +66,7 @@ module.exports = {
 
       if (!useMock) {
         return middlewares;
-      }
+      } 
 
       if (!devServer) {
         throw new Error('webpack-dev-server is not defined');
@@ -120,7 +120,7 @@ module.exports = {
 
           // 模拟网络延迟
           setTimeout(() => {
-            const { nid, page = 1, pageSize = 10, handle_status, file_type } = req.body;
+            const { nid, page = 1, page_size = 10, handle_status, file_type } = req.body;
 
             let filteredData = [...mockData];
 
@@ -144,18 +144,14 @@ module.exports = {
             }
 
             // 分页
-            const startIndex = (page - 1) * pageSize;
-            const endIndex = startIndex + pageSize;
+            const startIndex = (page - 1) * page_size;
+            const endIndex = startIndex + page_size;
             const paginatedData = filteredData.slice(startIndex, endIndex);
 
+            // 返回格式与后端接口保持一致: {data: [], total: 20}
             const response = {
-              code: 200,
-              message: 'success',
               data: paginatedData,
-              total: filteredData.length,
-              page: page,
-              page_size: pageSize,
-              total_pages: Math.ceil(filteredData.length / pageSize)
+              total: filteredData.length
             };
 
             console.log(`[MOCK] 返回数据: ${paginatedData.length} 条记录，共 ${filteredData.length} 条`);

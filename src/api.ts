@@ -47,7 +47,18 @@ export const fetchFileList = async (params: FileListRequest): Promise<FileListRe
 
     const data = await response.json();
     
-    // 检查返回的数据结构
+    // 适配后端接口格式 {data:[], total:20}
+    if (data.data && typeof data.total === 'number') {
+      return {
+        data: data.data,
+        total: data.total,
+        page: params.page || 1,
+        page_size: params.page_size || 10,
+        total_pages: Math.ceil(data.total / (params.page_size || 10))
+      };
+    }
+    
+    // 兼容原有的格式 {code: 200, message: 'success', data: [], total: 20}
     if (data.code === 200 && data.data) {
       return {
         data: data.data,
@@ -111,7 +122,17 @@ export const retryFileProcessing = async (params: RetryRequest): Promise<RetryRe
     }
 
     const data = await response.json();
-    return data;
+    
+    // 适配后端接口格式，确保返回正确的结构
+    if (data.message && typeof data.nid_num === 'number') {
+      return {
+        message: data.message,
+        nid_num: data.nid_num
+      };
+    }
+    
+    // 如果数据结构不符合预期，抛出错误
+    throw new Error('Invalid response format for retry');
   } catch (error) {
     console.error('Error retrying file processing:', error);
     throw error;
@@ -144,7 +165,17 @@ export const resetFileStatus = async (params: ResetRequest): Promise<ResetRespon
     }
 
     const data = await response.json();
-    return data;
+    
+    // 适配后端接口格式，确保返回正确的结构
+    if (data.message && data.status) {
+      return {
+        message: data.message,
+        status: data.status
+      };
+    }
+    
+    // 如果数据结构不符合预期，抛出错误
+    throw new Error('Invalid response format for reset');
   } catch (error) {
     console.error('Error resetting file status:', error);
     throw error;
@@ -209,7 +240,18 @@ export const handleUpdateTime = async (params: UpdateTimeRequest): Promise<Updat
     }
 
     const data = await response.json();
-    return data;
+    
+    // 适配后端接口格式，确保返回正确的结构
+    if (data.code && data.message) {
+      return {
+        code: data.code,
+        message: data.message,
+        data: data.data
+      };
+    }
+    
+    // 如果数据结构不符合预期，抛出错误
+    throw new Error('Invalid response format for update time');
   } catch (error) {
     console.error('Error updating time:', error);
     throw error;
