@@ -10,7 +10,7 @@ const getApiBaseUrl = () => {
   }
   
   // 生产环境：使用环境变量或默认值
-  return process.env.REACT_APP_API_URL || 'http://localhost:8080/api';
+  return process.env.REACT_APP_API_URL || 'http://localhost:8000/api';
 };
 
 const API_BASE_URL = getApiBaseUrl();

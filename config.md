@@ -8,7 +8,7 @@
 # 环境变量配置
 NODE_ENV=development
 REACT_APP_API_URL=http://localhost:3000/api
-REACT_APP_API_TARGET=http://localhost:8080
+REACT_APP_API_TARGET=http://localhost:8000
 REACT_APP_USE_MOCK=true
 REACT_APP_MOCK_DELAY=500
 ```
@@ -19,7 +19,7 @@ REACT_APP_MOCK_DELAY=500
 
 ### 1. 代理到真实后端
 - 当 `REACT_APP_API_TARGET` 指定的后端服务可用时，请求会被代理到真实后端
-- 默认代理目标：`http://localhost:8080`
+- 默认代理目标：`http://localhost:8000`
 
 ### 2. 本地打桩数据
 - 当后端服务不可用时，自动使用本地打桩数据
@@ -30,16 +30,32 @@ REACT_APP_MOCK_DELAY=500
 
 ### 开发模式（使用打桩数据）
 ```bash
-npm start
+npm run start:mock
 ```
 - 前端运行在：http://localhost:3000
-- 自动使用本地打桩数据
+- 强制使用本地打桩数据
 - 支持所有API功能（搜索、过滤、分页）
 
-### 连接真实后端
-1. 启动后端服务（端口 8080）
-2. 设置环境变量 `REACT_APP_API_TARGET` 为后端地址
-3. 运行 `npm start`
+### 禁用Mock，仅连接真实后端
+```bash
+npm run start:no-mock
+```
+- 前端运行在：http://localhost:3000
+- 禁用本地打桩数据
+- 仅连接真实后端（需要后端服务运行在8000端口）
+
+### 智能代理模式
+```bash
+npm run start:dev
+```
+- 优先连接真实后端
+- 后端不可用时自动使用打桩数据
+
+### 标准启动（根据环境变量决定）
+```bash
+npm start
+```
+- 根据 `REACT_APP_USE_MOCK` 环境变量决定是否使用Mock
 
 ## 打桩数据特性
 

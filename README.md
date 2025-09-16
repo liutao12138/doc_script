@@ -30,7 +30,12 @@ npm run start:mock
 npm run start:dev
 ```
 
-#### 方式三：标准启动
+#### 方式三：禁用Mock，仅连接真实后端
+```bash
+npm run start:no-mock
+```
+
+#### 方式四：标准启动（根据环境变量决定）
 ```bash
 npm start
 ```
@@ -43,7 +48,7 @@ npm start
 ```bash
 NODE_ENV=development
 REACT_APP_API_URL=http://localhost:3000/api
-REACT_APP_API_TARGET=http://localhost:8080
+REACT_APP_API_TARGET=http://localhost:8000
 REACT_APP_USE_MOCK=true
 REACT_APP_MOCK_DELAY=500
 ```

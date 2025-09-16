@@ -7,6 +7,7 @@
     "start": "webpack serve --mode development",
     "start:dev": "node start-dev.js",
     "start:mock": "set REACT_APP_USE_MOCK=true && npm start",
+    "start:no-mock": "set REACT_APP_USE_MOCK=false && npm start",
     "build": "webpack --mode production"
   },
   "dependencies": {

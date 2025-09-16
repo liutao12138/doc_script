@@ -13,7 +13,7 @@ console.log('🚀 启动文件管理系统开发环境...\n');
 // 设置环境变量
 process.env.NODE_ENV = 'development';
 process.env.REACT_APP_API_URL = 'http://localhost:3000/api';
-process.env.REACT_APP_API_TARGET = 'http://localhost:8080';
+process.env.REACT_APP_API_TARGET = 'http://localhost:8000';
 process.env.REACT_APP_USE_MOCK = 'true';
 
 console.log('📋 环境配置:');

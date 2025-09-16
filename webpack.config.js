@@ -45,7 +45,7 @@ module.exports = {
     hot: true,
     proxy: {
       '/api': {
-        target: process.env.REACT_APP_API_TARGET || 'http://localhost:8080',
+        target: process.env.REACT_APP_API_TARGET || 'http://localhost:8000',
         changeOrigin: true,
         secure: false,
         logLevel: 'debug',
@@ -59,7 +59,9 @@ module.exports = {
       }
     },
     setupMiddlewares: (middlewares, devServer) => {
-      // 添加本地打桩数据中间件
+      // 检查是否启用mock
+      const useMock = process.env.REACT_APP_USE_MOCK === 'true';
+      
       if (!devServer) {
         throw new Error('webpack-dev-server is not defined');
       }
@@ -69,7 +71,9 @@ module.exports = {
       devServer.app.use(bodyParser.json());
       devServer.app.use(bodyParser.urlencoded({ extended: true }));
 
-      const mockData = require('./src/mock/mockData.json');
+      // 只有在启用mock时才加载mock数据
+      if (useMock) {
+        const mockData = require('./src/mock/mockData.json');
       
       // 健康检查端点
       devServer.app.get('/api/health', (req, res) => {
@@ -386,6 +390,7 @@ module.exports = {
           res.status(200).end();
         }, Math.random() * 300 + 100); // 100-400ms 随机延迟
       });
+      } // 结束 useMock 条件块
       
       return middlewares;
     }
