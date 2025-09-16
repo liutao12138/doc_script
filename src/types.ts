@@ -7,6 +7,7 @@ export interface FileItem {
   file_name: string;
   handle_status: string;
   file_type: string[];
+  handle_count: number; // 文件切片数量
   view_url?: string;
   created_at?: number; // 时间戳
   updated_at?: number; // 时间戳

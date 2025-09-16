@@ -612,8 +612,8 @@ const FileList: React.FC = () => {
                   <tr>
                     <th>NID</th>
                     <th>名称</th>
-                    <th>文件名</th>
                     <th>处理状态</th>
+                    <th>切片数量</th>
                     <th>文件类型</th>
                     <th>处理时间</th>
                     <th>更新时间</th>
@@ -627,11 +627,15 @@ const FileList: React.FC = () => {
                     files.map((file) => (
                       <tr key={file.id}>
                         <td title={file.nid}>{file.nid}</td>
-                        <td title={file.name}>{file.name}</td>
                         <td title={file.file_name}>{file.file_name}</td>
                         <td>
                           <span className={`status-badge status-${file.handle_status}`}>
                             {getStatusText(file.handle_status)}
+                          </span>
+                        </td>
+                        <td>
+                          <span className="handle-count">
+                            {file.handle_count || 0}
                           </span>
                         </td>
                         <td title={Array.isArray(file.file_type) ? file.file_type.join(', ') : file.file_type}>
