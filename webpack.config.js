@@ -82,34 +82,35 @@ module.exports = {
         console.error('[MOCK] 加载Mock数据失败:', error.message);
       }
       
-      // 只有在启用mock时才注册mock端点
+      // 健康检查端点（始终注册）
+      devServer.app.get('/api/health', (req, res) => {
+        res.json({
+          code: 200,
+          message: useMock ? 'Mock server is running' : 'Server is running',
+          data: {
+            timestamp: new Date().toISOString(),
+            useMock: useMock,
+            mockDataCount: mockData ? mockData.length : 0
+          }
+        });
+      });
+      
+      // 测试端点（始终注册）
+      devServer.app.get('/api/test', (req, res) => {
+        res.json({
+          code: 200,
+          message: useMock ? 'Mock test endpoint' : 'Test endpoint',
+          data: {
+            useMock: useMock,
+            mockDataLoaded: !!mockData,
+            mockDataCount: mockData ? mockData.length : 0
+          }
+        });
+      });
+
+      // 根据模式注册不同的端点
       if (useMock) {
         console.log('[MOCK] 启用Mock模式，注册桩数据端点');
-      
-        // 健康检查端点
-        devServer.app.get('/api/health', (req, res) => {
-          res.json({
-            code: 200,
-            message: 'Mock server is running',
-            data: {
-              timestamp: new Date().toISOString(),
-              mockDataCount: mockData ? mockData.length : 0
-            }
-          });
-        });
-        
-        // 测试端点
-        devServer.app.get('/api/test', (req, res) => {
-          res.json({
-            code: 200,
-            message: 'Mock test endpoint',
-            data: {
-              useMock: useMock,
-              mockDataLoaded: !!mockData,
-              mockDataCount: mockData ? mockData.length : 0
-            }
-          });
-        });
       
       devServer.app.post('/api/doc/list', (req, res) => {
         console.log('[MOCK] 收到文件列表请求:', req.body);
@@ -468,7 +469,60 @@ module.exports = {
           });
         }, Math.random() * 400 + 200); // 200-600ms 随机延迟
       });
-      } // 结束 useMock 条件块
+      } else {
+        console.log('[NO-MOCK] 禁用Mock模式，仅使用代理转发');
+        
+        // 在 no-mock 模式下，提供基本的错误处理端点
+        // 这些端点只在代理失败时才会被调用
+        devServer.app.post('/api/doc/list', (req, res) => {
+          console.log('[NO-MOCK] 收到文件列表请求（代理失败）:', req.body);
+          
+          // 返回错误信息，提示需要后端服务
+          res.status(503).json({
+            code: 503,
+            message: '后端服务不可用，请确保后端服务运行在 http://localhost:8000',
+            data: null,
+            error: 'Service Unavailable'
+          });
+        });
+        
+        // 其他 API 端点的错误处理
+        devServer.app.post('/api/doc/retry', (req, res) => {
+          console.log('[NO-MOCK] 收到重试请求（代理失败）:', req.body);
+          res.status(503).json({
+            code: 503,
+            message: '后端服务不可用',
+            data: null
+          });
+        });
+        
+        devServer.app.post('/api/doc/reset/status', (req, res) => {
+          console.log('[NO-MOCK] 收到重置请求（代理失败）:', req.body);
+          res.status(503).json({
+            code: 503,
+            message: '后端服务不可用',
+            data: null
+          });
+        });
+        
+        devServer.app.post('/api/doc/pull', (req, res) => {
+          console.log('[NO-MOCK] 收到数据同步请求（代理失败）');
+          res.status(503).json({
+            code: 503,
+            message: '后端服务不可用',
+            data: null
+          });
+        });
+        
+        devServer.app.post('/api/doc/update/time', (req, res) => {
+          console.log('[NO-MOCK] 收到更新时间请求（代理失败）:', req.body);
+          res.status(503).json({
+            code: 503,
+            message: '后端服务不可用',
+            data: null
+          });
+        });
+      }
       
       return middlewares;
     }
