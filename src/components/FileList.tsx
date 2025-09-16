@@ -617,7 +617,7 @@ const FileList: React.FC = () => {
                     <th>文件类型</th>
                     <th>更新时间</th>
                     <th>最后更新时间</th>
-                    <th>最近处理开始时间</th>
+                    <th>最新数据处理时间</th>
                     <th>操作</th>
                   </tr>
                 </thead>
@@ -766,7 +766,7 @@ const FileList: React.FC = () => {
               已选择的文件类型：{filters.file_type.join(', ')}
             </p>
             <div className="warning-message">
-              ⚠️ 批量重试将重新处理未处理和失败的文件，已完成和正在处理中的文件将被跳过。
+              ⚠️ 批量重试将重新处理未处理、正在处理中和失败的文件，已完成的文件将被跳过。
             </div>
           </div>
           <div className="modal-footer">
