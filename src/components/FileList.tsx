@@ -7,6 +7,7 @@ import './FileList.css';
 const FileList: React.FC = () => {
   const [files, setFiles] = useState<FileItem[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
+  const [retryingFiles, setRetryingFiles] = useState<Set<string>>(new Set());
   const [error, setError] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [totalPages, setTotalPages] = useState<number>(0);
@@ -61,7 +62,18 @@ const FileList: React.FC = () => {
   // 时间格式化函数
   const formatTimestamp = (timestamp?: number): string => {
     if (!timestamp) return '-';
-    const date = new Date(timestamp * 1000);
+    
+    // 判断时间戳是秒还是毫秒
+    // 如果时间戳大于 2000-01-01 的毫秒数，则认为是毫秒
+    const isMilliseconds = timestamp > 946684800000; // 2000-01-01 00:00:00 UTC 的毫秒数
+    
+    const date = new Date(isMilliseconds ? timestamp : timestamp * 1000);
+    
+    // 检查日期是否有效
+    if (isNaN(date.getTime())) {
+      return '无效时间';
+    }
+    
     return date.toLocaleString('zh-CN', {
       year: 'numeric',
       month: '2-digit',
@@ -149,6 +161,75 @@ const FileList: React.FC = () => {
     loadFiles(page);
   };
 
+  // 智能分页渲染函数
+  const renderPaginationPages = () => {
+    const maxVisiblePages = 7; // 最多显示7个页码按钮
+    const pages: (number | string)[] = [];
+    
+    if (totalPages <= maxVisiblePages) {
+      // 如果总页数不超过最大显示数，显示所有页码
+      for (let i = 1; i <= totalPages; i++) {
+        pages.push(i);
+      }
+    } else {
+      // 智能分页逻辑
+      const halfVisible = Math.floor(maxVisiblePages / 2);
+      let startPage = Math.max(1, currentPage - halfVisible);
+      let endPage = Math.min(totalPages, currentPage + halfVisible);
+      
+      // 调整边界
+      if (endPage - startPage + 1 < maxVisiblePages) {
+        if (startPage === 1) {
+          endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
+        } else {
+          startPage = Math.max(1, endPage - maxVisiblePages + 1);
+        }
+      }
+      
+      // 添加第一页
+      if (startPage > 1) {
+        pages.push(1);
+        if (startPage > 2) {
+          pages.push('...');
+        }
+      }
+      
+      // 添加中间页码
+      for (let i = startPage; i <= endPage; i++) {
+        pages.push(i);
+      }
+      
+      // 添加最后一页
+      if (endPage < totalPages) {
+        if (endPage < totalPages - 1) {
+          pages.push('...');
+        }
+        pages.push(totalPages);
+      }
+    }
+    
+    return pages.map((page, index) => {
+      if (page === '...') {
+        return (
+          <span key={`ellipsis-${index}`} className="page-ellipsis">
+            ...
+          </span>
+        );
+      }
+      
+      const pageNum = page as number;
+      return (
+        <button
+          key={pageNum}
+          onClick={() => handlePageChange(pageNum)}
+          className={`page-btn ${currentPage === pageNum ? 'active' : ''}`}
+        >
+          {pageNum}
+        </button>
+      );
+    });
+  };
+
   const handleFilterChange = (key: keyof SearchFilters, value: string | string[]) => {
     setFilters(prev => ({
       ...prev,
@@ -191,7 +272,8 @@ const FileList: React.FC = () => {
   // 重试函数
   const handleRetry = async (fileId: string) => {
     try {
-      setLoading(true);
+      // 使用文件级别的loading状态，避免全局loading
+      setRetryingFiles(prev => new Set([...prev, fileId]));
       
       // 调用重试API
       const response = await retryFileProcessing({
@@ -200,9 +282,6 @@ const FileList: React.FC = () => {
       
       // 检查响应是否成功（新API格式没有code字段，直接检查message）
       if (response.message && response.nid_num !== undefined) {
-        // 重新加载数据
-        await loadFiles(currentPage);
-        
         console.log(`文件 ${fileId} 重试成功`);
         showSuccess('文件重试成功！正在重新处理中...');
       } else {
@@ -212,7 +291,12 @@ const FileList: React.FC = () => {
       console.error('重试失败:', error);
       showError('重试失败，请稍后重试');
     } finally {
-      setLoading(false);
+      // 移除文件级别的loading状态
+      setRetryingFiles(prev => {
+        const newSet = new Set(prev);
+        newSet.delete(fileId);
+        return newSet;
+      });
     }
   };
 
@@ -279,9 +363,6 @@ const FileList: React.FC = () => {
       
       // 检查响应是否成功（新API格式没有code字段，直接检查message）
       if (response.message && response.nid_num !== undefined) {
-        // 重新加载数据
-        await loadFiles(currentPage);
-        
         console.log(`批量重试成功，共重试 ${response.nid_num} 个文件`);
         if (response.nid_num > 0) {
           showSuccess(`批量重试成功！共重试 ${response.nid_num} 个文件，正在重新处理中...`);
@@ -534,6 +615,7 @@ const FileList: React.FC = () => {
                     <th>文件名</th>
                     <th>处理状态</th>
                     <th>文件类型</th>
+                    <th>处理时间</th>
                     <th>更新时间</th>
                     <th>最后更新时间</th>
                     <th>最近处理开始时间</th>
@@ -545,17 +627,20 @@ const FileList: React.FC = () => {
                     files.map((file) => (
                       <tr key={file.id}>
                         <td title={file.nid}>{file.nid}</td>
-                        <td>{file.name}</td>
-                        <td>{file.file_name}</td>
+                        <td title={file.name}>{file.name}</td>
+                        <td title={file.file_name}>{file.file_name}</td>
                         <td>
                           <span className={`status-badge status-${file.handle_status}`}>
                             {getStatusText(file.handle_status)}
                           </span>
                         </td>
-                        <td>{Array.isArray(file.file_type) ? file.file_type.join(', ') : file.file_type}</td>
-                        <td>{formatTimestamp(file.update_time)}</td>
-                        <td>{formatTimestamp(file.last_update_time)}</td>
-                        <td>{formatTimestamp(file.handle_update_time)}</td>
+                        <td title={Array.isArray(file.file_type) ? file.file_type.join(', ') : file.file_type}>
+                          {Array.isArray(file.file_type) ? file.file_type.join(', ') : file.file_type}
+                        </td>
+                        <td title={formatTimestamp(file.handle_time)}>{formatTimestamp(file.handle_time)}</td>
+                        <td title={formatTimestamp(file.update_time)}>{formatTimestamp(file.update_time)}</td>
+                        <td title={formatTimestamp(file.last_update_time)}>{formatTimestamp(file.last_update_time)}</td>
+                        <td title={formatTimestamp(file.handle_update_time)}>{formatTimestamp(file.handle_update_time)}</td>
                         <td>
                           <div className="action-buttons">
                             <button 
@@ -570,8 +655,9 @@ const FileList: React.FC = () => {
                                 className="action-btn retry-btn" 
                                 title="重试处理"
                                 onClick={() => handleRetry(file.nid)}
+                                disabled={retryingFiles.has(file.nid)}
                               >
-                                重试
+                                {retryingFiles.has(file.nid) ? '重试中...' : '重试'}
                               </button>
                             )}
                             <button 
@@ -587,7 +673,7 @@ const FileList: React.FC = () => {
                     ))
                   ) : (
                     <tr>
-                      <td colSpan={8} style={{ textAlign: 'center', padding: '2rem' }}>
+                      <td colSpan={10} style={{ textAlign: 'center', padding: '2rem' }}>
                         {loading ? '正在加载...' : '暂无数据'}
                       </td>
                     </tr>
@@ -606,15 +692,7 @@ const FileList: React.FC = () => {
                   上一页
                 </button>
                 
-                {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
-                  <button
-                    key={page}
-                    onClick={() => handlePageChange(page)}
-                    className={`page-btn ${currentPage === page ? 'active' : ''}`}
-                  >
-                    {page}
-                  </button>
-                ))}
+                {renderPaginationPages()}
                 
                 <button 
                   onClick={() => handlePageChange(currentPage + 1)}

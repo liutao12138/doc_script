@@ -91,7 +91,7 @@ export interface StatusUpdateResponse {
     id: number;
     old_status: number;
     new_status: number;
-    handle_time: string;
+    handle_time: number; // 时间戳
     handle_user: string;
   } | null;
 }
@@ -217,11 +217,11 @@ export interface UpdateTimeResponse {
   message: string;
   data: {
     nid: string;
-    old_update_time?: number;
-    new_update_time?: number;
-    old_last_update_time?: number;
-    new_last_update_time?: number;
-    update_time: string;
+    old_update_time?: number; // 时间戳
+    new_update_time?: number; // 时间戳
+    old_last_update_time?: number; // 时间戳
+    new_last_update_time?: number; // 时间戳
+    update_time: number; // 时间戳
   } | null;
 }
 

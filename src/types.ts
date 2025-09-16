@@ -8,11 +8,13 @@ export interface FileItem {
   handle_status: string;
   file_type: string[];
   view_url?: string;
-  created_at?: string;
-  updated_at?: string;
-  update_time?: number;
-  last_update_time?: number;
-  handle_update_time?: number;
+  created_at?: number; // 时间戳
+  updated_at?: number; // 时间戳
+  upload_time?: number; // 时间戳
+  handle_time?: number; // 时间戳
+  update_time?: number; // 时间戳
+  last_update_time?: number; // 时间戳
+  handle_update_time?: number; // 时间戳
 }
 
 export interface FileListRequest {
