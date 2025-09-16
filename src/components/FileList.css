@@ -1,5 +1,35 @@
 /* 现代化文件列表组件样式 - 增强版 */
 
+/* 文件名超链接样式 */
+.file-name-link {
+  color: #2563eb;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  display: inline-block;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.file-name-link:hover {
+  color: #1d4ed8;
+  text-decoration: underline;
+  transform: translateY(-1px);
+}
+
+.file-name-link:active {
+  color: #1e40af;
+  transform: translateY(0);
+}
+
+.file-name-link:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
 /* 4K/超宽屏幕优化 (2560px+) */
 @media (min-width: 2560px) {
   .file-list-container {

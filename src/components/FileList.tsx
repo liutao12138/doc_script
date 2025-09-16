@@ -626,7 +626,17 @@ const FileList: React.FC = () => {
                     files.map((file) => (
                       <tr key={file.id}>
                         <td title={file.nid}>{file.nid}</td>
-                        <td title={file.name}>{file.name}</td>
+                        <td title={file.name}>
+                          <a 
+                            href={file.view_url} 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            className="file-name-link"
+                            title="点击查看文件详情"
+                          >
+                            {file.name}
+                          </a>
+                        </td>
                         <td>
                           <span className={`status-badge status-${file.handle_status}`}>
                             {getStatusText(file.handle_status)}
@@ -645,13 +655,6 @@ const FileList: React.FC = () => {
                         <td title={formatTimestamp(file.handle_update_time)}>{formatTimestamp(file.handle_update_time)}</td>
                         <td>
                           <div className="action-buttons">
-                            <button 
-                              className="action-btn" 
-                              title="查看文件详情"
-                              onClick={() => window.open(file.view_url, '_blank')}
-                            >
-                              查看
-                            </button>
                             {file.handle_status !== '1' && (
                               <button 
                                 className="action-btn retry-btn" 
