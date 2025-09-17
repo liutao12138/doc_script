@@ -409,10 +409,55 @@ const FileList: React.FC = () => {
     setShowBatchRetryConfirm(false);
   };
 
+  // 移动端tooltip处理
+  const [activeTooltip, setActiveTooltip] = useState<string | null>(null);
+
+  const handleCellClick = (e: React.MouseEvent, content: string) => {
+    // 只在移动设备上处理点击显示tooltip
+    if (window.innerWidth <= 768) {
+      e.preventDefault();
+      if (activeTooltip === content) {
+        setActiveTooltip(null);
+      } else {
+        setActiveTooltip(content);
+      }
+    }
+  };
+
+  const handleCellMouseEnter = (content: string) => {
+    // 只在桌面设备上处理悬停显示tooltip
+    if (window.innerWidth > 768) {
+      setActiveTooltip(content);
+    }
+  };
+
+  const handleCellMouseLeave = () => {
+    // 只在桌面设备上处理悬停隐藏tooltip
+    if (window.innerWidth > 768) {
+      setActiveTooltip(null);
+    }
+  };
+
 
   return (
     <>
       <ToastContainer toasts={toasts} onRemove={removeToast} />
+      
+      {/* 移动端tooltip显示 */}
+      {activeTooltip && window.innerWidth <= 768 && (
+        <div className="mobile-tooltip-overlay" onClick={() => setActiveTooltip(null)}>
+          <div className="mobile-tooltip-content" onClick={(e) => e.stopPropagation()}>
+            <div className="mobile-tooltip-text">{activeTooltip}</div>
+            <button 
+              className="mobile-tooltip-close"
+              onClick={() => setActiveTooltip(null)}
+            >
+              ×
+            </button>
+          </div>
+        </div>
+      )}
+      
       <div className="file-list-container">
         <div className="file-list-header">
         <h1>文件管理系统</h1>
@@ -614,40 +659,88 @@ const FileList: React.FC = () => {
                   {Array.isArray(files) && files.length > 0 ? (
                     files.map((file) => (
                       <tr key={file.id}>
-                        <td title={file.nid}>{file.nid}</td>
-                        <td title={file.name}>
+                        <td 
+                          title={`NID: ${file.nid}`}
+                          onClick={(e) => handleCellClick(e, `NID: ${file.nid}`)}
+                          onMouseEnter={() => handleCellMouseEnter(`NID: ${file.nid}`)}
+                          onMouseLeave={handleCellMouseLeave}
+                        >
+                          {file.nid}
+                        </td>
+                        <td 
+                          title={`文件名称: ${file.name}`}
+                          onClick={(e) => handleCellClick(e, `文件名称: ${file.name}`)}
+                          onMouseEnter={() => handleCellMouseEnter(`文件名称: ${file.name}`)}
+                          onMouseLeave={handleCellMouseLeave}
+                        >
                           <a 
                             href={file.view_url} 
                             target="_blank" 
                             rel="noopener noreferrer"
                             className="file-name-link"
-                            title="点击查看文件详情"
+                            title={`点击查看文件详情: ${file.name}`}
                           >
                             {file.name}
                           </a>
                         </td>
-                        <td>
+                        <td 
+                          title={`处理状态: ${getStatusText(file.handle_status)}`}
+                          onClick={(e) => handleCellClick(e, `处理状态: ${getStatusText(file.handle_status)}`)}
+                          onMouseEnter={() => handleCellMouseEnter(`处理状态: ${getStatusText(file.handle_status)}`)}
+                          onMouseLeave={handleCellMouseLeave}
+                        >
                           <span className={`status-badge status-${file.handle_status}`}>
                             {getStatusText(file.handle_status)}
                           </span>
                         </td>
-                        <td>
+                        <td 
+                          title={`切片数量: ${file.handle_count || 0}`}
+                          onClick={(e) => handleCellClick(e, `切片数量: ${file.handle_count || 0}`)}
+                          onMouseEnter={() => handleCellMouseEnter(`切片数量: ${file.handle_count || 0}`)}
+                          onMouseLeave={handleCellMouseLeave}
+                        >
                           <span className="handle-count">
                             {file.handle_count || 0}
                           </span>
                         </td>
-                        <td title={Array.isArray(file.file_type) ? file.file_type.join(', ') : file.file_type}>
+                        <td 
+                          title={`文件类型: ${Array.isArray(file.file_type) ? file.file_type.join(', ') : file.file_type}`}
+                          onClick={(e) => handleCellClick(e, `文件类型: ${Array.isArray(file.file_type) ? file.file_type.join(', ') : file.file_type}`)}
+                          onMouseEnter={() => handleCellMouseEnter(`文件类型: ${Array.isArray(file.file_type) ? file.file_type.join(', ') : file.file_type}`)}
+                          onMouseLeave={handleCellMouseLeave}
+                        >
                           {Array.isArray(file.file_type) ? file.file_type.join(', ') : file.file_type}
                         </td>
-                        <td title={formatTimestamp(file.update_time)}>{formatTimestamp(file.update_time)}</td>
-                        <td title={formatTimestamp(file.last_update_time)}>{formatTimestamp(file.last_update_time)}</td>
-                        <td title={formatTimestamp(file.handle_update_time)}>{formatTimestamp(file.handle_update_time)}</td>
+                        <td 
+                          title={`更新时间: ${formatTimestamp(file.update_time)}`}
+                          onClick={(e) => handleCellClick(e, `更新时间: ${formatTimestamp(file.update_time)}`)}
+                          onMouseEnter={() => handleCellMouseEnter(`更新时间: ${formatTimestamp(file.update_time)}`)}
+                          onMouseLeave={handleCellMouseLeave}
+                        >
+                          {formatTimestamp(file.update_time)}
+                        </td>
+                        <td 
+                          title={`上一次更新时间: ${formatTimestamp(file.last_update_time)}`}
+                          onClick={(e) => handleCellClick(e, `上一次更新时间: ${formatTimestamp(file.last_update_time)}`)}
+                          onMouseEnter={() => handleCellMouseEnter(`上一次更新时间: ${formatTimestamp(file.last_update_time)}`)}
+                          onMouseLeave={handleCellMouseLeave}
+                        >
+                          {formatTimestamp(file.last_update_time)}
+                        </td>
+                        <td 
+                          title={`最近处理开始时间: ${formatTimestamp(file.handle_update_time)}`}
+                          onClick={(e) => handleCellClick(e, `最近处理开始时间: ${formatTimestamp(file.handle_update_time)}`)}
+                          onMouseEnter={() => handleCellMouseEnter(`最近处理开始时间: ${formatTimestamp(file.handle_update_time)}`)}
+                          onMouseLeave={handleCellMouseLeave}
+                        >
+                          {formatTimestamp(file.handle_update_time)}
+                        </td>
                         <td>
                           <div className="action-buttons">
                             {file.handle_status !== '1' && (
                               <button 
                                 className="action-btn retry-btn" 
-                                title="重试处理"
+                                title="重试处理此文件"
                                 onClick={() => handleRetry(file.nid)}
                                 disabled={retryingFiles.has(file.nid)}
                               >
@@ -656,7 +749,7 @@ const FileList: React.FC = () => {
                             )}
                             <button 
                               className="action-btn reset-btn" 
-                              title="重置文件状态"
+                              title="重置此文件状态"
                               onClick={() => openResetConfirm('single', file.nid)}
                             >
                               重置

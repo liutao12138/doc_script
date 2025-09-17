@@ -103,10 +103,10 @@
     max-width: 180px;
   }
   
-  .file-table th:nth-child(9), .file-table td:nth-child(9) { /* 操作 */
-    width: 20%;
-    min-width: 250px;
-    max-width: 300px;
+  .file-table th:nth-child(9), .file-table td:nth-child(9) { /* 操作 */ 
+    width: 16%; 
+    min-width: 200px; 
+    max-width: 250px; 
   }
 }
 
@@ -183,10 +183,10 @@
     max-width: 150px;
   }
   
-  .file-table th:nth-child(9), .file-table td:nth-child(9) { /* 操作 */
-    width: 18%;
-    min-width: 200px;
-    max-width: 250px;
+  .file-table th:nth-child(9), .file-table td:nth-child(9) { /* 操作 */ 
+    width: 14%; 
+    min-width: 160px; 
+    max-width: 200px; 
   }
 }
 
@@ -288,10 +288,10 @@
     max-width: 140px;
   }
   
-  .file-table th:nth-child(9), .file-table td:nth-child(9) { /* 操作 */
-    width: 20%;
-    min-width: 180px;
-    max-width: 220px;
+  .file-table th:nth-child(9), .file-table td:nth-child(9) { /* 操作 */ 
+    width: 14%; 
+    min-width: 140px; 
+    max-width: 180px; 
   }
 }
 
@@ -992,11 +992,11 @@
   text-align: center;
 }
 
-.file-table th:nth-child(9), .file-table td:nth-child(9) { /* 操作 */
-  width: 18%;
-  min-width: 180px;
-  max-width: 240px;
-  text-align: center;
+.file-table th:nth-child(9), .file-table td:nth-child(9) { /* 操作 */ 
+  width: 12%; 
+  min-width: 120px; 
+  max-width: 160px; 
+  text-align: center; 
 }
 
 .file-table th:first-child {
@@ -1072,27 +1072,106 @@
   white-space: nowrap;
 }
 
-/* 鼠标悬停显示完整内容 */
+/* 鼠标悬停显示完整内容 - 增强版tooltip */
 .file-table td[title] {
   cursor: default;
+  position: relative;
 }
 
 .file-table td[title]:hover::after {
   content: attr(title);
   position: absolute;
   top: 100%;
-  left: 0;
-  right: 0;
-  background: #1a202c;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.9);
   color: white;
-  padding: 0.5rem;
-  border-radius: 4px;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
   font-size: 0.8rem;
+  font-weight: 500;
   z-index: 1000;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
   white-space: normal;
   word-break: break-word;
-  max-width: 300px;
+  max-width: 350px;
+  min-width: 120px;
+  text-align: center;
+  line-height: 1.4;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  animation: tooltipFadeIn 0.2s ease-out;
+  pointer-events: none;
+}
+
+/* tooltip箭头 */
+.file-table td[title]:hover::before {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-bottom: 6px solid rgba(0, 0, 0, 0.9);
+  z-index: 1001;
+  animation: tooltipFadeIn 0.2s ease-out;
+}
+
+@keyframes tooltipFadeIn {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+/* 特殊列的tooltip样式 */
+.file-table td:nth-child(1)[title]:hover::after,
+.file-table td:nth-child(2)[title]:hover::after {
+  left: 0;
+  transform: translateX(0);
+  text-align: left;
+  max-width: 400px;
+}
+
+.file-table td:nth-child(1)[title]:hover::before,
+.file-table td:nth-child(2)[title]:hover::before {
+  left: 20px;
+  transform: translateX(0);
+}
+
+/* 时间列的tooltip样式 */
+.file-table td:nth-child(6)[title]:hover::after,
+.file-table td:nth-child(7)[title]:hover::after,
+.file-table td:nth-child(8)[title]:hover::after {
+  max-width: 250px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.75rem;
+}
+
+/* 文件类型列的tooltip样式 */
+.file-table td:nth-child(5)[title]:hover::after {
+  max-width: 200px;
+  font-weight: 600;
+}
+
+/* 状态列的tooltip样式 */
+.file-table td:nth-child(3)[title]:hover::after {
+  max-width: 150px;
+  font-weight: 600;
+}
+
+/* 切片数量列的tooltip样式 */
+.file-table td:nth-child(4)[title]:hover::after {
+  max-width: 120px;
+  font-weight: 600;
+  font-family: 'Courier New', monospace;
 }
 
 .file-table tr:hover {
@@ -1754,8 +1833,8 @@
   }
   
   .file-table th:nth-child(9), .file-table td:nth-child(9) { /* 操作 */
-    width: 20%;
-    min-width: 160px;
+    width: 16%;
+    min-width: 140px;
   }
 }
 
@@ -1845,8 +1924,8 @@
   }
   
   .file-table th:nth-child(9), .file-table td:nth-child(9) { /* 操作 */
-    width: 21%;
-    min-width: 140px;
+    width: 18%;
+    min-width: 120px;
   }
   
   .action-btn {
@@ -1958,8 +2037,8 @@
   }
   
   .file-table th:nth-child(9), .file-table td:nth-child(9) { /* 操作 */
-    width: 22%;
-    min-width: 120px;
+    width: 18%;
+    min-width: 100px;
   }
   
   .status-badge {
@@ -2472,6 +2551,25 @@
 
 /* 移动端友好交互优化 */
 @media (max-width: 768px) {
+  /* 移动端tooltip优化 */
+  .file-table td[title]:hover::after {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 90vw;
+    min-width: 200px;
+    z-index: 10000;
+    font-size: 0.9rem;
+    padding: 1rem 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+  }
+  
+  .file-table td[title]:hover::before {
+    display: none; /* 移动端隐藏箭头 */
+  }
+  
   /* 触摸友好的按钮大小 */
   .action-btn {
     min-height: 44px; /* iOS 推荐的最小触摸目标 */
