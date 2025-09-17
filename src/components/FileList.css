@@ -33,7 +33,7 @@
 /* 4K/超宽屏幕优化 (2560px+) */
 @media (min-width: 2560px) {
   .file-list-container {
-    max-width: 2400px;
+    max-width: 2800px;
     padding: 3rem;
   }
   
@@ -62,58 +62,64 @@
   }
   
   .file-table th:nth-child(2), .file-table td:nth-child(2) { /* 名称 */
-    width: 25%;
-    min-width: 250px;
-    max-width: 400px;
+    width: 30%;
+    min-width: 300px;
+    max-width: 500px;
   }
   
   .file-table th:nth-child(3), .file-table td:nth-child(3) { /* 处理状态 */
-    width: 7%;
+    width: 8%;
     min-width: 120px;
     max-width: 140px;
   }
   
   .file-table th:nth-child(4), .file-table td:nth-child(4) { /* 切片数量 */
-    width: 5%;
+    width: 6%;
     min-width: 100px;
     max-width: 120px;
   }
   
   .file-table th:nth-child(5), .file-table td:nth-child(5) { /* 文件类型 */
-    width: 5%;
+    width: 6%;
     min-width: 100px;
     max-width: 120px;
   }
   
   .file-table th:nth-child(6), .file-table td:nth-child(6) { /* 文档状态 */
-    width: 6%;
+    width: 7%;
     min-width: 100px;
     max-width: 120px;
   }
   
   .file-table th:nth-child(7), .file-table td:nth-child(7) { /* 处理时间 */
-    width: 6%;
+    width: 7%;
     min-width: 100px;
     max-width: 120px;
   }
   
-  .file-table th:nth-child(8), .file-table td:nth-child(8) { /* 最近处理开始时间 */
-    width: 9%;
+  .file-table th:nth-child(8), .file-table td:nth-child(8) { /* 更新时间 */
+    width: 10%;
     min-width: 150px;
     max-width: 180px;
   }
   
-  .file-table th:nth-child(9), .file-table td:nth-child(9) { /* 操作 */ 
-    width: 15%; 
-    min-width: 200px; 
-    max-width: 250px;
+  .file-table th:nth-child(9), .file-table td:nth-child(9) { /* 最近处理开始时间 */
+    width: 11%;
+    min-width: 150px;
+    max-width: 180px;
+  }
+  
+  .file-table th:nth-child(10), .file-table td:nth-child(10) { /* 操作 */ 
+    width: 10%; 
+    min-width: 150px; 
+    max-width: 200px;
   }
 }
 
 /* 超宽屏幕优化 (1920px+) */
 @media (min-width: 1920px) {
   .file-list-container {
-    max-width: 1800px;
+    max-width: 2200px;
     padding: 2rem;
   }
   
@@ -136,15 +142,15 @@
   
   /* 超宽屏幕下的列宽优化 */
   .file-table th:nth-child(1), .file-table td:nth-child(1) { /* NID */
-    width: 6%;
+    width: 5%;
     min-width: 80px;
     max-width: 100px;
   }
   
   .file-table th:nth-child(2), .file-table td:nth-child(2) { /* 名称 */
-    width: 22%;
-    min-width: 200px;
-    max-width: 300px;
+    width: 28%;
+    min-width: 250px;
+    max-width: 400px;
   }
   
   .file-table th:nth-child(3), .file-table td:nth-child(3) { /* 处理状态 */
@@ -165,29 +171,41 @@
     max-width: 100px;
   }
   
-  .file-table th:nth-child(6), .file-table td:nth-child(6) { /* 更新时间 */
-    width: 9%;
+  .file-table th:nth-child(6), .file-table td:nth-child(6) { /* 文档状态 */
+    width: 7%;
+    min-width: 80px;
+    max-width: 100px;
+  }
+  
+  .file-table th:nth-child(7), .file-table td:nth-child(7) { /* 处理时间 */
+    width: 7%;
+    min-width: 80px;
+    max-width: 100px;
+  }
+  
+  .file-table th:nth-child(8), .file-table td:nth-child(8) { /* 更新时间 */
+    width: 10%;
     min-width: 100px;
     max-width: 120px;
   }
   
-  .file-table th:nth-child(7), .file-table td:nth-child(7) { /* 最近处理开始时间 */
+  .file-table th:nth-child(9), .file-table td:nth-child(9) { /* 最近处理开始时间 */
     width: 11%;
     min-width: 120px;
     max-width: 150px;
   }
   
-  .file-table th:nth-child(8), .file-table td:nth-child(8) { /* 操作 */ 
-    width: 14%; 
-    min-width: 160px; 
-    max-width: 200px;
+  .file-table th:nth-child(10), .file-table td:nth-child(10) { /* 操作 */ 
+    width: 12%; 
+    min-width: 140px; 
+    max-width: 180px;
   }
 }
 
 /* 大屏幕优化 (1600px-1919px) */
 @media (min-width: 1600px) and (max-width: 1919px) {
   .file-list-container {
-    max-width: 1600px;
+    max-width: 2000px;
     padding: 1.75rem;
   }
   
@@ -235,51 +253,63 @@
   
   /* 中等宽屏幕下的列宽优化 */
   .file-table th:nth-child(1), .file-table td:nth-child(1) { /* NID */
-    width: 7%;
+    width: 6%;
     min-width: 70px;
     max-width: 90px;
   }
   
   .file-table th:nth-child(2), .file-table td:nth-child(2) { /* 名称 */
-    width: 20%;
-    min-width: 180px;
-    max-width: 280px;
+    width: 25%;
+    min-width: 200px;
+    max-width: 350px;
   }
   
   .file-table th:nth-child(3), .file-table td:nth-child(3) { /* 处理状态 */
-    width: 9%;
+    width: 8%;
     min-width: 90px;
     max-width: 110px;
   }
   
   .file-table th:nth-child(4), .file-table td:nth-child(4) { /* 切片数量 */
-    width: 7%;
+    width: 6%;
     min-width: 70px;
     max-width: 90px;
   }
   
   .file-table th:nth-child(5), .file-table td:nth-child(5) { /* 文件类型 */
+    width: 6%;
+    min-width: 70px;
+    max-width: 90px;
+  }
+  
+  .file-table th:nth-child(6), .file-table td:nth-child(6) { /* 文档状态 */
     width: 7%;
     min-width: 70px;
     max-width: 90px;
   }
   
-  .file-table th:nth-child(6), .file-table td:nth-child(6) { /* 更新时间 */
+  .file-table th:nth-child(7), .file-table td:nth-child(7) { /* 处理时间 */
+    width: 7%;
+    min-width: 70px;
+    max-width: 90px;
+  }
+  
+  .file-table th:nth-child(8), .file-table td:nth-child(8) { /* 更新时间 */
     width: 10%;
     min-width: 90px;
     max-width: 110px;
   }
   
-  .file-table th:nth-child(7), .file-table td:nth-child(7) { /* 最近处理开始时间 */
+  .file-table th:nth-child(9), .file-table td:nth-child(9) { /* 最近处理开始时间 */
     width: 12%;
     min-width: 110px;
     max-width: 140px;
   }
   
-  .file-table th:nth-child(8), .file-table td:nth-child(8) { /* 操作 */ 
-    width: 14%; 
-    min-width: 140px; 
-    max-width: 180px;
+  .file-table th:nth-child(10), .file-table td:nth-child(10) { /* 操作 */ 
+    width: 13%; 
+    min-width: 130px; 
+    max-width: 170px;
   }
 }
 
@@ -312,7 +342,7 @@
 }
 
 .file-list-container {
-  max-width: 1600px;
+  max-width: 1800px;
   margin: 0 auto;
   padding: 1.5rem;
   position: relative;
@@ -1877,7 +1907,7 @@
   }
   
   .file-table table {
-    min-width: 800px; /* 确保表格有最小宽度 */
+    min-width: 900px; /* 确保表格有最小宽度 */
   }
   
   .file-table th,
@@ -1995,7 +2025,7 @@
   }
   
   .file-table table {
-    min-width: 700px; /* 进一步减小最小宽度 */
+    min-width: 800px; /* 进一步减小最小宽度 */
   }
   
   .file-table th,
