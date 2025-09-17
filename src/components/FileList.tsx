@@ -650,7 +650,7 @@ const FileList: React.FC = () => {
                     <th>切片数量</th>
                     <th>文件类型</th>
                     <th>更新时间</th>
-                    <th>最后更新时间</th>
+                    <th>上一次更新时间</th>
                     <th>最新数据处理时间</th>
                     <th>操作</th>
                   </tr>
