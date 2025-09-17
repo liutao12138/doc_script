@@ -13,8 +13,9 @@ export interface FileItem {
   updated_at?: number; // 时间戳
   upload_time?: number; // 时间戳
   update_time?: number; // 时间戳
-  last_update_time?: number; // 时间戳
   handle_update_time?: number; // 时间戳
+  status?: string; // 文档是否过滤，'0'表示过期，'1'表示正常
+  process_time?: number | null; // 处理文档时间，单位为秒，默认为空
 }
 
 export interface FileListRequest {

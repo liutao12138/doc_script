@@ -648,11 +648,12 @@ const FileList: React.FC = () => {
                     <th>名称</th>
                     <th>处理状态</th>
                     <th>切片数量</th>
-                    <th>文件类型</th>
-                    <th>更新时间</th>
-                    <th>上一次更新时间</th>
-                    <th>最新数据处理时间</th>
-                    <th>操作</th>
+                      <th>文件类型</th>
+                      <th>文档状态</th>
+                      <th>处理时间(秒)</th>
+                      <th>更新时间</th>
+                      <th>最新数据处理时间</th>
+                      <th>操作</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -712,20 +713,30 @@ const FileList: React.FC = () => {
                           {Array.isArray(file.file_type) ? file.file_type.join(', ') : file.file_type}
                         </td>
                         <td 
+                          title={`文档状态: ${file.status === '1' ? '正常' : '过期'}`}
+                          onClick={(e) => handleCellClick(e, `文档状态: ${file.status === '1' ? '正常' : '过期'}`)}
+                          onMouseEnter={() => handleCellMouseEnter(`文档状态: ${file.status === '1' ? '正常' : '过期'}`)}
+                          onMouseLeave={handleCellMouseLeave}
+                        >
+                          <span className={`status-badge ${file.status === '1' ? 'status-normal' : 'status-expired'}`}>
+                            {file.status === '1' ? '正常' : '过期'}
+                          </span>
+                        </td>
+                        <td 
+                          title={`处理时间: ${file.process_time ? `${file.process_time}秒` : '未处理'}`}
+                          onClick={(e) => handleCellClick(e, `处理时间: ${file.process_time ? `${file.process_time}秒` : '未处理'}`)}
+                          onMouseEnter={() => handleCellMouseEnter(`处理时间: ${file.process_time ? `${file.process_time}秒` : '未处理'}`)}
+                          onMouseLeave={handleCellMouseLeave}
+                        >
+                          {file.process_time ? `${file.process_time}秒` : '-'}
+                        </td>
+                        <td 
                           title={`更新时间: ${formatTimestamp(file.update_time)}`}
                           onClick={(e) => handleCellClick(e, `更新时间: ${formatTimestamp(file.update_time)}`)}
                           onMouseEnter={() => handleCellMouseEnter(`更新时间: ${formatTimestamp(file.update_time)}`)}
                           onMouseLeave={handleCellMouseLeave}
                         >
                           {formatTimestamp(file.update_time)}
-                        </td>
-                        <td 
-                          title={`上一次更新时间: ${formatTimestamp(file.last_update_time)}`}
-                          onClick={(e) => handleCellClick(e, `上一次更新时间: ${formatTimestamp(file.last_update_time)}`)}
-                          onMouseEnter={() => handleCellMouseEnter(`上一次更新时间: ${formatTimestamp(file.last_update_time)}`)}
-                          onMouseLeave={handleCellMouseLeave}
-                        >
-                          {formatTimestamp(file.last_update_time)}
                         </td>
                         <td 
                           title={`最近处理开始时间: ${formatTimestamp(file.handle_update_time)}`}

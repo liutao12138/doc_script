@@ -13,8 +13,9 @@
     "handle_user": null,
     "remark": "项目初期需求分析文档",
     "update_time": 1705287000000,
-    "last_update_time": 1705287000000,
     "handle_update_time": null,
+    "status": "0",
+    "process_time": null,
     "view_url": "https://view.officeapps.live.com/op/embed.aspx?src=https://example.com/uploads/docs/requirements.pdf"
   },
   {
@@ -31,8 +32,9 @@
     "handle_user": "张三",
     "remark": "系统架构设计文档，正在审核中",
     "update_time": 1705302000000,
-    "last_update_time": 1705315200000,
     "handle_update_time": 1705302000000,
+    "status": "1",
+    "process_time": 45,
     "view_url": "https://view.officeapps.live.com/op/embed.aspx?src=https://example.com/uploads/docs/architecture.docx"
   },
   {
@@ -49,8 +51,9 @@
     "handle_user": "李四",
     "remark": "UI设计稿已通过审核",
     "update_time": 1705311000000,
-    "last_update_time": 1705311000000,
     "handle_update_time": 1705302000000,
+    "status": "1",
+    "process_time": 23,
     "view_url": "https://example.com/uploads/images/ui_design.png"
   },
   {
@@ -67,8 +70,9 @@
     "handle_user": "王五",
     "remark": "数据库设计不符合规范，需要重新设计",
     "update_time": 1705302000000,
-    "last_update_time": 1705302000000,
     "handle_update_time": 1705302000000,
+    "status": "0",
+    "process_time": 67,
     "view_url": "https://example.com/uploads/sql/database_design.sql"
   },
   {
@@ -85,8 +89,9 @@
     "handle_user": null,
     "remark": "RESTful API接口文档",
     "update_time": 1705365000000,
-    "last_update_time": 1705365000000,
     "handle_update_time": null,
+    "status": "1",
+    "process_time": null,
     "view_url": "https://example.com/uploads/docs/api_docs.md"
   },
   {
@@ -103,8 +108,9 @@
     "handle_user": "赵六",
     "remark": "单元测试和集成测试用例",
     "update_time": 1705368000000,
-    "last_update_time": 1705379100000,
     "handle_update_time": 1705368000000,
+    "status": "1",
+    "process_time": 34,
     "view_url": "https://view.officeapps.live.com/op/embed.aspx?src=https://example.com/uploads/tests/test_cases.xlsx"
   },
   {
@@ -121,8 +127,9 @@
     "handle_user": null,
     "remark": "生产环境部署脚本",
     "update_time": 1705383000000,
-    "last_update_time": 1705383000000,
     "handle_update_time": null,
+    "status": "0",
+    "process_time": null,
     "view_url": "https://example.com/uploads/scripts/deploy.sh"
   },
   {
@@ -139,8 +146,9 @@
     "handle_user": "周八",
     "remark": "应用配置文件正在验证中",
     "update_time": 1705311000000,
-    "last_update_time": 1705311000000,
     "handle_update_time": 1705311000000,
+    "status": "1",
+    "process_time": 12,
     "view_url": "https://example.com/uploads/config/app_config.json"
   },
   {
@@ -157,8 +165,9 @@
     "handle_user": "吴九",
     "remark": "系统运行日志已分析完成",
     "update_time": 1705311000000,
-    "last_update_time": 1705311000000,
     "handle_update_time": 1705311000000,
+    "status": "1",
+    "process_time": 89,
     "view_url": "https://example.com/uploads/logs/system.log"
   },
   {
@@ -175,8 +184,9 @@
     "handle_user": "郑十",
     "remark": "项目演示文稿正在审核中",
     "update_time": 1705368000000,
-    "last_update_time": 1705374000000,
     "handle_update_time": 1705368000000,
+    "status": "1",
+    "process_time": 156,
     "view_url": "https://view.officeapps.live.com/op/embed.aspx?src=https://example.com/uploads/presentations/demo.pptx"
   },
   {
@@ -193,8 +203,9 @@
     "handle_user": "王十一",
     "remark": "用户操作手册已审核通过",
     "update_time": 1705311000000,
-    "last_update_time": 1705311000000,
     "handle_update_time": 1705311000000,
+    "status": "1",
+    "process_time": 28,
     "view_url": "https://example.com/uploads/manuals/user_manual.txt"
   },
   {
@@ -211,8 +222,9 @@
     "handle_user": null,
     "remark": "数据模型定义文件",
     "update_time": 1705374000000,
-    "last_update_time": 1705374000000,
     "handle_update_time": null,
+    "status": "0",
+    "process_time": null,
     "view_url": "https://example.com/uploads/models/data_model.xml"
   },
   {
@@ -229,8 +241,9 @@
     "handle_user": "李十二",
     "remark": "Windows启动脚本正在测试中",
     "update_time": 1705374000000,
-    "last_update_time": 1705374000000,
     "handle_update_time": 1705374000000,
+    "status": "1",
+    "process_time": 8,
     "view_url": "https://example.com/uploads/scripts/startup.bat"
   },
   {
@@ -247,8 +260,9 @@
     "handle_user": "张十三",
     "remark": "环境配置文件已验证通过",
     "update_time": 1705311000000,
-    "last_update_time": 1705311000000,
     "handle_update_time": 1705311000000,
+    "status": "1",
+    "process_time": 15,
     "view_url": "https://example.com/uploads/config/environment.yaml"
   },
   {
@@ -265,8 +279,9 @@
     "handle_user": "刘十四",
     "remark": "数据导出格式不正确，需要重新生成",
     "update_time": 1705374000000,
-    "last_update_time": 1705374000000,
     "handle_update_time": 1705374000000,
+    "status": "0",
+    "process_time": 234,
     "view_url": "https://example.com/uploads/data/export.csv"
   },
   {
@@ -283,8 +298,9 @@
     "handle_user": "陈十五",
     "remark": "业务流程图正在审核中",
     "update_time": 1705374000000,
-    "last_update_time": 1705374000000,
     "handle_update_time": 1705374000000,
+    "status": "1",
+    "process_time": 42,
     "view_url": "https://app.diagrams.net/?lightbox=1&highlight=0000ff&edit=_blank&layers=1&nav=1&title=flowchart.drawio#Uhttps%3A%2F%2Fexample.com%2Fuploads%2Fdiagrams%2Fflowchart.drawio"
   },
   {
@@ -301,8 +317,9 @@
     "handle_user": "王十四",
     "remark": "系统监控配置文件",
     "update_time": 1705387200000,
-    "last_update_time": 1705391700000,
     "handle_update_time": 1705387200000,
+    "status": "1",
+    "process_time": 31,
     "view_url": "https://example.com/uploads/config/monitoring.yaml"
   },
   {
@@ -319,8 +336,9 @@
     "handle_user": "张十五",
     "remark": "用户反馈数据已分析完成",
     "update_time": 1705311000000,
-    "last_update_time": 1705311000000,
     "handle_update_time": 1705311000000,
+    "status": "1",
+    "process_time": 78,
     "view_url": "https://example.com/uploads/feedback/user_feedback.csv"
   },
   {
@@ -337,8 +355,9 @@
     "handle_user": null,
     "remark": "系统架构流程图",
     "update_time": 1705392000000,
-    "last_update_time": 1705392000000,
     "handle_update_time": null,
+    "status": "0",
+    "process_time": null,
     "view_url": "https://app.diagrams.net/?lightbox=1&highlight=0000ff&edit=_blank&layers=1&nav=1&title=architecture.drawio#Uhttps%3A%2F%2Fexample.com%2Fuploads%2Fdiagrams%2Farchitecture.drawio"
   },
   {
@@ -355,8 +374,9 @@
     "handle_user": "刘十六",
     "remark": "v1.2.0版本发布说明",
     "update_time": 1705393800000,
-    "last_update_time": 1705395600000,
     "handle_update_time": 1705393800000,
+    "status": "1",
+    "process_time": 19,
     "view_url": "https://example.com/uploads/releases/v1.2.0.md"
   }
 ]
