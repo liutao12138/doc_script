@@ -640,8 +640,9 @@ const FileList: React.FC = () => {
               </button>
             </div>
             
-            <div className="file-table">
-              <table>
+            <div className="file-table-container">
+              <div className="file-table">
+                <table>
                 <thead>
                   <tr>
                     <th>NID</th>
@@ -778,6 +779,7 @@ const FileList: React.FC = () => {
                   )}
                 </tbody>
               </table>
+              </div>
             </div>
 
             {totalPages > 1 && (
