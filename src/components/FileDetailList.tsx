@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
+import rehypeHighlight from 'rehype-highlight';
 import { FileDetailItem, FileDetailRequest } from '../types';
 import { fetchFileDetails } from '../api';
 import ToastContainer, { useToast } from './ToastContainer';
 import './FileDetailList.css';
+import 'highlight.js/styles/github.css';
 
 const FileDetailList: React.FC = () => {
   const { nid } = useParams<{ nid: string }>();
@@ -235,13 +239,76 @@ const FileDetailList: React.FC = () => {
                   </div>
                   
                   <div className="detail-content">
-                    <p className="content-text">{detail.content}</p>
+                    <div className="content-markdown">
+                      <ReactMarkdown
+                        remarkPlugins={[remarkGfm]}
+                        rehypePlugins={[rehypeHighlight]}
+                        components={{
+                          // 自定义组件样式
+                          h1: ({ children }) => <h1 className="markdown-h1">{children}</h1>,
+                          h2: ({ children }) => <h2 className="markdown-h2">{children}</h2>,
+                          h3: ({ children }) => <h3 className="markdown-h3">{children}</h3>,
+                          h4: ({ children }) => <h4 className="markdown-h4">{children}</h4>,
+                          p: ({ children }) => <p className="markdown-p">{children}</p>,
+                          code: ({ children, className }) => (
+                            <code className={`markdown-code ${className || ''}`}>{children}</code>
+                          ),
+                          pre: ({ children }) => <pre className="markdown-pre">{children}</pre>,
+                          blockquote: ({ children }) => <blockquote className="markdown-blockquote">{children}</blockquote>,
+                          ul: ({ children }) => <ul className="markdown-ul">{children}</ul>,
+                          ol: ({ children }) => <ol className="markdown-ol">{children}</ol>,
+                          li: ({ children }) => <li className="markdown-li">{children}</li>,
+                          table: ({ children }) => <table className="markdown-table">{children}</table>,
+                          thead: ({ children }) => <thead className="markdown-thead">{children}</thead>,
+                          tbody: ({ children }) => <tbody className="markdown-tbody">{children}</tbody>,
+                          tr: ({ children }) => <tr className="markdown-tr">{children}</tr>,
+                          th: ({ children }) => <th className="markdown-th">{children}</th>,
+                          td: ({ children }) => <td className="markdown-td">{children}</td>,
+                          a: ({ children, href }) => <a href={href} className="markdown-a" target="_blank" rel="noopener noreferrer">{children}</a>,
+                          strong: ({ children }) => <strong className="markdown-strong">{children}</strong>,
+                          em: ({ children }) => <em className="markdown-em">{children}</em>,
+                        }}
+                      >
+                        {detail.content}
+                      </ReactMarkdown>
+                    </div>
                   </div>
 
                   {detail.operation_procedure_remarks && (
                     <div className="detail-remarks">
                       <h4>操作说明：</h4>
-                      <p>{detail.operation_procedure_remarks}</p>
+                      <div className="remarks-markdown">
+                        <ReactMarkdown
+                          remarkPlugins={[remarkGfm]}
+                          rehypePlugins={[rehypeHighlight]}
+                          components={{
+                            h1: ({ children }) => <h1 className="markdown-h1">{children}</h1>,
+                            h2: ({ children }) => <h2 className="markdown-h2">{children}</h2>,
+                            h3: ({ children }) => <h3 className="markdown-h3">{children}</h3>,
+                            h4: ({ children }) => <h4 className="markdown-h4">{children}</h4>,
+                            p: ({ children }) => <p className="markdown-p">{children}</p>,
+                            code: ({ children, className }) => (
+                              <code className={`markdown-code ${className || ''}`}>{children}</code>
+                            ),
+                            pre: ({ children }) => <pre className="markdown-pre">{children}</pre>,
+                            blockquote: ({ children }) => <blockquote className="markdown-blockquote">{children}</blockquote>,
+                            ul: ({ children }) => <ul className="markdown-ul">{children}</ul>,
+                            ol: ({ children }) => <ol className="markdown-ol">{children}</ol>,
+                            li: ({ children }) => <li className="markdown-li">{children}</li>,
+                            table: ({ children }) => <table className="markdown-table">{children}</table>,
+                            thead: ({ children }) => <thead className="markdown-thead">{children}</thead>,
+                            tbody: ({ children }) => <tbody className="markdown-tbody">{children}</tbody>,
+                            tr: ({ children }) => <tr className="markdown-tr">{children}</tr>,
+                            th: ({ children }) => <th className="markdown-th">{children}</th>,
+                            td: ({ children }) => <td className="markdown-td">{children}</td>,
+                            a: ({ children, href }) => <a href={href} className="markdown-a" target="_blank" rel="noopener noreferrer">{children}</a>,
+                            strong: ({ children }) => <strong className="markdown-strong">{children}</strong>,
+                            em: ({ children }) => <em className="markdown-em">{children}</em>,
+                          }}
+                        >
+                          {detail.operation_procedure_remarks}
+                        </ReactMarkdown>
+                      </div>
                     </div>
                   )}
 

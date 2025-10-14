@@ -519,6 +519,201 @@
   opacity: 0.6;
 }
 
+/* Markdown 样式 */
+.content-markdown,
+.remarks-markdown {
+  line-height: 1.6;
+  color: #333;
+}
+
+/* 标题样式 */
+.markdown-h1 {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 20px 0 16px 0;
+  padding-bottom: 8px;
+  border-bottom: 2px solid #e1e4e8;
+}
+
+.markdown-h2 {
+  font-size: 20px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: 18px 0 14px 0;
+  padding-bottom: 6px;
+  border-bottom: 1px solid #e1e4e8;
+}
+
+.markdown-h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #24292e;
+  margin: 16px 0 12px 0;
+}
+
+.markdown-h4 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #24292e;
+  margin: 14px 0 10px 0;
+}
+
+/* 段落样式 */
+.markdown-p {
+  margin: 12px 0;
+  color: #24292e;
+  line-height: 1.6;
+}
+
+/* 代码样式 */
+.markdown-code {
+  background: #f6f8fa;
+  border: 1px solid #e1e4e8;
+  border-radius: 3px;
+  padding: 2px 4px;
+  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+  font-size: 85%;
+  color: #d73a49;
+}
+
+.markdown-pre {
+  background: #f6f8fa;
+  border: 1px solid #e1e4e8;
+  border-radius: 6px;
+  padding: 16px;
+  margin: 16px 0;
+  overflow-x: auto;
+  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.markdown-pre .markdown-code {
+  background: transparent;
+  border: none;
+  padding: 0;
+  color: #24292e;
+}
+
+/* 引用样式 */
+.markdown-blockquote {
+  margin: 16px 0;
+  padding: 0 16px;
+  color: #6a737d;
+  border-left: 4px solid #dfe2e5;
+  background: #f8f9fa;
+  border-radius: 0 4px 4px 0;
+}
+
+.markdown-blockquote .markdown-p {
+  margin: 8px 0;
+}
+
+/* 列表样式 */
+.markdown-ul,
+.markdown-ol {
+  margin: 12px 0;
+  padding-left: 24px;
+}
+
+.markdown-li {
+  margin: 4px 0;
+  line-height: 1.6;
+}
+
+.markdown-ul .markdown-li {
+  list-style-type: disc;
+}
+
+.markdown-ol .markdown-li {
+  list-style-type: decimal;
+}
+
+/* 表格样式 */
+.markdown-table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+  margin: 16px 0;
+  font-size: 14px;
+}
+
+.markdown-thead {
+  background: #f6f8fa;
+}
+
+.markdown-th,
+.markdown-td {
+  border: 1px solid #dfe2e5;
+  padding: 8px 12px;
+  text-align: left;
+}
+
+.markdown-th {
+  font-weight: 600;
+  color: #24292e;
+  background: #f6f8fa;
+}
+
+.markdown-td {
+  color: #24292e;
+}
+
+.markdown-tr:nth-child(even) {
+  background: #f6f8fa;
+}
+
+/* 链接样式 */
+.markdown-a {
+  color: #0366d6;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.markdown-a:hover {
+  text-decoration: underline;
+  color: #0250a3;
+}
+
+/* 强调样式 */
+.markdown-strong {
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.markdown-em {
+  font-style: italic;
+  color: #24292e;
+}
+
+/* 操作说明区域的markdown样式调整 */
+.detail-remarks .markdown-h1,
+.detail-remarks .markdown-h2,
+.detail-remarks .markdown-h3,
+.detail-remarks .markdown-h4 {
+  font-size: 14px;
+  margin: 8px 0 6px 0;
+  color: #333;
+}
+
+.detail-remarks .markdown-p {
+  font-size: 13px;
+  margin: 6px 0;
+  color: #666;
+}
+
+.detail-remarks .markdown-code {
+  font-size: 12px;
+  padding: 1px 3px;
+}
+
+.detail-remarks .markdown-pre {
+  padding: 12px;
+  font-size: 12px;
+  margin: 8px 0;
+}
+
 /* 响应式设计 */
 @media (max-width: 768px) {
   .sticky-header {
@@ -593,5 +788,41 @@
   
   .detail-item {
     padding: 15px;
+  }
+  
+  /* 移动端markdown样式优化 */
+  .markdown-h1 {
+    font-size: 20px;
+    margin: 16px 0 12px 0;
+  }
+  
+  .markdown-h2 {
+    font-size: 18px;
+    margin: 14px 0 10px 0;
+  }
+  
+  .markdown-h3 {
+    font-size: 16px;
+    margin: 12px 0 8px 0;
+  }
+  
+  .markdown-h4 {
+    font-size: 14px;
+    margin: 10px 0 6px 0;
+  }
+  
+  .markdown-pre {
+    padding: 12px;
+    font-size: 12px;
+    margin: 12px 0;
+  }
+  
+  .markdown-table {
+    font-size: 12px;
+  }
+  
+  .markdown-th,
+  .markdown-td {
+    padding: 6px 8px;
   }
 }

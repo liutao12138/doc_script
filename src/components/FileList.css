@@ -58,7 +58,10 @@
   .file-table th:nth-child(1), .file-table td:nth-child(1) { /* NID */
     width: 5%;
     min-width: 80px;
-    max-width: 100px;
+    max-width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   
   .file-table th:nth-child(2), .file-table td:nth-child(2) { /* 名称 */
@@ -111,8 +114,8 @@
   
 .file-table th:nth-child(10), .file-table td:nth-child(10) { /* 操作 */ 
   width: 12%; 
-  min-width: 200px; 
-  max-width: 300px;
+  min-width: 260px; 
+  max-width: 390px;
 }
 }
 
@@ -150,7 +153,10 @@
   .file-table th:nth-child(2), .file-table td:nth-child(2) { /* NID */
     width: 8%;
     min-width: 80px;
-    max-width: 120px;
+    max-width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   
   .file-table th:nth-child(3), .file-table td:nth-child(3) { /* 名称 */
@@ -203,8 +209,8 @@
   
   .file-table th:nth-child(11), .file-table td:nth-child(11) { /* 操作 */ 
     width: 10%; 
-    min-width: 180px; 
-    max-width: 250px;
+    min-width: 240px; 
+    max-width: 340px;
   }
 }
 
@@ -242,7 +248,10 @@
   .file-table th:nth-child(2), .file-table td:nth-child(2) { /* NID */
     width: 8%;
     min-width: 70px;
-    max-width: 100px;
+    max-width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   
   .file-table th:nth-child(3), .file-table td:nth-child(3) { /* 名称 */
@@ -295,8 +304,8 @@
   
   .file-table th:nth-child(11), .file-table td:nth-child(11) { /* 操作 */ 
     width: 10%; 
-    min-width: 180px; 
-    max-width: 250px;
+    min-width: 240px; 
+    max-width: 340px;
   }
 }
 
@@ -334,7 +343,10 @@
   .file-table th:nth-child(2), .file-table td:nth-child(2) { /* NID */
     width: 8%;
     min-width: 60px;
-    max-width: 80px;
+    max-width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   
   .file-table th:nth-child(3), .file-table td:nth-child(3) { /* 名称 */
@@ -387,8 +399,8 @@
   
   .file-table th:nth-child(11), .file-table td:nth-child(11) { /* 操作 */ 
     width: 10%; 
-    min-width: 180px; 
-    max-width: 250px;
+    min-width: 240px; 
+    max-width: 340px;
   }
 }
 
@@ -1050,8 +1062,11 @@
 .file-table th:nth-child(2), .file-table td:nth-child(2) { /* NID */
   width: 8%;
   min-width: 80px;
-  max-width: 120px;
+  max-width: 200px;
   text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .file-table th:nth-child(3), .file-table td:nth-child(3) { /* 名称 */
@@ -1111,8 +1126,8 @@
 
 .file-table th:nth-child(11), .file-table td:nth-child(11) { /* 操作 */ 
   width: 10%; 
-  min-width: 180px; 
-  max-width: 250px; 
+  min-width: 240px; 
+  max-width: 340px; 
   text-align: center; 
 }
 
@@ -1149,8 +1164,8 @@
   position: relative;
 }
 
-/* NID 列样式 - 与其他列保持一致 */
-.file-table td:first-child {
+/* NID 列样式 - 不换行，超长显示省略号 */
+.file-table td:nth-child(2) {
   font-family: inherit;
   font-weight: 500;
   background: transparent;
@@ -1158,6 +1173,8 @@
   overflow: hidden;
   text-overflow: ellipsis;
   line-height: 1.5;
+  max-width: 200px; /* 限制最大宽度 */
+  cursor: pointer;
 }
 
 /* 操作列不需要文本溢出处理 */
@@ -2169,7 +2186,7 @@
   
   .file-table th:nth-child(11), .file-table td:nth-child(11) { /* 操作 */
     width: 10%;
-    min-width: 160px;
+    min-width: 220px;
   }
 }
 
@@ -2226,6 +2243,10 @@
   .file-table th:nth-child(2), .file-table td:nth-child(2) { /* NID */
     width: 8%;
     min-width: 60px;
+    max-width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   
   .file-table th:nth-child(3), .file-table td:nth-child(3) { /* 名称 */
@@ -2270,7 +2291,7 @@
   
   .file-table th:nth-child(11), .file-table td:nth-child(11) { /* 操作 */
     width: 10%;
-    min-width: 160px;
+    min-width: 220px;
   }
   
   .action-btn {
@@ -2345,6 +2366,10 @@
   .file-table th:nth-child(1), .file-table td:nth-child(1) { /* NID */
     width: 5%;
     min-width: 40px;
+    max-width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   
   .file-table th:nth-child(2), .file-table td:nth-child(2) { /* 名称 */
@@ -2389,7 +2414,7 @@
   
   .file-table th:nth-child(10), .file-table td:nth-child(10) { /* 操作 */
     width: 18%;
-    min-width: 140px;
+    min-width: 200px;
   }
   
   .status-badge {
