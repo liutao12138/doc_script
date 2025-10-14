@@ -113,9 +113,9 @@
   }
   
 .file-table th:nth-child(10), .file-table td:nth-child(10) { /* 操作 */ 
-  width: 12%; 
-  min-width: 260px; 
-  max-width: 390px;
+  width: 15%; 
+  min-width: 320px; 
+  max-width: 450px;
 }
 }
 
@@ -208,9 +208,9 @@
   }
   
   .file-table th:nth-child(11), .file-table td:nth-child(11) { /* 操作 */ 
-    width: 10%; 
-    min-width: 240px; 
-    max-width: 340px;
+    width: 12%; 
+    min-width: 280px; 
+    max-width: 400px;
   }
 }
 
@@ -303,9 +303,9 @@
   }
   
   .file-table th:nth-child(11), .file-table td:nth-child(11) { /* 操作 */ 
-    width: 10%; 
-    min-width: 240px; 
-    max-width: 340px;
+    width: 12%; 
+    min-width: 280px; 
+    max-width: 400px;
   }
 }
 
@@ -398,9 +398,9 @@
   }
   
   .file-table th:nth-child(11), .file-table td:nth-child(11) { /* 操作 */ 
-    width: 10%; 
-    min-width: 240px; 
-    max-width: 340px;
+    width: 12%; 
+    min-width: 280px; 
+    max-width: 400px;
   }
 }
 
@@ -1125,9 +1125,9 @@
 }
 
 .file-table th:nth-child(11), .file-table td:nth-child(11) { /* 操作 */ 
-  width: 10%; 
-  min-width: 240px; 
-  max-width: 340px; 
+  width: 12%; 
+  min-width: 280px; 
+  max-width: 400px; 
   text-align: center; 
 }
 
@@ -2185,8 +2185,8 @@
   }
   
   .file-table th:nth-child(11), .file-table td:nth-child(11) { /* 操作 */
-    width: 10%;
-    min-width: 220px;
+    width: 12%;
+    min-width: 260px;
   }
 }
 
@@ -2290,8 +2290,8 @@
   }
   
   .file-table th:nth-child(11), .file-table td:nth-child(11) { /* 操作 */
-    width: 10%;
-    min-width: 220px;
+    width: 12%;
+    min-width: 260px;
   }
   
   .action-btn {
