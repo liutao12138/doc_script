@@ -17,7 +17,7 @@
   max-width: 1200px;
   z-index: 1000;
   background: #f8f9fa;
-  padding: 20px;
+  padding: 15px 20px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
@@ -26,8 +26,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
-  padding: 20px;
+  margin-bottom: 15px;
+  padding: 15px 20px;
   background: white;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -81,8 +81,8 @@
 
 /* 搜索区域 */
 .search-section {
-  margin-bottom: 20px;
-  padding: 20px;
+  margin-bottom: 0;
+  padding: 15px 20px;
   background: white;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -90,7 +90,7 @@
 
 /* 内容区域 */
 .content-area {
-  margin-top: 200px; /* 为固定头部留出空间 */
+  margin-top: 180px; /* 为固定头部留出空间 */
   padding: 0 20px 20px 20px;
 }
 
