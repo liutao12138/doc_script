@@ -343,64 +343,6 @@ module.exports = {
           }, Math.random() * 300 + 100); // 100-400ms 随机延迟
         });
 
-        // 重置文件状态 API
-        devServer.app.post('/api/doc/reset/status', (req, res) => {
-          console.log('[MOCK] 收到重置请求:', req.body);
-
-          setTimeout(() => {
-            const { nid, reset_all } = req.body;
-
-            if (reset_all) {
-              // 全局重置：将所有文件状态重置为待处理
-              let resetCount = 0;
-              mockData.forEach(item => {
-                if (item.handle_status !== 0) {
-                  item.handle_status = 0;
-                  item.handle_time = null;
-                  item.handle_user = null;
-                  item.remark = '状态已重置';
-                  resetCount++;
-                }
-              });
-
-              console.log(`[MOCK] 全局重置完成，共重置 ${resetCount} 个文件`);
-
-              res.json({
-                message: `全局重置成功，共重置 ${resetCount} 个文档`,
-                status: '0'
-              });
-            } else {
-              // 单文件重置
-              if (!nid) {
-                return res.json({
-                  message: '参数错误：nid 不能为空',
-                  status: '1'
-                });
-              }
-
-              const fileIndex = mockData.findIndex(item => item.nid === nid);
-              if (fileIndex === -1) {
-                return res.json({
-                  message: '文件不存在',
-                  status: '1'
-                });
-              }
-
-              // 重置单个文件状态
-              mockData[fileIndex].handle_status = 0;
-              mockData[fileIndex].handle_time = null;
-              mockData[fileIndex].handle_user = null;
-              mockData[fileIndex].remark = '状态已重置';
-
-              console.log(`[MOCK] 单文件重置完成: ${nid}`);
-
-              res.json({
-                message: `文档 ${nid} 状态已重置`,
-                status: '0'
-              });
-            }
-          }, Math.random() * 400 + 200); // 200-600ms 随机延迟
-        });
 
         // 数据同步接口
         devServer.app.post('/api/doc/pull', (req, res) => {

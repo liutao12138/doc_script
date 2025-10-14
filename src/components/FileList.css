@@ -2195,40 +2195,6 @@
   }
 }
 
-/* 重置按钮样式 */
-.reset-all-btn {
-  background: linear-gradient(135deg, #ff6b6b, #ee5a24);
-  color: white;
-  border: none;
-  padding: 0.75rem 1.5rem;
-  border-radius: 12px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 0.9rem;
-}
-
-.reset-all-btn::before {
-  content: '↻';
-  font-size: 1rem;
-}
-
-.reset-all-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(255, 107, 107, 0.4);
-  background: linear-gradient(135deg, #ff5252, #d63031);
-}
-
-.reset-all-btn:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-  transform: none;
-  box-shadow: 0 4px 15px rgba(255, 107, 107, 0.2);
-}
 
 .pull-data-btn {
   background: linear-gradient(135deg, #4ecdc4, #44a08d);
@@ -2265,31 +2231,6 @@
   box-shadow: 0 4px 15px rgba(78, 205, 196, 0.2);
 }
 
-.action-buttons .reset-btn {
-  background: linear-gradient(135deg, #ff6b6b, #ee5a24);
-  color: white;
-  border: none;
-  padding: 0.5rem 0.75rem;
-  border-radius: 8px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 8px rgba(255, 107, 107, 0.3);
-  font-size: 0.8rem;
-  min-width: 2.5rem;
-}
-
-.action-buttons .reset-btn:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
-  background: linear-gradient(135deg, #ff5252, #d63031);
-}
-
-.action-buttons .reset-btn:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-  transform: none;
-}
 
 /* 重置确认对话框样式 */
 .modal-overlay {
@@ -2389,18 +2330,6 @@
   font-size: 1rem;
 }
 
-.warning-message {
-  background: linear-gradient(135deg, #fff5f5, #fed7d7);
-  border: 1px solid #feb2b2;
-  border-radius: 12px;
-  padding: 1rem;
-  color: #c53030;
-  font-weight: 600;
-  margin-top: 1rem;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
 
 .modal-footer {
   padding: 1rem 2rem 2rem;

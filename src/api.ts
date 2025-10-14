@@ -132,48 +132,6 @@ export const retryFileProcessing = async (params: RetryRequest): Promise<RetryRe
   }
 };
 
-// 重置文件状态
-export interface ResetRequest {
-  nid: string;
-  reset_all: boolean;
-}
-
-export interface ResetResponse {
-  message: string;
-  status: string;
-}
-
-export const resetFileStatus = async (params: ResetRequest): Promise<ResetResponse> => {
-  try {
-    const response = await fetch(`${API_BASE_URL}/doc/reset/status`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(params),
-    });
-
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-
-    const data = await response.json();
-    
-    // 适配后端接口格式，确保返回正确的结构
-    if (data.message && data.status) {
-      return {
-        message: data.message,
-        status: data.status
-      };
-    }
-    
-    // 如果数据结构不符合预期，抛出错误
-    throw new Error('Invalid response format for reset');
-  } catch (error) {
-    console.error('Error resetting file status:', error);
-    throw error;
-  }
-};
 
 // 数据同步
 export const pullData = async (): Promise<void> => {

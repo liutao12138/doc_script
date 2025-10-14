@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { FileItem, SearchFilters, FileListRequest } from '../types';
-import { fetchFileList, checkApiHealth, retryFileProcessing, resetFileStatus, pullData } from '../api';
+import { fetchFileList, checkApiHealth, retryFileProcessing, pullData } from '../api';
 import ToastContainer, { useToast } from './ToastContainer';
 import './FileList.css';
 
@@ -18,10 +18,6 @@ const FileList: React.FC = () => {
   // Toast 管理
   const { toasts, showSuccess, showError, removeToast } = useToast();
   
-  // 重置相关状态
-  const [showResetConfirm, setShowResetConfirm] = useState<boolean>(false);
-  const [resetType, setResetType] = useState<'all' | 'single' | null>(null);
-  const [resetTargetNid, setResetTargetNid] = useState<string>('');
   
   // 批量重试相关状态
   const [showBatchRetryConfirm, setShowBatchRetryConfirm] = useState<boolean>(false);
@@ -302,48 +298,6 @@ const FileList: React.FC = () => {
     }
   };
 
-  // 重置函数
-  const handleReset = async () => {
-    try {
-      setLoading(true);
-      
-      const response = await resetFileStatus({
-        nid: resetTargetNid,
-        reset_all: resetType === 'all'
-      });
-      
-      if (response.status === '0') {
-        // 重新加载数据
-        await loadFiles(currentPage);
-        
-        showSuccess(response.message);
-        setShowResetConfirm(false);
-        setResetType(null);
-        setResetTargetNid('');
-      } else {
-        throw new Error(response.message || '重置失败');
-      }
-    } catch (error) {
-      console.error('重置失败:', error);
-      showError('重置失败，请稍后重试');
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  // 打开重置确认对话框
-  const openResetConfirm = (type: 'all' | 'single', nid?: string) => {
-    setResetType(type);
-    setResetTargetNid(nid || '');
-    setShowResetConfirm(true);
-  };
-
-  // 关闭重置确认对话框
-  const closeResetConfirm = () => {
-    setShowResetConfirm(false);
-    setResetType(null);
-    setResetTargetNid('');
-  };
 
   // 批量重试函数 - 根据当前筛选的文件类型
   const handleBatchRetry = async () => {
@@ -668,14 +622,6 @@ const FileList: React.FC = () => {
             >
               {loading ? '同步中...' : '数据同步'}
             </button>
-            <button 
-              onClick={() => openResetConfirm('all')} 
-              className="reset-all-btn"
-              disabled={loading}
-              title="重置所有文件状态"
-            >
-              全局重置
-            </button>
           </div>
           
           {/* 批量重试区域 */}
@@ -892,13 +838,6 @@ const FileList: React.FC = () => {
                                 {retryingFiles.has(file.nid) ? '重试中...' : '重试'}
                               </button>
                             )}
-                            <button 
-                              className="action-btn reset-btn" 
-                              title="重置此文件状态"
-                              onClick={() => openResetConfirm('single', file.nid)}
-                            >
-                              重置
-                            </button>
                           </div>
                         </td>
                       </tr>
@@ -941,46 +880,6 @@ const FileList: React.FC = () => {
       </div>
     </div>
 
-    {/* 重置确认对话框 */}
-    {showResetConfirm && (
-      <div className="modal-overlay" onClick={closeResetConfirm}>
-        <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-          <div className="modal-header">
-            <h3>确认重置</h3>
-            <button className="modal-close" onClick={closeResetConfirm}>×</button>
-          </div>
-          <div className="modal-body">
-            <p>
-              {resetType === 'all' 
-                ? '确定要重置所有文件的状态吗？此操作将影响所有文件，请谨慎操作。'
-                : `确定要重置文件 ${resetTargetNid} 的状态吗？`
-              }
-            </p>
-            {resetType === 'all' && (
-              <div className="warning-message">
-                ⚠️ 全局重置将影响所有文件，此操作不可撤销！
-              </div>
-            )}
-          </div>
-          <div className="modal-footer">
-            <button 
-              className="btn btn-secondary" 
-              onClick={closeResetConfirm}
-              disabled={loading}
-            >
-              取消
-            </button>
-            <button 
-              className="btn btn-danger" 
-              onClick={handleReset}
-              disabled={loading}
-            >
-              {loading ? '重置中...' : '确认重置'}
-            </button>
-          </div>
-        </div>
-      </div>
-    )}
 
     {/* 批量重试确认对话框 */}
     {showBatchRetryConfirm && (
