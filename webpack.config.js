@@ -405,7 +405,6 @@ module.exports = {
             } else {
               return res.json({
                 message: '参数错误：必须提供 nid 或 file_type 参数',
-                nid_num: 0,
                 status: "1" // 参数错误，返回失败状态
               });
             }
@@ -413,7 +412,6 @@ module.exports = {
             if (validFiles.length === 0) {
               return res.json({
                 message: '没有文件需要重置',
-                nid_num: 0,
                 status: "0" // 即使没有文件需要重置，也返回成功状态
               });
             }
@@ -423,7 +421,6 @@ module.exports = {
 
             res.json({
               message: successMessage,
-              nid_num: validFiles.length,
               status: "0" // 重置成功
             });
           }, Math.random() * 300 + 100); // 100-400ms 随机延迟

@@ -325,7 +325,7 @@ const FileList: React.FC = () => {
       });
       
       // 检查响应是否成功 - status为"0"表示成功
-      if (response.status === "0" && response.message && response.nid_num !== undefined) {
+      if (response.status === "0" && response.message) {
         console.log(`文件 ${fileId} 重置成功`);
         showSuccess('文件状态重置成功！已重置为待处理状态...');
       } else {
@@ -526,13 +526,9 @@ const FileList: React.FC = () => {
       });
       
       // 检查响应是否成功 - status为"0"表示成功
-      if (response.status === "0" && response.message && response.nid_num !== undefined) {
-        console.log(`勾选行重置成功，共重置 ${response.nid_num} 个文件`);
-        if (response.nid_num > 0) {
-          showSuccess(`勾选行重置成功！共重置 ${response.nid_num} 个文件，已重置为待处理状态...`);
-        } else {
-          showSuccess(`勾选行重置完成！选中的文件没有需要重置的。`);
-        }
+      if (response.status === "0" && response.message) {
+        console.log(`勾选行重置成功: ${response.message}`);
+        showSuccess(`勾选行重置成功！${response.message}`);
         
         // 清空选中状态
         setCheckedRows(new Set());
