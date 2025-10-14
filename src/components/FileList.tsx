@@ -1,19 +1,33 @@
 import React, { useState, useEffect } from 'react';
-import { FileItem, SearchFilters, FileListRequest } from '../types';
-import { fetchFileList, checkApiHealth, retryFileProcessing, pullData } from '../api';
+import { useNavigate } from 'react-router-dom';
+import { FileItem, SearchFilters, FileListRequest, PaginationConfig } from '../types';
+import { fetchFileList, checkApiHealth, retryFileProcessing, resetFileStatus, pullData } from '../api';
 import ToastContainer, { useToast } from './ToastContainer';
+import Pagination from './Pagination';
 import './FileList.css';
 
 const FileList: React.FC = () => {
+  const navigate = useNavigate();
   const [files, setFiles] = useState<FileItem[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [retryingFiles, setRetryingFiles] = useState<Set<string>>(new Set());
+  const [resettingFiles, setResettingFiles] = useState<Set<string>>(new Set());
   const [error, setError] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [totalPages, setTotalPages] = useState<number>(0);
   const [total, setTotal] = useState<number>(0);
   const [apiStatus, setApiStatus] = useState<string>('检查中...');
-  const pageSize = 10;
+  const [pageSize, setPageSize] = useState<number>(10);
+  
+  // 分页配置
+  const paginationConfig: PaginationConfig = {
+    pageSize,
+    pageSizeOptions: [10, 20, 50, 100],
+    showPageSizeSelector: true,
+    showPageJump: true,
+    showTotalInfo: true,
+    maxVisiblePages: 7
+  };
   
   // Toast 管理
   const { toasts, showSuccess, showError, removeToast } = useToast();
@@ -26,6 +40,7 @@ const FileList: React.FC = () => {
   // 表格行勾选相关状态
   const [checkedRows, setCheckedRows] = useState<Set<string>>(new Set());
   const [showSelectedRetryConfirm, setShowSelectedRetryConfirm] = useState<boolean>(false);
+  
 
   const [filters, setFilters] = useState<SearchFilters>({
     nid: '',
@@ -137,6 +152,7 @@ const FileList: React.FC = () => {
     loadFiles(1);
   }, []);
 
+
   const handleSearch = () => {
     setCurrentPage(1);
     loadFiles(1);
@@ -159,74 +175,12 @@ const FileList: React.FC = () => {
     loadFiles(page);
   };
 
-  // 智能分页渲染函数
-  const renderPaginationPages = () => {
-    const maxVisiblePages = 7; // 最多显示7个页码按钮
-    const pages: (number | string)[] = [];
-    
-    if (totalPages <= maxVisiblePages) {
-      // 如果总页数不超过最大显示数，显示所有页码
-      for (let i = 1; i <= totalPages; i++) {
-        pages.push(i);
-      }
-    } else {
-      // 智能分页逻辑
-      const halfVisible = Math.floor(maxVisiblePages / 2);
-      let startPage = Math.max(1, currentPage - halfVisible);
-      let endPage = Math.min(totalPages, currentPage + halfVisible);
-      
-      // 调整边界
-      if (endPage - startPage + 1 < maxVisiblePages) {
-        if (startPage === 1) {
-          endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
-        } else {
-          startPage = Math.max(1, endPage - maxVisiblePages + 1);
-        }
-      }
-      
-      // 添加第一页
-      if (startPage > 1) {
-        pages.push(1);
-        if (startPage > 2) {
-          pages.push('...');
-        }
-      }
-      
-      // 添加中间页码
-      for (let i = startPage; i <= endPage; i++) {
-        pages.push(i);
-      }
-      
-      // 添加最后一页
-      if (endPage < totalPages) {
-        if (endPage < totalPages - 1) {
-          pages.push('...');
-        }
-        pages.push(totalPages);
-      }
-    }
-    
-    return pages.map((page, index) => {
-      if (page === '...') {
-        return (
-          <span key={`ellipsis-${index}`} className="page-ellipsis">
-            ...
-          </span>
-        );
-      }
-      
-      const pageNum = page as number;
-      return (
-        <button
-          key={pageNum}
-          onClick={() => handlePageChange(pageNum)}
-          className={`page-btn ${currentPage === pageNum ? 'active' : ''}`}
-        >
-          {pageNum}
-        </button>
-      );
-    });
+  const handlePageSizeChange = (newPageSize: number) => {
+    setPageSize(newPageSize);
+    setCurrentPage(1); // 重置到第一页
+    loadFiles(1);
   };
+
 
   const handleFilterChange = (key: keyof SearchFilters, value: string | string[]) => {
     setFilters(prev => ({
@@ -295,9 +249,50 @@ const FileList: React.FC = () => {
         newSet.delete(fileId);
         return newSet;
       });
+      
+      // 重新加载数据
+      await loadFiles(currentPage);
     }
   };
 
+  // 重置文件状态函数
+  const handleReset = async (fileId: string) => {
+    try {
+      // 使用文件级别的loading状态，避免全局loading
+      setResettingFiles(prev => new Set([...prev, fileId]));
+      
+      // 调用重置API
+      const response = await resetFileStatus({
+        nid: [fileId]
+      });
+      
+      // 检查响应是否成功
+      if (response.message && response.nid_num !== undefined) {
+        console.log(`文件 ${fileId} 重置成功`);
+        showSuccess('文件状态重置成功！已重置为待处理状态...');
+      } else {
+        throw new Error(response.message || '重置失败');
+      }
+    } catch (error) {
+      console.error('重置失败:', error);
+      showError('重置失败，请稍后重试');
+    } finally {
+      // 移除文件级别的loading状态
+      setResettingFiles(prev => {
+        const newSet = new Set(prev);
+        newSet.delete(fileId);
+        return newSet;
+      });
+      
+      // 重新加载数据
+      await loadFiles(currentPage);
+    }
+  };
+
+  // 跳转到文件详情
+  const handleViewDetails = (fileId: string) => {
+    navigate(`/file/${fileId}`);
+  };
 
   // 批量重试函数 - 根据当前筛选的文件类型
   const handleBatchRetry = async () => {
@@ -661,10 +656,9 @@ const FileList: React.FC = () => {
           <>
             <div className="file-list-stats">
               <div className="stats-info">
-                共找到 {total} 个文件，当前第 {currentPage} / {totalPages} 页
                 {checkedRows.size > 0 && (
                   <span className="selected-info">
-                    （已选择 {checkedRows.size} 个文件）
+                    已选择 {checkedRows.size} 个文件
                   </span>
                 )}
               </div>
@@ -828,16 +822,39 @@ const FileList: React.FC = () => {
                         </td>
                         <td>
                           <div className="action-buttons">
+                            {/* 主要操作按钮 - 始终显示 */}
+                            <button 
+                              className="action-btn detail-btn" 
+                              title="查看文件详情"
+                              onClick={() => handleViewDetails(file.nid)}
+                            >
+                              详情
+                            </button>
+                            
+                            {/* 重试按钮 - 根据状态决定是否显示 */}
                             {file.handle_status !== '1' && (
                               <button 
-                                className="action-btn retry-btn" 
-                                title="重试处理此文件"
+                                className="action-btn retry-btn"
+                                title="重试处理"
                                 onClick={() => handleRetry(file.nid)}
                                 disabled={retryingFiles.has(file.nid)}
                               >
                                 {retryingFiles.has(file.nid) ? '重试中...' : '重试'}
                               </button>
                             )}
+                            
+                            {/* 重置按钮 - 根据状态决定是否显示 */}
+                            {file.handle_status !== '0' && (
+                              <button 
+                                className="action-btn reset-btn"
+                                title="重置文件状态"
+                                onClick={() => handleReset(file.nid)}
+                                disabled={resettingFiles.has(file.nid)}
+                              >
+                                {resettingFiles.has(file.nid) ? '重置中...' : '重置'}
+                              </button>
+                            )}
+                            
                           </div>
                         </td>
                       </tr>
@@ -854,27 +871,19 @@ const FileList: React.FC = () => {
               </div>
             </div>
 
-            {totalPages > 1 && (
-              <div className="pagination">
-                <button 
-                  onClick={() => handlePageChange(currentPage - 1)}
-                  disabled={currentPage === 1}
-                  className="page-btn"
-                >
-                  上一页
-                </button>
-                
-                {renderPaginationPages()}
-                
-                <button 
-                  onClick={() => handlePageChange(currentPage + 1)}
-                  disabled={currentPage === totalPages}
-                  className="page-btn"
-                >
-                  下一页
-                </button>
-              </div>
-            )}
+            <Pagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              totalItems={total}
+              pageSize={pageSize}
+              pageSizeOptions={paginationConfig.pageSizeOptions}
+              onPageChange={handlePageChange}
+              onPageSizeChange={handlePageSizeChange}
+              showPageSizeSelector={paginationConfig.showPageSizeSelector}
+              showPageJump={paginationConfig.showPageJump}
+              showTotalInfo={paginationConfig.showTotalInfo}
+              maxVisiblePages={paginationConfig.maxVisiblePages}
+            />
           </>
         )}
       </div>

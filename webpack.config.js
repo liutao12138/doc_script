@@ -343,6 +343,71 @@ module.exports = {
           }, Math.random() * 300 + 100); // 100-400ms 随机延迟
         });
 
+        // 重置文件状态 API
+        devServer.app.post('/api/tasks/reset', (req, res) => {
+          console.log('[MOCK] 收到重置请求:', req.body);
+
+          setTimeout(() => {
+            const { nid } = req.body;
+
+            if (!nid || !Array.isArray(nid) || nid.length === 0) {
+              return res.json({
+                message: '参数错误：nid 必须是非空数组',
+                nid_num: 0
+              });
+            }
+
+            // 检查文件是否存在且状态允许重置
+            const validFiles = [];
+            const invalidFiles = [];
+            const statusNames = { 0: '待处理', 1: '处理中', 2: '已完成', 3: '已拒绝' };
+
+            nid.forEach(fileId => {
+              const fileIndex = mockData.findIndex(item => item.nid === fileId);
+              if (fileIndex === -1) {
+                invalidFiles.push({
+                  nid: fileId,
+                  reason: '文件不存在'
+                });
+              } else {
+                const file = mockData[fileIndex];
+                const currentStatus = statusNames[file.handle_status];
+
+                if (file.handle_status === 0) {
+                  invalidFiles.push({
+                    nid: fileId,
+                    reason: `文件已经是待处理状态，无需重置（当前状态: ${currentStatus}）`
+                  });
+                } else {
+                  validFiles.push({
+                    nid: fileId,
+                    index: fileIndex,
+                    currentStatus: currentStatus
+                  });
+                  // 将文件状态重置为待处理
+                  mockData[fileIndex].handle_status = 0;
+                  mockData[fileIndex].handle_time = new Date().toISOString().replace('T', ' ').substring(0, 19);
+                  mockData[fileIndex].handle_user = '系统';
+                }
+              }
+            });
+
+            if (validFiles.length === 0) {
+              return res.json({
+                message: '没有文件需要重置',
+                nid_num: 0
+              });
+            }
+
+            const successMessage = `重置成功！共重置 ${validFiles.length} 个文件为待处理状态`;
+            console.log(`[MOCK] ${successMessage}`);
+
+            res.json({
+              message: successMessage,
+              nid_num: validFiles.length
+            });
+          }, Math.random() * 300 + 100); // 100-400ms 随机延迟
+        });
 
         // 数据同步接口
         devServer.app.post('/api/doc/pull', (req, res) => {
@@ -409,6 +474,86 @@ module.exports = {
               }
             });
           }, Math.random() * 400 + 200); // 200-600ms 随机延迟
+        });
+
+        // 文件详情片段查询接口
+        devServer.app.post('/api/doc/detail/list', (req, res) => {
+          console.log('[MOCK] 收到文件详情查询请求:', req.body);
+
+          // 模拟网络延迟
+          setTimeout(() => {
+            const { nid, keyword = '', page = 1, page_size = 10 } = req.body;
+
+            if (!nid) {
+              return res.json({
+                data: [],
+                total: 0
+              });
+            }
+
+            // 生成模拟的文件详情片段数据
+            const generateMockDetails = (fileNid, count = 5) => {
+              const details = [];
+              const products = ['产品A', '产品B', '产品C', '产品D', '产品E', '产品F', '产品G', '产品H'];
+              const languages = ['zh', 'en', 'ja', 'ko', 'fr'];
+              const catalogs1 = ['技术文档', '用户手册', 'API文档', '操作指南', '故障排除', '安全指南', '性能优化', '部署文档'];
+              const catalogs2 = ['基础操作', '高级功能', '配置说明', '常见问题', '最佳实践', '故障诊断', '维护指南', '升级说明'];
+              const titles = [
+                '系统安装指南', '用户权限管理', '数据备份恢复', '网络配置说明', '安全设置指南',
+                '性能监控方法', '故障排除步骤', '升级操作流程', 'API接口说明', '数据库配置',
+                '日志分析方法', '监控告警设置', '负载均衡配置', '缓存优化策略', '数据迁移指南'
+              ];
+              const contents = [
+                '这是一个重要的技术文档片段，包含了详细的配置说明和操作步骤。',
+                '用户可以通过这个文档了解如何正确配置系统参数，确保系统稳定运行。',
+                '本片段详细介绍了系统的核心功能，包括数据存储、处理和分析等关键环节。',
+                '安全配置是系统运行的重要保障，本片段提供了完整的安全设置指南。',
+                '性能优化是提升系统效率的关键，这里包含了多种优化策略和最佳实践。'
+              ];
+              
+              for (let i = 0; i < count; i++) {
+                const titleIndex = i % titles.length;
+                const contentIndex = i % contents.length;
+                const detail = {
+                  file_name: `document_${fileNid}_${String(i + 1).padStart(3, '0')}.doc`,
+                  language: languages[Math.floor(Math.random() * languages.length)],
+                  title: `${titles[titleIndex]} ${i + 1}${keyword ? ` - 包含关键词"${keyword}"` : ''}`,
+                  product_name: products.slice(0, Math.floor(Math.random() * 3) + 1),
+                  content: `${contents[contentIndex]}${keyword ? `关键词"${keyword}"在内容中出现。` : ''}这是第${i + 1}个文档片段的详细内容，包含了重要的技术信息和操作步骤。内容涵盖了系统配置、用户管理、数据处理、安全设置等多个方面的知识点，帮助用户更好地理解和使用系统功能。`,
+                  view_url: `https://example.com/view/${fileNid}/fragment/${String(i + 1).padStart(3, '0')}`,
+                  operation_procedure_remarks: `操作步骤说明 ${i + 1}：这是关于如何执行相关操作的详细说明，包含了具体的步骤和注意事项。请按照以下步骤进行操作：1. 检查系统状态 2. 配置相关参数 3. 执行操作流程 4. 验证结果。`,
+                  cut_time: Date.now() - Math.floor(Math.random() * 86400000 * 30), // 30天内的随机时间
+                  catalog_l1: catalogs1[Math.floor(Math.random() * catalogs1.length)],
+                  catalog_l2: catalogs2[Math.floor(Math.random() * catalogs2.length)]
+                };
+                details.push(detail);
+              }
+              return details;
+            };
+
+            // 根据关键词过滤（如果提供）
+            let mockDetails = generateMockDetails(nid, 50); // 生成50个片段用于测试分页
+            
+            if (keyword) {
+              mockDetails = mockDetails.filter(detail => 
+                detail.title.toLowerCase().includes(keyword.toLowerCase()) ||
+                detail.content.toLowerCase().includes(keyword.toLowerCase()) ||
+                detail.operation_procedure_remarks.toLowerCase().includes(keyword.toLowerCase())
+              );
+            }
+
+            // 分页处理
+            const startIndex = (page - 1) * page_size;
+            const endIndex = startIndex + page_size;
+            const paginatedDetails = mockDetails.slice(startIndex, endIndex);
+
+            console.log(`[MOCK] 文件详情查询: nid=${nid}, keyword="${keyword}", 返回${paginatedDetails.length}条记录，共${mockDetails.length}条`);
+
+            res.json({
+              data: paginatedDetails,
+              total: mockDetails.length
+            });
+          }, Math.random() * 500 + 200); // 200-700ms 随机延迟
         });
       } // 结束 useMock 条件块
 

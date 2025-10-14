@@ -109,11 +109,11 @@
     max-width: 200px;
   }
   
-  .file-table th:nth-child(10), .file-table td:nth-child(10) { /* 操作 */ 
-    width: 15%; 
-    min-width: 180px; 
-    max-width: 250px;
-  }
+.file-table th:nth-child(10), .file-table td:nth-child(10) { /* 操作 */ 
+  width: 12%; 
+  min-width: 200px; 
+  max-width: 300px;
+}
 }
 
 /* 超宽屏幕优化 (1920px+) */
@@ -141,64 +141,70 @@
   }
   
   /* 超宽屏幕下的列宽优化 */
-  .file-table th:nth-child(1), .file-table td:nth-child(1) { /* NID */
-    width: 5%;
-    min-width: 70px;
-    max-width: 90px;
+  .file-table th:nth-child(1), .file-table td:nth-child(1) { /* 复选框 */
+    width: 3%;
+    min-width: 40px;
+    max-width: 50px;
   }
   
-  .file-table th:nth-child(2), .file-table td:nth-child(2) { /* 名称 */
-    width: 33%;
-    min-width: 320px;
+  .file-table th:nth-child(2), .file-table td:nth-child(2) { /* NID */
+    width: 8%;
+    min-width: 80px;
+    max-width: 120px;
+  }
+  
+  .file-table th:nth-child(3), .file-table td:nth-child(3) { /* 名称 */
+    width: 25%;
+    min-width: 300px;
     max-width: 500px;
   }
   
-  .file-table th:nth-child(3), .file-table td:nth-child(3) { /* 处理状态 */
-    width: 6%;
+  .file-table th:nth-child(4), .file-table td:nth-child(4) { /* 处理状态 */
+    width: 8%;
     min-width: 70px;
     max-width: 90px;
   }
   
-  .file-table th:nth-child(4), .file-table td:nth-child(4) { /* 切片数量 */
-    width: 5%;
-    min-width: 60px;
-    max-width: 80px;
-  }
-  
-  .file-table th:nth-child(5), .file-table td:nth-child(5) { /* 文件类型 */
-    width: 5%;
-    min-width: 60px;
-    max-width: 80px;
-  }
-  
-  .file-table th:nth-child(6), .file-table td:nth-child(6) { /* 文档状态 */
-    width: 5%;
-    min-width: 60px;
-    max-width: 80px;
-  }
-  
-  .file-table th:nth-child(7), .file-table td:nth-child(7) { /* 处理时间 */
+  .file-table th:nth-child(5), .file-table td:nth-child(5) { /* 切片数量 */
     width: 6%;
+    min-width: 60px;
+    max-width: 80px;
+  }
+  
+  .file-table th:nth-child(6), .file-table td:nth-child(6) { /* 文件类型 */
+    width: 6%;
+    min-width: 60px;
+    max-width: 80px;
+  }
+  
+  .file-table th:nth-child(7), .file-table td:nth-child(7) { /* 文档状态 */
+    width: 6%;
+    min-width: 60px;
+    max-width: 80px;
+  }
+  
+  .file-table th:nth-child(8), .file-table td:nth-child(8) { /* 处理时间 */
+    width: 8%;
     min-width: 80px;
     max-width: 100px;
   }
   
-  .file-table th:nth-child(8), .file-table td:nth-child(8) { /* 更新时间 */
-    width: 8%;
+  .file-table th:nth-child(9), .file-table td:nth-child(9) { /* 更新时间 */
+    width: 10%;
     min-width: 120px;
-    max-width: 150px;
+    max-width: 160px;
   }
   
-  .file-table th:nth-child(9), .file-table td:nth-child(9) { /* 最近处理开始时间 */
-    width: 10%;
+  .file-table th:nth-child(10), .file-table td:nth-child(10) { /* 最新数据处理时间 */
+    width: 12%;
     min-width: 140px;
     max-width: 180px;
   }
   
-  .file-table th:nth-child(10), .file-table td:nth-child(10) { /* 操作 */ 
-    width: 15%; 
-    min-width: 160px; 
-    max-width: 220px;
+  .file-table th:nth-child(11), .file-table td:nth-child(11) { /* 操作 */ 
+    width: 10%; 
+    min-width: 180px; 
+    max-width: 250px;
   }
 }
 
@@ -227,64 +233,70 @@
   }
   
   /* 大屏幕下的列宽优化 */
-  .file-table th:nth-child(1), .file-table td:nth-child(1) { /* NID */
-    width: 5%;
+  .file-table th:nth-child(1), .file-table td:nth-child(1) { /* 复选框 */
+    width: 3%;
+    min-width: 40px;
+    max-width: 50px;
+  }
+  
+  .file-table th:nth-child(2), .file-table td:nth-child(2) { /* NID */
+    width: 8%;
+    min-width: 70px;
+    max-width: 100px;
+  }
+  
+  .file-table th:nth-child(3), .file-table td:nth-child(3) { /* 名称 */
+    width: 25%;
+    min-width: 280px;
+    max-width: 450px;
+  }
+  
+  .file-table th:nth-child(4), .file-table td:nth-child(4) { /* 处理状态 */
+    width: 8%;
     min-width: 65px;
     max-width: 85px;
   }
   
-  .file-table th:nth-child(2), .file-table td:nth-child(2) { /* 名称 */
-    width: 34%;
-    min-width: 300px;
-    max-width: 480px;
-  }
-  
-  .file-table th:nth-child(3), .file-table td:nth-child(3) { /* 处理状态 */
+  .file-table th:nth-child(5), .file-table td:nth-child(5) { /* 切片数量 */
     width: 6%;
-    min-width: 65px;
-    max-width: 85px;
-  }
-  
-  .file-table th:nth-child(4), .file-table td:nth-child(4) { /* 切片数量 */
-    width: 5%;
     min-width: 55px;
     max-width: 75px;
   }
   
-  .file-table th:nth-child(5), .file-table td:nth-child(5) { /* 文件类型 */
-    width: 5%;
-    min-width: 55px;
-    max-width: 75px;
-  }
-  
-  .file-table th:nth-child(6), .file-table td:nth-child(6) { /* 文档状态 */
-    width: 5%;
-    min-width: 55px;
-    max-width: 75px;
-  }
-  
-  .file-table th:nth-child(7), .file-table td:nth-child(7) { /* 处理时间 */
+  .file-table th:nth-child(6), .file-table td:nth-child(6) { /* 文件类型 */
     width: 6%;
+    min-width: 55px;
+    max-width: 75px;
+  }
+  
+  .file-table th:nth-child(7), .file-table td:nth-child(7) { /* 文档状态 */
+    width: 6%;
+    min-width: 55px;
+    max-width: 75px;
+  }
+  
+  .file-table th:nth-child(8), .file-table td:nth-child(8) { /* 处理时间 */
+    width: 8%;
     min-width: 75px;
     max-width: 95px;
   }
   
-  .file-table th:nth-child(8), .file-table td:nth-child(8) { /* 更新时间 */
-    width: 8%;
+  .file-table th:nth-child(9), .file-table td:nth-child(9) { /* 更新时间 */
+    width: 10%;
     min-width: 110px;
     max-width: 140px;
   }
   
-  .file-table th:nth-child(9), .file-table td:nth-child(9) { /* 最近处理开始时间 */
-    width: 10%;
+  .file-table th:nth-child(10), .file-table td:nth-child(10) { /* 最新数据处理时间 */
+    width: 12%;
     min-width: 130px;
     max-width: 170px;
   }
   
-  .file-table th:nth-child(10), .file-table td:nth-child(10) { /* 操作 */ 
-    width: 15%; 
-    min-width: 150px; 
-    max-width: 200px;
+  .file-table th:nth-child(11), .file-table td:nth-child(11) { /* 操作 */ 
+    width: 10%; 
+    min-width: 180px; 
+    max-width: 250px;
   }
 }
 
@@ -313,64 +325,70 @@
   }
   
   /* 中等宽屏幕下的列宽优化 */
-  .file-table th:nth-child(1), .file-table td:nth-child(1) { /* NID */
-    width: 5%;
+  .file-table th:nth-child(1), .file-table td:nth-child(1) { /* 复选框 */
+    width: 3%;
+    min-width: 40px;
+    max-width: 50px;
+  }
+  
+  .file-table th:nth-child(2), .file-table td:nth-child(2) { /* NID */
+    width: 8%;
     min-width: 60px;
     max-width: 80px;
   }
   
-  .file-table th:nth-child(2), .file-table td:nth-child(2) { /* 名称 */
-    width: 32%;
-    min-width: 280px;
-    max-width: 450px;
+  .file-table th:nth-child(3), .file-table td:nth-child(3) { /* 名称 */
+    width: 25%;
+    min-width: 250px;
+    max-width: 400px;
   }
   
-  .file-table th:nth-child(3), .file-table td:nth-child(3) { /* 处理状态 */
-    width: 6%;
+  .file-table th:nth-child(4), .file-table td:nth-child(4) { /* 处理状态 */
+    width: 8%;
     min-width: 60px;
     max-width: 80px;
   }
   
-  .file-table th:nth-child(4), .file-table td:nth-child(4) { /* 切片数量 */
-    width: 5%;
-    min-width: 50px;
-    max-width: 70px;
-  }
-  
-  .file-table th:nth-child(5), .file-table td:nth-child(5) { /* 文件类型 */
-    width: 5%;
-    min-width: 50px;
-    max-width: 70px;
-  }
-  
-  .file-table th:nth-child(6), .file-table td:nth-child(6) { /* 文档状态 */
-    width: 5%;
-    min-width: 50px;
-    max-width: 70px;
-  }
-  
-  .file-table th:nth-child(7), .file-table td:nth-child(7) { /* 处理时间 */
+  .file-table th:nth-child(5), .file-table td:nth-child(5) { /* 切片数量 */
     width: 6%;
+    min-width: 50px;
+    max-width: 70px;
+  }
+  
+  .file-table th:nth-child(6), .file-table td:nth-child(6) { /* 文件类型 */
+    width: 6%;
+    min-width: 50px;
+    max-width: 70px;
+  }
+  
+  .file-table th:nth-child(7), .file-table td:nth-child(7) { /* 文档状态 */
+    width: 6%;
+    min-width: 50px;
+    max-width: 70px;
+  }
+  
+  .file-table th:nth-child(8), .file-table td:nth-child(8) { /* 处理时间 */
+    width: 8%;
     min-width: 70px;
     max-width: 90px;
   }
   
-  .file-table th:nth-child(8), .file-table td:nth-child(8) { /* 更新时间 */
-    width: 8%;
+  .file-table th:nth-child(9), .file-table td:nth-child(9) { /* 更新时间 */
+    width: 10%;
     min-width: 100px;
     max-width: 130px;
   }
   
-  .file-table th:nth-child(9), .file-table td:nth-child(9) { /* 最近处理开始时间 */
-    width: 10%;
+  .file-table th:nth-child(10), .file-table td:nth-child(10) { /* 最新数据处理时间 */
+    width: 12%;
     min-width: 120px;
     max-width: 160px;
   }
   
-  .file-table th:nth-child(10), .file-table td:nth-child(10) { /* 操作 */ 
-    width: 15%; 
-    min-width: 140px; 
-    max-width: 180px;
+  .file-table th:nth-child(11), .file-table td:nth-child(11) { /* 操作 */ 
+    width: 10%; 
+    min-width: 180px; 
+    max-width: 250px;
   }
 }
 
@@ -1022,71 +1040,79 @@
 }
 
 /* 表格列宽度定义 */
-.file-table th:nth-child(1), .file-table td:nth-child(1) { /* NID */
-  width: 6%;
+.file-table th:nth-child(1), .file-table td:nth-child(1) { /* 复选框 */
+  width: 3%;
+  min-width: 40px;
+  max-width: 50px;
+  text-align: center;
+}
+
+.file-table th:nth-child(2), .file-table td:nth-child(2) { /* NID */
+  width: 8%;
+  min-width: 80px;
+  max-width: 120px;
+  text-align: center;
+}
+
+.file-table th:nth-child(3), .file-table td:nth-child(3) { /* 名称 */
+  width: 25%;
+  min-width: 200px;
+  max-width: 400px;
+}
+
+.file-table th:nth-child(4), .file-table td:nth-child(4) { /* 处理状态 */
+  width: 8%;
   min-width: 70px;
-  max-width: 100px;
+  max-width: 90px;
+  text-align: center;
 }
 
-.file-table th:nth-child(2), .file-table td:nth-child(2) { /* 名称 */
-  width: 30%;
-  min-width: 300px;
-  max-width: 500px;
-}
-
-.file-table th:nth-child(3), .file-table td:nth-child(3) { /* 处理状态 */
+.file-table th:nth-child(5), .file-table td:nth-child(5) { /* 切片数量 */
   width: 6%;
   min-width: 60px;
   max-width: 80px;
   text-align: center;
 }
 
-.file-table th:nth-child(4), .file-table td:nth-child(4) { /* 切片数量 */
-  width: 5%;
-  min-width: 55px;
-  max-width: 75px;
-  text-align: center;
-}
-
-.file-table th:nth-child(5), .file-table td:nth-child(5) { /* 文件类型 */
-  width: 5%;
-  min-width: 55px;
-  max-width: 75px;
-  text-align: center;
-}
-
-.file-table th:nth-child(6), .file-table td:nth-child(6) { /* 文档状态 */
-  width: 5%;
-  min-width: 55px;
-  max-width: 75px;
-  text-align: center;
-}
-
-.file-table th:nth-child(7), .file-table td:nth-child(7) { /* 处理时间 */
+.file-table th:nth-child(6), .file-table td:nth-child(6) { /* 文件类型 */
   width: 6%;
+  min-width: 60px;
+  max-width: 80px;
+  text-align: center;
+}
+
+.file-table th:nth-child(7), .file-table td:nth-child(7) { /* 文档状态 */
+  width: 6%;
+  min-width: 60px;
+  max-width: 80px;
+  text-align: center;
+}
+
+.file-table th:nth-child(8), .file-table td:nth-child(8) { /* 处理时间 */
+  width: 8%;
   min-width: 80px;
   max-width: 100px;
   text-align: center;
 }
 
-.file-table th:nth-child(8), .file-table td:nth-child(8) { /* 更新时间 */
-  width: 8%;
-  min-width: 110px;
-  max-width: 140px;
-  text-align: center;
-}
-
-.file-table th:nth-child(9), .file-table td:nth-child(9) { /* 最近处理开始时间 */
+.file-table th:nth-child(9), .file-table td:nth-child(9) { /* 更新时间 */
   width: 10%;
-  min-width: 130px;
-  max-width: 170px;
+  min-width: 120px;
+  max-width: 160px;
   text-align: center;
 }
 
-.file-table th:nth-child(10), .file-table td:nth-child(10) { /* 操作 */ 
-  width: 15%; 
-  min-width: 140px; 
-  max-width: 180px; 
+.file-table th:nth-child(10), .file-table td:nth-child(10) { /* 最新数据处理时间 */
+  width: 12%;
+  min-width: 140px;
+  max-width: 180px;
+  text-align: center;
+}
+
+.file-table th:nth-child(11), .file-table td:nth-child(11) { /* 操作 */ 
+  width: 10%; 
+  min-width: 180px; 
+  max-width: 250px; 
   text-align: center; 
 }
 
@@ -1150,8 +1176,9 @@
   gap: 0.3rem;
   flex-wrap: nowrap;
   white-space: nowrap;
-  min-width: 220px;
-  padding: 0.2rem 0;
+  min-width: 140px;
+  padding: 0.2rem;
+  width: 100%;
 }
 
 .file-table td:last-child .action-btn-container {
@@ -1499,6 +1526,101 @@
   box-shadow: 0 2px 4px rgba(255, 107, 107, 0.3);
 }
 
+/* 重置按钮样式 */
+.reset-btn {
+  background: linear-gradient(135deg, #ff9800, #f57c00);
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  margin-right: 0.5rem;
+  min-width: 60px;
+  text-align: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.375rem;
+  box-shadow: 0 3px 6px rgba(255, 152, 0, 0.3);
+}
+
+.reset-btn::before {
+  content: '🔄';
+  font-size: 0.9rem;
+  animation: none;
+  transition: transform 0.3s ease;
+}
+
+.reset-btn:hover {
+  background: linear-gradient(135deg, #f57c00, #ef6c00);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(255, 152, 0, 0.4);
+}
+
+.reset-btn:hover::before {
+  animation: spin 0.6s ease-in-out;
+}
+
+.reset-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(255, 152, 0, 0.3);
+}
+
+.reset-btn:disabled {
+  background: linear-gradient(135deg, #bdbdbd, #9e9e9e);
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: 0 2px 4px rgba(158, 158, 158, 0.3);
+}
+
+.reset-btn:disabled::before {
+  animation: none;
+}
+
+/* 详情按钮样式 */
+.detail-btn {
+  background: linear-gradient(135deg, #4CAF50, #45a049);
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  margin-right: 0.5rem;
+  min-width: 60px;
+  text-align: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+}
+
+.detail-btn::before {
+  content: '👁️';
+  font-size: 0.9rem;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+.detail-btn:hover {
+  background: linear-gradient(135deg, #45a049, #3d8b40);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(76, 175, 80, 0.4);
+}
+
+.detail-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(76, 175, 80, 0.3);
+}
+
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
@@ -1700,7 +1822,7 @@
   padding: 0.5rem 0.8rem;
   margin: 0 0.1rem;
   border: none;
-  border-radius: 8px;
+  border-radius: 6px;
   background: linear-gradient(135deg, #667eea, #764ba2);
   color: white;
   font-size: 0.8rem;
@@ -1709,17 +1831,104 @@
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   display: inline-flex;
   align-items: center;
-  gap: 0.3rem;
-  box-shadow: 0 3px 8px rgba(102, 126, 234, 0.3);
+  gap: 0.2rem;
+  box-shadow: 0 3px 6px rgba(102, 126, 234, 0.3);
   text-transform: none;
-  min-width: 75px;
-  max-width: 95px;
+  min-width: 60px;
+  max-width: 80px;
   flex-shrink: 0;
   white-space: nowrap;
-  letter-spacing: 0.3px;
+  letter-spacing: 0.1px;
   position: relative;
   overflow: hidden;
   justify-content: center;
+  height: 32px;
+}
+
+/* 下拉菜单样式 */
+.action-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.more-btn {
+  background: linear-gradient(135deg, #6c757d, #495057) !important;
+  min-width: 50px !important;
+  max-width: 60px !important;
+  padding: 0.5rem 0.7rem !important;
+  height: 32px !important;
+}
+
+/* 重试按钮样式 */
+.retry-btn {
+  background: linear-gradient(135deg, #f59e0b, #d97706) !important;
+  min-width: 50px !important;
+  max-width: 60px !important;
+  padding: 0.5rem 0.7rem !important;
+  height: 32px !important;
+}
+
+.retry-btn:hover:not(:disabled) {
+  background: linear-gradient(135deg, #d97706, #b45309) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(245, 158, 11, 0.4);
+}
+
+.retry-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: 0 3px 6px rgba(245, 158, 11, 0.2);
+}
+
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: white;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  min-width: 120px;
+  overflow: hidden;
+  animation: dropdownFadeIn 0.2s ease-out;
+}
+
+@keyframes dropdownFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.dropdown-item {
+  display: block;
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border: none;
+  background: none;
+  color: #495057;
+  font-size: 0.75rem;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  white-space: nowrap;
+}
+
+.dropdown-item:hover {
+  background-color: #f8f9fa;
+}
+
+.dropdown-item:disabled {
+  color: #6c757d;
+  cursor: not-allowed;
+  background-color: #f8f9fa;
 }
 
 .action-btn::before {
@@ -1751,8 +1960,8 @@
 
 .action-btn:hover {
   background: linear-gradient(135deg, #5a6fd8, #6b46c1);
-  transform: translateY(-2px) scale(1.05);
-  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(102, 126, 234, 0.5);
 }
 
 /* 更新时间按钮特殊样式 */
@@ -1781,20 +1990,21 @@
 }
 
 .page-btn {
-  padding: 1rem 1.25rem;
+  padding: 0.75rem 1rem;
   border: 2px solid #e2e8f0;
   background: linear-gradient(135deg, #ffffff, #f8fafc);
   color: #4a5568;
-  border-radius: 12px;
+  border-radius: 8px;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   font-weight: 600;
-  min-width: 48px;
+  min-width: 44px;
+  height: 44px;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
   position: relative;
   overflow: hidden;
 }
@@ -1817,8 +2027,8 @@
 .page-btn:hover:not(:disabled) {
   background: linear-gradient(135deg, #f7fafc, #edf2f7);
   border-color: #667eea;
-  transform: translateY(-2px) scale(1.05);
-  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.2);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
 }
 
 .page-btn:disabled {
@@ -1880,8 +2090,9 @@
   .action-btn {
     padding: 0.4rem 0.7rem;
     font-size: 0.75rem;
-    min-width: 70px;
-    max-width: 90px;
+    min-width: 65px;
+    max-width: 85px;
+    height: 30px;
   }
 }
 
@@ -1906,54 +2117,59 @@
   }
   
   /* 表格列宽调整 */
-  .file-table th:nth-child(1), .file-table td:nth-child(1) { /* NID */
-    width: 6%;
-    min-width: 55px;
+  .file-table th:nth-child(1), .file-table td:nth-child(1) { /* 复选框 */
+    width: 3%;
+    min-width: 40px;
   }
   
-  .file-table th:nth-child(2), .file-table td:nth-child(2) { /* 名称 */
-    width: 28%;
+  .file-table th:nth-child(2), .file-table td:nth-child(2) { /* NID */
+    width: 8%;
+    min-width: 60px;
+  }
+  
+  .file-table th:nth-child(3), .file-table td:nth-child(3) { /* 名称 */
+    width: 25%;
     min-width: 180px;
   }
   
-  .file-table th:nth-child(3), .file-table td:nth-child(3) { /* 处理状态 */
-    width: 7%;
-    min-width: 60px;
-  }
-  
-  .file-table th:nth-child(4), .file-table td:nth-child(4) { /* 切片数量 */
-    width: 5%;
-    min-width: 45px;
-  }
-  
-  .file-table th:nth-child(5), .file-table td:nth-child(5) { /* 文件类型 */
-    width: 5%;
-    min-width: 45px;
-  }
-  
-  .file-table th:nth-child(6), .file-table td:nth-child(6) { /* 文档状态 */
-    width: 5%;
-    min-width: 45px;
-  }
-  
-  .file-table th:nth-child(7), .file-table td:nth-child(7) { /* 处理时间 */
-    width: 6%;
-    min-width: 60px;
-  }
-  
-  .file-table th:nth-child(8), .file-table td:nth-child(8) { /* 更新时间 */
+  .file-table th:nth-child(4), .file-table td:nth-child(4) { /* 处理状态 */
     width: 8%;
+    min-width: 60px;
+  }
+  
+  .file-table th:nth-child(5), .file-table td:nth-child(5) { /* 切片数量 */
+    width: 6%;
+    min-width: 45px;
+  }
+  
+  .file-table th:nth-child(6), .file-table td:nth-child(6) { /* 文件类型 */
+    width: 6%;
+    min-width: 45px;
+  }
+  
+  .file-table th:nth-child(7), .file-table td:nth-child(7) { /* 文档状态 */
+    width: 6%;
+    min-width: 45px;
+  }
+  
+  .file-table th:nth-child(8), .file-table td:nth-child(8) { /* 处理时间 */
+    width: 8%;
+    min-width: 60px;
+  }
+  
+  .file-table th:nth-child(9), .file-table td:nth-child(9) { /* 更新时间 */
+    width: 10%;
     min-width: 80px;
   }
   
-  .file-table th:nth-child(9), .file-table td:nth-child(9) { /* 最近处理开始时间 */
-    width: 10%;
+  .file-table th:nth-child(10), .file-table td:nth-child(10) { /* 最新数据处理时间 */
+    width: 12%;
     min-width: 100px;
   }
   
-  .file-table th:nth-child(10), .file-table td:nth-child(10) { /* 操作 */
-    width: 15%;
-    min-width: 140px;
+  .file-table th:nth-child(11), .file-table td:nth-child(11) { /* 操作 */
+    width: 10%;
+    min-width: 160px;
   }
 }
 
@@ -2002,62 +2218,68 @@
   }
   
   /* 表格列宽进一步调整 */
-  .file-table th:nth-child(1), .file-table td:nth-child(1) { /* NID */
-    width: 5%;
-    min-width: 45px;
+  .file-table th:nth-child(1), .file-table td:nth-child(1) { /* 复选框 */
+    width: 3%;
+    min-width: 40px;
   }
   
-  .file-table th:nth-child(2), .file-table td:nth-child(2) { /* 名称 */
+  .file-table th:nth-child(2), .file-table td:nth-child(2) { /* NID */
+    width: 8%;
+    min-width: 60px;
+  }
+  
+  .file-table th:nth-child(3), .file-table td:nth-child(3) { /* 名称 */
     width: 25%;
     min-width: 140px;
   }
   
-  .file-table th:nth-child(3), .file-table td:nth-child(3) { /* 处理状态 */
-    width: 6%;
-    min-width: 50px;
-  }
-  
-  .file-table th:nth-child(4), .file-table td:nth-child(4) { /* 切片数量 */
-    width: 4%;
-    min-width: 40px;
-  }
-  
-  .file-table th:nth-child(5), .file-table td:nth-child(5) { /* 文件类型 */
-    width: 4%;
-    min-width: 40px;
-  }
-  
-  .file-table th:nth-child(6), .file-table td:nth-child(6) { /* 文档状态 */
-    width: 4%;
-    min-width: 40px;
-  }
-  
-  .file-table th:nth-child(7), .file-table td:nth-child(7) { /* 处理时间 */
-    width: 5%;
-    min-width: 50px;
-  }
-  
-  .file-table th:nth-child(8), .file-table td:nth-child(8) { /* 更新时间 */
+  .file-table th:nth-child(4), .file-table td:nth-child(4) { /* 处理状态 */
     width: 8%;
+    min-width: 50px;
+  }
+  
+  .file-table th:nth-child(5), .file-table td:nth-child(5) { /* 切片数量 */
+    width: 6%;
+    min-width: 40px;
+  }
+  
+  .file-table th:nth-child(6), .file-table td:nth-child(6) { /* 文件类型 */
+    width: 6%;
+    min-width: 40px;
+  }
+  
+  .file-table th:nth-child(7), .file-table td:nth-child(7) { /* 文档状态 */
+    width: 6%;
+    min-width: 40px;
+  }
+  
+  .file-table th:nth-child(8), .file-table td:nth-child(8) { /* 处理时间 */
+    width: 8%;
+    min-width: 50px;
+  }
+  
+  .file-table th:nth-child(9), .file-table td:nth-child(9) { /* 更新时间 */
+    width: 10%;
     min-width: 70px;
   }
   
-  .file-table th:nth-child(9), .file-table td:nth-child(9) { /* 最近处理开始时间 */
-    width: 8%;
+  .file-table th:nth-child(10), .file-table td:nth-child(10) { /* 最新数据处理时间 */
+    width: 12%;
     min-width: 80px;
   }
   
-  .file-table th:nth-child(10), .file-table td:nth-child(10) { /* 操作 */
-    width: 15%;
-    min-width: 120px;
+  .file-table th:nth-child(11), .file-table td:nth-child(11) { /* 操作 */
+    width: 10%;
+    min-width: 160px;
   }
   
   .action-btn {
-    padding: 0.3rem 0.5rem;
+    padding: 0.35rem 0.5rem;
     font-size: 0.65rem;
-    margin: 0.02rem;
-    min-width: 50px;
-    max-width: 70px;
+    margin: 0.05rem;
+    min-width: 55px;
+    max-width: 75px;
+    height: 28px;
   }
   
   .pagination {
@@ -2166,8 +2388,8 @@
   }
   
   .file-table th:nth-child(10), .file-table td:nth-child(10) { /* 操作 */
-    width: 15%;
-    min-width: 100px;
+    width: 18%;
+    min-width: 140px;
   }
   
   .status-badge {
@@ -2177,11 +2399,12 @@
   }
   
   .action-btn {
-    padding: 0.25rem 0.4rem;
+    padding: 0.3rem 0.4rem;
     font-size: 0.6rem;
-    margin: 0.01rem;
-    min-width: 40px;
-    max-width: 60px;
+    margin: 0.02rem;
+    min-width: 45px;
+    max-width: 65px;
+    height: 26px;
   }
   
   .page-btn {
@@ -2685,9 +2908,11 @@
   
   /* 触摸友好的按钮大小 */
   .action-btn {
-    min-height: 44px; /* iOS 推荐的最小触摸目标 */
-    min-width: 44px;
+    min-height: 40px; /* 移动端优化 */
+    min-width: 50px;
     touch-action: manipulation; /* 防止双击缩放 */
+    padding: 0.4rem 0.6rem;
+    font-size: 0.7rem;
   }
   
   .page-btn {
@@ -2750,8 +2975,10 @@
 @media (max-width: 480px) {
   /* 超小屏幕进一步优化 */
   .action-btn {
-    min-height: 40px;
-    min-width: 40px;
+    min-height: 36px;
+    min-width: 45px;
+    padding: 0.3rem 0.5rem;
+    font-size: 0.65rem;
   }
   
   .page-btn {
@@ -2821,8 +3048,10 @@
   }
   
   .action-btn {
-    padding: 0.3rem 0.5rem;
+    padding: 0.35rem 0.5rem;
     font-size: 0.7rem;
+    min-width: 45px;
+    height: 30px;
   }
 }
 

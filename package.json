@@ -6,13 +6,15 @@
   "scripts": {
     "start": "webpack serve --mode development",
     "start:dev": "node start-dev.js",
-      "start:mock": "set REACT_APP_USE_MOCK=true && webpack serve --mode development",
-      "start:no-mock": "set REACT_APP_USE_MOCK=false && webpack serve --mode development",
+    "start:mock": "set REACT_APP_USE_MOCK=true && webpack serve --mode development",
+    "start:no-mock": "set REACT_APP_USE_MOCK=false && webpack serve --mode development",
     "build": "webpack --mode production"
   },
   "dependencies": {
+    "@types/react-router-dom": "^5.3.3",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^7.9.4"
   },
   "devDependencies": {
     "@babel/core": "^7.22.0",

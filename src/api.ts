@@ -1,6 +1,6 @@
 // API调用相关函数
 
-import { FileListRequest, FileListResponse } from './types';
+import { FileListRequest, FileListResponse, FileDetailRequest, FileDetailResponse } from './types';
 
 // 直接使用相对路径，通过代理处理
 const getApiBaseUrl = () => {
@@ -132,6 +132,48 @@ export const retryFileProcessing = async (params: RetryRequest): Promise<RetryRe
   }
 };
 
+// 重置文件状态接口
+export interface ResetRequest {
+  nid: string[];
+}
+
+export interface ResetResponse {
+  message: string;
+  nid_num: number;
+}
+
+export const resetFileStatus = async (params: ResetRequest): Promise<ResetResponse> => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/tasks/reset`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(params),
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    
+    // 适配后端接口格式，确保返回正确的结构
+    if (data.message && typeof data.nid_num === 'number') {
+      return {
+        message: data.message,
+        nid_num: data.nid_num
+      };
+    }
+    
+    // 如果数据结构不符合预期，抛出错误
+    throw new Error('Invalid response format for reset');
+  } catch (error) {
+    console.error('Error resetting file status:', error);
+    throw error;
+  }
+};
+
 
 // 数据同步
 export const pullData = async (): Promise<void> => {
@@ -205,6 +247,39 @@ export const handleUpdateTime = async (params: UpdateTimeRequest): Promise<Updat
     throw new Error('Invalid response format for update time');
   } catch (error) {
     console.error('Error updating time:', error);
+    throw error;
+  }
+};
+
+// 文件详情片段查询
+export const fetchFileDetails = async (params: FileDetailRequest): Promise<FileDetailResponse> => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/doc/detail/list`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(params),
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    
+    // 适配后端接口格式，确保返回正确的结构
+    if (data.data && typeof data.total === 'number') {
+      return {
+        data: data.data,
+        total: data.total
+      };
+    }
+    
+    // 如果数据结构不符合预期，抛出错误
+    throw new Error('Invalid response format for file details');
+  } catch (error) {
+    console.error('Error fetching file details:', error);
     throw error;
   }
 };
