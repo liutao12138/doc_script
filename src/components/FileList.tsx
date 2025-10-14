@@ -50,7 +50,6 @@ const FileList: React.FC = () => {
   const [selectedFiles, setSelectedFiles] = useState<string[]>([]);
   
   // 批量重置相关状态
-  const [showBatchResetConfirm, setShowBatchResetConfirm] = useState<boolean>(false);
   const [showSelectedResetConfirm, setShowSelectedResetConfirm] = useState<boolean>(false);
   
   // 表格行勾选相关状态
@@ -380,47 +379,7 @@ const FileList: React.FC = () => {
     setShowBatchRetryConfirm(false);
   };
 
-  // 批量重置函数 - 根据当前筛选的文件类型
-  const handleBatchReset = async () => {
-    try {
-      setLoading(true);
-      
-      // 调用重置API，传入当前筛选的文件类型
-      const response = await resetFileStatus({
-        file_type: filters.file_type
-      });
-      
-      // 检查响应是否成功
-      if (response.message && response.nid_num !== undefined) {
-        console.log(`批量重置成功，共重置 ${response.nid_num} 个文件`);
-        if (response.nid_num > 0) {
-          showSuccess(`批量重置成功！共重置 ${response.nid_num} 个文件，已重置为待处理状态...`);
-        } else {
-          showSuccess(`批量重置完成！当前筛选条件下没有需要重置的文件。`);
-        }
-        
-        // 关闭确认对话框
-        closeBatchResetConfirm();
-      } else {
-        throw new Error(response.message || '批量重置失败');
-      }
-    } catch (error) {
-      console.error('批量重置失败:', error);
-      showError('批量重置失败，请稍后重试');
-    } finally {
-      setLoading(false);
-    }
-  };
 
-  // 打开批量重置确认对话框
-  const openBatchResetConfirm = () => {
-    setShowBatchResetConfirm(true);
-  };
-
-  // 关闭批量重置确认对话框
-  const closeBatchResetConfirm = () => {
-    setShowBatchResetConfirm(false);
-  };
 
   // 表格行勾选相关函数
   const handleRowCheck = (fileId: string, checked: boolean) => {
@@ -749,13 +708,6 @@ const FileList: React.FC = () => {
                   >
                     批量重试选中类型
                   </button>
-                  <button 
-                    onClick={openBatchResetConfirm}
-                    className="batch-reset-btn"
-                    disabled={filters.file_type.length === 0 || loading}
-                  >
-                    批量重置选中类型
-                  </button>
                 </div>
                 <div className="batch-operation-hint">
                   请先在上方选择要操作的文件类型
@@ -1057,43 +1009,6 @@ const FileList: React.FC = () => {
       </div>
     )}
 
-    {/* 批量重置确认对话框 */}
-    {showBatchResetConfirm && (
-      <div className="modal-overlay" onClick={closeBatchResetConfirm}>
-        <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-          <div className="modal-header">
-            <h3>确认批量重置</h3>
-            <button className="modal-close" onClick={closeBatchResetConfirm}>×</button>
-          </div>
-          <div className="modal-body">
-            <p>
-              确定要重置所有已选择文件类型的文件吗？
-              <br />
-              已选择的文件类型：{filters.file_type.join(', ')}
-            </p> 
-            <div className="warning-message">
-              ⚠️ 批量重置将把所有文件状态重置为待处理状态，请谨慎操作。
-            </div>
-          </div>
-          <div className="modal-footer">
-            <button 
-              className="btn btn-secondary" 
-              onClick={closeBatchResetConfirm}
-              disabled={loading}
-            >
-              取消
-            </button>
-            <button 
-              className="btn btn-primary" 
-              onClick={handleBatchReset}
-              disabled={loading}
-            >
-              {loading ? '重置中...' : '确认重置'}
-            </button>
-          </div>
-        </div>
-      </div>
-    )}
 
     {/* 勾选行重试确认对话框 */}
     {showSelectedRetryConfirm && (
