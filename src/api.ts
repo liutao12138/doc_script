@@ -134,7 +134,8 @@ export const retryFileProcessing = async (params: RetryRequest): Promise<RetryRe
 
 // 重置文件状态接口
 export interface ResetRequest {
-  nid: string[];
+  nid?: string[];
+  file_type?: string[];
 }
 
 export interface ResetResponse {
@@ -144,7 +145,7 @@ export interface ResetResponse {
 
 export const resetFileStatus = async (params: ResetRequest): Promise<ResetResponse> => {
   try {
-    const response = await fetch(`${API_BASE_URL}/tasks/reset`, {
+    const response = await fetch(`${API_BASE_URL}/doc/reset/status`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

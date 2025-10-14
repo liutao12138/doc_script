@@ -344,53 +344,70 @@ module.exports = {
         });
 
         // 重置文件状态 API
-        devServer.app.post('/api/tasks/reset', (req, res) => {
+        devServer.app.post('/api/doc/reset/status', (req, res) => {
           console.log('[MOCK] 收到重置请求:', req.body);
 
           setTimeout(() => {
-            const { nid } = req.body;
+            const { nid, file_type } = req.body;
 
-            if (!nid || !Array.isArray(nid) || nid.length === 0) {
-              return res.json({
-                message: '参数错误：nid 必须是非空数组',
-                nid_num: 0
-              });
-            }
-
-            // 检查文件是否存在且状态允许重置
-            const validFiles = [];
-            const invalidFiles = [];
+            // 支持按文件ID或文件类型重置
+            let validFiles = [];
+            let invalidFiles = [];
             const statusNames = { 0: '待处理', 1: '处理中', 2: '已完成', 3: '已拒绝' };
 
-            nid.forEach(fileId => {
-              const fileIndex = mockData.findIndex(item => item.nid === fileId);
-              if (fileIndex === -1) {
-                invalidFiles.push({
-                  nid: fileId,
-                  reason: '文件不存在'
-                });
-              } else {
-                const file = mockData[fileIndex];
-                const currentStatus = statusNames[file.handle_status];
-
-                if (file.handle_status === 0) {
+            if (nid && Array.isArray(nid) && nid.length > 0) {
+              // 按文件ID重置
+              nid.forEach(fileId => {
+                const fileIndex = mockData.findIndex(item => item.nid === fileId);
+                if (fileIndex === -1) {
                   invalidFiles.push({
                     nid: fileId,
-                    reason: `文件已经是待处理状态，无需重置（当前状态: ${currentStatus}）`
+                    reason: '文件不存在'
                   });
                 } else {
+                  const file = mockData[fileIndex];
+                  const currentStatus = statusNames[file.handle_status];
+
+                  if (file.handle_status === 0) {
+                    invalidFiles.push({
+                      nid: fileId,
+                      reason: `文件已经是待处理状态，无需重置（当前状态: ${currentStatus}）`
+                    });
+                  } else {
+                    validFiles.push({
+                      nid: fileId,
+                      index: fileIndex,
+                      currentStatus: currentStatus
+                    });
+                    // 将文件状态重置为待处理
+                    mockData[fileIndex].handle_status = 0;
+                    mockData[fileIndex].handle_time = new Date().toISOString().replace('T', ' ').substring(0, 19);
+                    mockData[fileIndex].handle_user = '系统';
+                  }
+                }
+              });
+            } else if (file_type && Array.isArray(file_type) && file_type.length > 0) {
+              // 按文件类型重置
+              mockData.forEach((file, index) => {
+                if (file_type.includes(file.file_type) && file.handle_status !== 0) {
+                  const currentStatus = statusNames[file.handle_status];
                   validFiles.push({
-                    nid: fileId,
-                    index: fileIndex,
+                    nid: file.nid,
+                    index: index,
                     currentStatus: currentStatus
                   });
                   // 将文件状态重置为待处理
-                  mockData[fileIndex].handle_status = 0;
-                  mockData[fileIndex].handle_time = new Date().toISOString().replace('T', ' ').substring(0, 19);
-                  mockData[fileIndex].handle_user = '系统';
+                  mockData[index].handle_status = 0;
+                  mockData[index].handle_time = new Date().toISOString().replace('T', ' ').substring(0, 19);
+                  mockData[index].handle_user = '系统';
                 }
-              }
-            });
+              });
+            } else {
+              return res.json({
+                message: '参数错误：必须提供 nid 或 file_type 参数',
+                nid_num: 0
+              });
+            }
 
             if (validFiles.length === 0) {
               return res.json({

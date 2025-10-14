@@ -6,12 +6,14 @@ import rehypeHighlight from 'rehype-highlight';
 import { FileDetailItem, FileDetailRequest } from '../types';
 import { fetchFileDetails } from '../api';
 import ToastContainer, { useToast } from './ToastContainer';
+import { useFileListContext } from '../contexts/FileListContext';
 import './FileDetailList.css';
 import 'highlight.js/styles/github.css';
 
 const FileDetailList: React.FC = () => {
   const { nid } = useParams<{ nid: string }>();
   const navigate = useNavigate();
+  const { restoreState } = useFileListContext();
   const [details, setDetails] = useState<FileDetailItem[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
@@ -113,6 +115,8 @@ const FileDetailList: React.FC = () => {
 
   // 返回文件列表
   const handleBack = () => {
+    // 恢复保存的搜索条件
+    restoreState();
     navigate('/');
   };
 

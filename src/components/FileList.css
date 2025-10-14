@@ -1683,8 +1683,8 @@
   content: '❌';
 }
 
-/* 批量重试区域样式 */
-.batch-retry-section {
+/* 批量操作区域样式 */
+.batch-operations-section {
   margin-top: 1.2rem;
   padding: 1.2rem;
   background: linear-gradient(135deg, #f8fafc, #e2e8f0);
@@ -1692,20 +1692,20 @@
   border: 1px solid #cbd5e1;
 }
 
-.batch-retry-section h3 {
+.batch-operations-section h3 {
   margin: 0 0 0.8rem 0;
   color: #1e293b;
   font-size: 1rem;
   font-weight: 600;
 }
 
-.batch-retry-controls {
+.batch-operations-controls {
   display: flex;
   gap: 1.5rem;
   flex-wrap: wrap;
 }
 
-.batch-retry-group {
+.batch-operation-group {
   display: flex;
   align-items: center;
   gap: 0.6rem;
@@ -1713,15 +1713,21 @@
   min-width: 280px;
 }
 
-.batch-retry-group label {
+.batch-buttons {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.batch-operation-group label {
   font-weight: 500;
   color: #374151;
   white-space: nowrap;
   min-width: 100px;
 }
 
-.batch-retry-group select,
-.batch-retry-group input {
+.batch-operation-group select,
+.batch-operation-group input {
   flex: 1;
   padding: 0.4rem 0.6rem;
   border: 1px solid #d1d5db;
@@ -1731,8 +1737,8 @@
   transition: border-color 0.2s ease;
 }
 
-.batch-retry-group select:focus,
-.batch-retry-group input:focus {
+.batch-operation-group select:focus,
+.batch-operation-group input:focus {
   outline: none;
   border-color: #3b82f6;
   box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
@@ -1758,6 +1764,33 @@
 }
 
 .batch-retry-btn:disabled {
+  background: #9ca3af;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.batch-reset-btn {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  color: white;
+  border: none;
+  padding: 0.4rem 0.8rem;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  margin-left: 0.5rem;
+}
+
+.batch-reset-btn:hover:not(:disabled) {
+  background: linear-gradient(135deg, #d97706, #b45309);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(245, 158, 11, 0.3);
+}
+
+.batch-reset-btn:disabled {
   background: #9ca3af;
   cursor: not-allowed;
   transform: none;
@@ -1794,7 +1827,7 @@
   box-shadow: none;
 }
 
-.batch-retry-hint {
+.batch-operation-hint {
   font-size: 0.875rem;
   color: #6b7280;
   margin-top: 0.5rem;
@@ -3181,6 +3214,37 @@
   transform: none;
 }
 
+.selected-reset-btn {
+  padding: 8px 16px;
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+  margin-right: 0.5rem;
+}
+
+.selected-reset-btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+  background: linear-gradient(135deg, #d97706, #b45309);
+}
+
+.selected-reset-btn:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.selected-reset-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
 .clear-selection-btn {
   padding: 8px 16px;
   background: linear-gradient(135deg, #ed8936, #dd6b20);
@@ -3253,6 +3317,7 @@
   }
   
   .selected-retry-btn,
+  .selected-reset-btn,
   .clear-selection-btn {
     width: 100%;
     text-align: center;
