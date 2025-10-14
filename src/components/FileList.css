@@ -2932,3 +2932,164 @@
     transform: none;
   }
 }
+
+/* 表格勾选功能样式 */
+.file-list-stats {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.stats-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.selected-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 1rem;
+  background: linear-gradient(135deg, #e6fffa, #f0fff4);
+  border-radius: 8px;
+  border: 1px solid #68d391;
+}
+
+.selected-info {
+  color: #2d3748;
+  font-weight: 500;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.selected-retry-btn {
+  padding: 8px 16px;
+  background: linear-gradient(135deg, #48bb78, #38a169);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.selected-retry-btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(72, 187, 120, 0.3);
+  background: linear-gradient(135deg, #38a169, #2f855a);
+}
+
+.selected-retry-btn:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.selected-retry-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.clear-selection-btn {
+  padding: 8px 16px;
+  background: linear-gradient(135deg, #ed8936, #dd6b20);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.clear-selection-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(237, 137, 54, 0.3);
+  background: linear-gradient(135deg, #dd6b20, #c05621);
+}
+
+.clear-selection-btn:active {
+  transform: translateY(0);
+}
+
+/* 表格勾选框样式 */
+.file-table th:first-child,
+.file-table td:first-child {
+  width: 50px;
+  text-align: center;
+  padding: 0.75rem 0.5rem;
+}
+
+.file-table th:first-child input,
+.file-table td:first-child input {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  accent-color: #667eea;
+  transform: scale(1.1);
+  transition: all 0.2s ease;
+}
+
+.file-table th:first-child input:hover,
+.file-table td:first-child input:hover {
+  transform: scale(1.2);
+  accent-color: #5a67d8;
+}
+
+.file-table th:first-child input:focus,
+.file-table td:first-child input:focus {
+  outline: 2px solid #667eea;
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* 勾选行高亮效果 */
+.file-table tbody tr:has(input:checked) {
+  background: linear-gradient(135deg, #f0fff4, #e6fffa);
+  border-left: 3px solid #48bb78;
+}
+
+.file-table tbody tr:has(input:checked) td {
+  border-color: rgba(72, 187, 120, 0.2);
+}
+
+/* 移动端勾选框优化 */
+@media (max-width: 768px) {
+  .selected-actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.5rem;
+  }
+  
+  .selected-retry-btn,
+  .clear-selection-btn {
+    width: 100%;
+    text-align: center;
+  }
+  
+  .stats-actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+  }
+  
+  .file-table th:first-child,
+  .file-table td:first-child {
+    width: 40px;
+    padding: 0.5rem 0.25rem;
+  }
+  
+  .file-table th:first-child input,
+  .file-table td:first-child input {
+    width: 16px;
+    height: 16px;
+  }
+}

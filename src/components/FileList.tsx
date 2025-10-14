@@ -26,6 +26,10 @@ const FileList: React.FC = () => {
   // 批量重试相关状态
   const [showBatchRetryConfirm, setShowBatchRetryConfirm] = useState<boolean>(false);
   const [selectedFiles, setSelectedFiles] = useState<string[]>([]);
+  
+  // 表格行勾选相关状态
+  const [checkedRows, setCheckedRows] = useState<Set<string>>(new Set());
+  const [showSelectedRetryConfirm, setShowSelectedRetryConfirm] = useState<boolean>(false);
 
   const [filters, setFilters] = useState<SearchFilters>({
     nid: '',
@@ -409,6 +413,90 @@ const FileList: React.FC = () => {
     setShowBatchRetryConfirm(false);
   };
 
+  // 表格行勾选相关函数
+  const handleRowCheck = (fileId: string, checked: boolean) => {
+    setCheckedRows(prev => {
+      const newSet = new Set(prev);
+      if (checked) {
+        newSet.add(fileId);
+      } else {
+        newSet.delete(fileId);
+      }
+      return newSet;
+    });
+  };
+
+  const handleSelectAll = (checked: boolean) => {
+    if (checked) {
+      const allFileIds = files.map(file => file.nid);
+      setCheckedRows(new Set(allFileIds));
+    } else {
+      setCheckedRows(new Set());
+    }
+  };
+
+  const isAllSelected = () => {
+    return files.length > 0 && checkedRows.size === files.length;
+  };
+
+  const isIndeterminate = () => {
+    return checkedRows.size > 0 && checkedRows.size < files.length;
+  };
+
+  // 勾选行重试函数
+  const handleSelectedRetry = async () => {
+    try {
+      setLoading(true);
+      
+      const selectedNids = Array.from(checkedRows);
+      
+      if (selectedNids.length === 0) {
+        showError('请先选择要重试的文件');
+        return;
+      }
+      
+      // 调用重试API
+      const response = await retryFileProcessing({
+        nid: selectedNids
+      });
+      
+      // 检查响应是否成功
+      if (response.message && response.nid_num !== undefined) {
+        console.log(`勾选行重试成功，共重试 ${response.nid_num} 个文件`);
+        if (response.nid_num > 0) {
+          showSuccess(`勾选行重试成功！共重试 ${response.nid_num} 个文件，正在重新处理中...`);
+        } else {
+          showSuccess(`勾选行重试完成！所选文件中没有需要重试的文件。`);
+        }
+        
+        // 关闭确认对话框并清空勾选
+        setShowSelectedRetryConfirm(false);
+        setCheckedRows(new Set());
+      } else {
+        throw new Error(response.message || '勾选行重试失败');
+      }
+    } catch (error) {
+      console.error('勾选行重试失败:', error);
+      showError('勾选行重试失败，请稍后重试');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // 打开勾选行重试确认对话框
+  const openSelectedRetryConfirm = () => {
+    if (checkedRows.size === 0) {
+      showError('请先选择要重试的文件');
+      return;
+    }
+    setShowSelectedRetryConfirm(true);
+  };
+
+  // 关闭勾选行重试确认对话框
+  const closeSelectedRetryConfirm = () => {
+    setShowSelectedRetryConfirm(false);
+  };
+
   // 移动端tooltip处理
   const [activeTooltip, setActiveTooltip] = useState<string | null>(null);
 
@@ -628,16 +716,42 @@ const FileList: React.FC = () => {
             <div className="file-list-stats">
               <div className="stats-info">
                 共找到 {total} 个文件，当前第 {currentPage} / {totalPages} 页
+                {checkedRows.size > 0 && (
+                  <span className="selected-info">
+                    （已选择 {checkedRows.size} 个文件）
+                  </span>
+                )}
               </div>
-              <button 
-                onClick={() => loadFiles(currentPage)} 
-                className={`refresh-btn ${loading ? 'loading' : ''}`}
-                disabled={loading}
-                title="刷新当前页面数据"
-              >
-                <span className="refresh-icon">🔄</span>
-                {loading ? '刷新中...' : '刷新'}
-              </button>
+              <div className="stats-actions">
+                {checkedRows.size > 0 && (
+                  <div className="selected-actions">
+                    <button 
+                      onClick={openSelectedRetryConfirm}
+                      className="selected-retry-btn"
+                      disabled={loading}
+                      title="重试选中的文件"
+                    >
+                      重试选中文件 ({checkedRows.size})
+                    </button>
+                    <button 
+                      onClick={() => setCheckedRows(new Set())}
+                      className="clear-selection-btn"
+                      title="清空选择"
+                    >
+                      清空选择
+                    </button>
+                  </div>
+                )}
+                <button 
+                  onClick={() => loadFiles(currentPage)} 
+                  className={`refresh-btn ${loading ? 'loading' : ''}`}
+                  disabled={loading}
+                  title="刷新当前页面数据"
+                >
+                  <span className="refresh-icon">🔄</span>
+                  {loading ? '刷新中...' : '刷新'}
+                </button>
+              </div>
             </div>
             
             <div className="file-table-container">
@@ -645,6 +759,17 @@ const FileList: React.FC = () => {
                 <table>
                 <thead>
                   <tr>
+                    <th>
+                      <input
+                        type="checkbox"
+                        checked={isAllSelected()}
+                        ref={(input) => {
+                          if (input) input.indeterminate = isIndeterminate();
+                        }}
+                        onChange={(e) => handleSelectAll(e.target.checked)}
+                        title="全选/取消全选"
+                      />
+                    </th>
                     <th>NID</th>
                     <th>名称</th>
                     <th>处理状态</th>
@@ -661,6 +786,14 @@ const FileList: React.FC = () => {
                   {Array.isArray(files) && files.length > 0 ? (
                     files.map((file) => (
                       <tr key={file.id}>
+                        <td>
+                          <input
+                            type="checkbox"
+                            checked={checkedRows.has(file.nid)}
+                            onChange={(e) => handleRowCheck(file.nid, e.target.checked)}
+                            title="选择此行"
+                          />
+                        </td>
                         <td 
                           title={`NID: ${file.nid}`}
                           onClick={(e) => handleCellClick(e, `NID: ${file.nid}`)}
@@ -772,7 +905,7 @@ const FileList: React.FC = () => {
                     ))
                   ) : (
                     <tr>
-                      <td colSpan={10} style={{ textAlign: 'center', padding: '2rem' }}>
+                      <td colSpan={11} style={{ textAlign: 'center', padding: '2rem' }}>
                         {loading ? '正在加载...' : '暂无数据'}
                       </td>
                     </tr>
@@ -878,6 +1011,42 @@ const FileList: React.FC = () => {
             <button 
               className="btn btn-primary" 
               onClick={handleBatchRetry}
+              disabled={loading}
+            >
+              {loading ? '重试中...' : '确认重试'}
+            </button>
+          </div>
+        </div>
+      </div>
+    )}
+
+    {/* 勾选行重试确认对话框 */}
+    {showSelectedRetryConfirm && (
+      <div className="modal-overlay" onClick={closeSelectedRetryConfirm}>
+        <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+          <div className="modal-header">
+            <h3>确认勾选行重试</h3>
+            <button className="modal-close" onClick={closeSelectedRetryConfirm}>×</button>
+          </div>
+          <div className="modal-body">
+            <p>
+              确定要重试选中的 {checkedRows.size} 个文件吗？
+            </p>
+            <div className="warning-message">
+              ⚠️ 勾选行重试将重新处理选中的文件，已完成的文件将被跳过。
+            </div>
+          </div>
+          <div className="modal-footer">
+            <button 
+              className="btn btn-secondary" 
+              onClick={closeSelectedRetryConfirm}
+              disabled={loading}
+            >
+              取消
+            </button>
+            <button 
+              className="btn btn-primary" 
+              onClick={handleSelectedRetry}
               disabled={loading}
             >
               {loading ? '重试中...' : '确认重试'}
