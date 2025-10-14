@@ -157,6 +157,48 @@ const FileList: React.FC = () => {
     }
   };
 
+  // 使用自定义pageSize加载文件的函数
+  const loadFilesWithPageSize = async (page: number = 1, customPageSize: number) => {
+    setLoading(true);
+    setError(null);
+    
+    try {
+      const params = {
+        ...filters,
+        page,
+        page_size: customPageSize
+      };
+
+      // 过滤空值
+      const cleanParams = Object.fromEntries(
+        Object.entries(params).filter(([_, value]) => 
+          value !== '' && value !== null && value !== undefined && 
+          !(Array.isArray(value) && value.length === 0)
+        )
+      ) as unknown as FileListRequest;
+
+      const response = await fetchFileList(cleanParams);
+      
+      // 确保数据是数组
+      if (response && Array.isArray(response.data)) {
+        setFiles(response.data);
+        setTotal(response.total || 0);
+        setTotalPages(response.total_pages || 0);
+        updateCurrentPage(response.page || 1);
+      } else {
+        console.warn('API 返回的数据格式不正确:', response);
+        setFiles([]);
+        setTotal(0);
+        setTotalPages(0);
+        updateCurrentPage(1);
+      }
+    } catch (err) {
+      setError(err instanceof Error ? err.message : '加载文件列表失败');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
     // 只有在有保存状态时才恢复
     if (hasSavedState) {
@@ -185,7 +227,8 @@ const FileList: React.FC = () => {
   const handlePageSizeChange = (newPageSize: number) => {
     updatePageSize(newPageSize);
     updateCurrentPage(1); // 重置到第一页
-    loadFiles(1);
+    // 使用新的pageSize值调用loadFiles
+    loadFilesWithPageSize(1, newPageSize);
   };
 
 
@@ -281,8 +324,8 @@ const FileList: React.FC = () => {
         nid: [fileId]
       });
       
-      // 检查响应是否成功
-      if (response.message && response.nid_num !== undefined) {
+      // 检查响应是否成功 - status为"0"表示成功
+      if (response.status === "0" && response.message && response.nid_num !== undefined) {
         console.log(`文件 ${fileId} 重置成功`);
         showSuccess('文件状态重置成功！已重置为待处理状态...');
       } else {
@@ -482,8 +525,8 @@ const FileList: React.FC = () => {
         nid: selectedNids
       });
       
-      // 检查响应是否成功
-      if (response.message && response.nid_num !== undefined) {
+      // 检查响应是否成功 - status为"0"表示成功
+      if (response.status === "0" && response.message && response.nid_num !== undefined) {
         console.log(`勾选行重置成功，共重置 ${response.nid_num} 个文件`);
         if (response.nid_num > 0) {
           showSuccess(`勾选行重置成功！共重置 ${response.nid_num} 个文件，已重置为待处理状态...`);

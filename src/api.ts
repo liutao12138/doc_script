@@ -141,6 +141,7 @@ export interface ResetRequest {
 export interface ResetResponse {
   message: string;
   nid_num: number;
+  status: string; // "0" 表示成功，其他值表示失败
 }
 
 export const resetFileStatus = async (params: ResetRequest): Promise<ResetResponse> => {
@@ -160,10 +161,11 @@ export const resetFileStatus = async (params: ResetRequest): Promise<ResetRespon
     const data = await response.json();
     
     // 适配后端接口格式，确保返回正确的结构
-    if (data.message && typeof data.nid_num === 'number') {
+    if (data.message && typeof data.nid_num === 'number' && data.status !== undefined) {
       return {
         message: data.message,
-        nid_num: data.nid_num
+        nid_num: data.nid_num,
+        status: data.status
       };
     }
     
