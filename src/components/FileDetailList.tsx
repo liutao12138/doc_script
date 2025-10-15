@@ -30,12 +30,23 @@ const FileDetailList: React.FC = () => {
   // 将 \n 转换为 Markdown 换行格式
   const formatContentForMarkdown = (content: string): string => {
     if (!content) return '';
-    // 将 \n 转换为 Markdown 的换行格式
-    // 单个 \n 转换为两个空格加换行符（Markdown 换行）
-    // 双 \n 保持为段落分隔
-    return content
-      .replace(/\\n\\n/g, '\n\n')  // 先处理双换行符（段落分隔）
-      .replace(/\\n/g, '  \n');    // 再处理单换行符（换行）
+    
+    // 处理多种换行符格式
+    let formatted = content;
+    
+    // 1. 先处理转义的换行符（字符串形式的 "\\n"）
+    formatted = formatted.replace(/\\n\\n/g, '\n\n');  // 双换行符（段落分隔）
+    formatted = formatted.replace(/\\n/g, '  \n');     // 单换行符（Markdown 换行）
+    
+    // 2. 处理真正的换行符
+    // 将连续的换行符（3个或以上）压缩为双换行符（段落分隔）
+    formatted = formatted.replace(/\n{3,}/g, '\n\n');
+    
+    // 3. 将单个换行符转换为 Markdown 换行（两个空格 + 换行）
+    // 使用更兼容的正则表达式
+    formatted = formatted.replace(/([^\n])\n([^\n])/g, '$1  \n$2');
+    
+    return formatted;
   };
 
   // 加载文件详情数据
