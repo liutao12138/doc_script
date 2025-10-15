@@ -27,6 +27,13 @@ const FileDetailList: React.FC = () => {
   // Toast 管理
   const { toasts, showSuccess, showError, removeToast } = useToast();
 
+  // 将 \n 转换为 Markdown 换行格式
+  const formatContentForMarkdown = (content: string): string => {
+    if (!content) return '';
+    // 将 \n 转换为 Markdown 的双换行符（段落分隔）
+    return content.replace(/\\n/g, '\n\n');
+  };
+
   // 加载文件详情数据
   const loadFileDetails = async (page: number = 1, searchKeyword: string = '') => {
     if (!nid) {
@@ -273,7 +280,7 @@ const FileDetailList: React.FC = () => {
                           em: ({ children }) => <em className="markdown-em">{children}</em>,
                         }}
                       >
-                        {detail.content}
+                        {formatContentForMarkdown(detail.content)}
                       </ReactMarkdown>
                     </div>
                   </div>
@@ -310,7 +317,7 @@ const FileDetailList: React.FC = () => {
                             em: ({ children }) => <em className="markdown-em">{children}</em>,
                           }}
                         >
-                          {detail.operation_procedure_remarks}
+                          {formatContentForMarkdown(detail.operation_procedure_remarks)}
                         </ReactMarkdown>
                       </div>
                     </div>
