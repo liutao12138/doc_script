@@ -190,12 +190,14 @@
   color: #94a3b8;
   cursor: not-allowed;
   transform: none;
+  opacity: 0.6;
 }
 
 .pagination-btn.disabled:hover {
   background: #f8fafc;
   border-color: #e2e8f0;
   transform: none;
+  opacity: 0.6;
 }
 
 /* 省略号按钮 */
@@ -267,47 +269,130 @@
   color: #94a3b8;
 }
 
+.pagination-jump-input:disabled {
+  background: #f8fafc;
+  border-color: #e2e8f0;
+  color: #94a3b8;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
 /* 响应式设计 */
 @media (max-width: 768px) {
   .pagination-container {
     flex-direction: column;
     align-items: stretch;
     gap: 16px;
+    padding: 16px 0;
   }
 
   .pagination-controls {
     justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
   }
 
   .pagination-pages {
     flex-wrap: wrap;
     justify-content: center;
+    gap: 4px;
   }
 
   .pagination-jump {
     justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  /* 移动端按钮优化 */
+  .pagination-btn {
+    min-width: 40px;
+    height: 40px;
+    font-size: 14px;
+    touch-action: manipulation;
+  }
+
+  .pagination-btn:active {
+    transform: scale(0.95);
+    transition: transform 0.1s ease;
+  }
+
+  /* 移动端下拉框优化 */
+  .pagination-select-trigger {
+    min-width: 100px;
+    padding: 10px 12px;
+    font-size: 14px;
+  }
+
+  .pagination-select-options {
+    max-height: 150px;
+  }
+
+  .pagination-select-option {
+    padding: 12px;
+    font-size: 14px;
+  }
+
+  /* 移动端输入框优化 */
+  .pagination-jump-input {
+    width: 70px;
+    height: 40px;
+    font-size: 14px;
   }
 }
 
 @media (max-width: 480px) {
+  .pagination-container {
+    padding: 12px 0;
+    gap: 12px;
+  }
+
   .pagination-page-size {
     justify-content: center;
+    flex-wrap: wrap;
+    gap: 6px;
   }
 
   .pagination-info {
     text-align: center;
+    font-size: 13px;
   }
 
   .pagination-btn {
-    min-width: 32px;
-    height: 32px;
+    min-width: 36px;
+    height: 36px;
     font-size: 13px;
+    padding: 0 6px;
   }
 
   .pagination-jump-input {
-    width: 50px;
-    height: 32px;
+    width: 60px;
+    height: 36px;
     font-size: 13px;
+  }
+
+  .pagination-select-trigger {
+    min-width: 80px;
+    padding: 8px 10px;
+    font-size: 13px;
+  }
+
+  .pagination-select-option {
+    padding: 10px;
+    font-size: 13px;
+  }
+
+  /* 超小屏幕隐藏部分页码 */
+  .pagination-pages {
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .pagination-pages::-webkit-scrollbar {
+    display: none;
   }
 }
 

@@ -77,13 +77,32 @@ module.exports = {
       devServer.app.use(bodyParser.json());
       devServer.app.use(bodyParser.urlencoded({ extended: true }));
 
-      // 加载mock数据（无论是否启用mock都要加载，用于调试）
+      // 加载mock数据生成器
+      let mockDataGenerator = null;
       let mockData = null;
       try {
-        mockData = require('./src/mock/mockData.json');
-        console.log('[MOCK] Mock数据加载成功，记录数:', mockData.length);
+        mockDataGenerator = require('./src/mock/mockDataGenerator.js');
+        // 生成大量测试数据用于分页测试
+        mockData = mockDataGenerator.generateMockData(500); // 生成500条数据
+        console.log('[MOCK] Mock数据生成成功，记录数:', mockData.length);
+        console.log('[MOCK] 数据分布统计:');
+        const statusCount = {};
+        const typeCount = {};
+        mockData.forEach(item => {
+          statusCount[item.handle_status] = (statusCount[item.handle_status] || 0) + 1;
+          typeCount[item.file_type[0]] = (typeCount[item.file_type[0]] || 0) + 1;
+        });
+        console.log('[MOCK] 处理状态分布:', statusCount);
+        console.log('[MOCK] 文件类型分布:', typeCount);
       } catch (error) {
-        console.error('[MOCK] 加载Mock数据失败:', error.message);
+        console.error('[MOCK] 加载Mock数据生成器失败:', error.message);
+        // 回退到静态数据
+        try {
+          mockData = require('./src/mock/mockData.json');
+          console.log('[MOCK] 使用静态Mock数据，记录数:', mockData.length);
+        } catch (staticError) {
+          console.error('[MOCK] 加载静态Mock数据也失败:', staticError.message);
+        }
       }
 
       // 只有在启用mock时才注册mock端点
@@ -156,7 +175,7 @@ module.exports = {
 
             console.log(`[MOCK] 返回数据: ${paginatedData.length} 条记录，共 ${filteredData.length} 条`);
             res.json(response);
-          }, Math.random() * 500 + 200); // 200-700ms 随机延迟
+          }, Math.random() * 800 + 300); // 300-1100ms 随机延迟，模拟真实网络请求
         });
 
         // 重试文件处理 API
@@ -570,7 +589,7 @@ module.exports = {
               data: paginatedDetails,
               total: mockDetails.length
             });
-          }, Math.random() * 500 + 200); // 200-700ms 随机延迟
+          }, Math.random() * 600 + 200); // 200-800ms 随机延迟，模拟文件详情查询
         });
       } // 结束 useMock 条件块
 

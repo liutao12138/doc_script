@@ -9,6 +9,7 @@ interface PaginationProps {
   onPageChange: (page: number) => void;
   onPageSizeChange: (pageSize: number) => void;
   pageSizeOptions?: number[];
+  disabled?: boolean;
 }
 
 const Pagination: React.FC<PaginationProps> = ({
@@ -18,7 +19,8 @@ const Pagination: React.FC<PaginationProps> = ({
   totalItems,
   onPageChange,
   onPageSizeChange,
-  pageSizeOptions = [10, 20, 50, 100]
+  pageSizeOptions = [10, 20, 50, 100],
+  disabled = false
 }) => {
   const [showPageSizeDropdown, setShowPageSizeDropdown] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -29,19 +31,26 @@ const Pagination: React.FC<PaginationProps> = ({
 
   // 处理页面跳转
   const handlePageChange = (page: number) => {
-    if (page >= 1 && page <= totalPages && page !== currentPage) {
-      onPageChange(page);
+    if (disabled || page < 1 || page > totalPages || page === currentPage) {
+      return;
     }
+    onPageChange(page);
   };
 
   // 处理每页显示数量变化
   const handlePageSizeChange = (newPageSize: number) => {
+    if (disabled) {
+      return;
+    }
     onPageSizeChange(newPageSize);
     setShowPageSizeDropdown(false);
   };
 
   // 处理下拉框切换
   const toggleDropdown = () => {
+    if (disabled) {
+      return;
+    }
     setShowPageSizeDropdown(!showPageSizeDropdown);
   };
 
@@ -156,9 +165,9 @@ const Pagination: React.FC<PaginationProps> = ({
         {/* 上一页按钮 */}
         <button
           type="button"
-          className={`pagination-btn pagination-prev ${currentPage === 1 ? 'disabled' : ''}`}
+          className={`pagination-btn pagination-prev ${currentPage === 1 || disabled ? 'disabled' : ''}`}
           onClick={() => handlePageChange(currentPage - 1)}
-          disabled={currentPage === 1}
+          disabled={currentPage === 1 || disabled}
           aria-label="上一页"
         >
           <span className="pagination-btn-icon">‹</span>
@@ -172,9 +181,9 @@ const Pagination: React.FC<PaginationProps> = ({
               type="button"
               className={`pagination-btn pagination-page ${
                 page === currentPage ? 'active' : ''
-              } ${page === '...' ? 'ellipsis' : ''}`}
+              } ${page === '...' ? 'ellipsis' : ''} ${disabled ? 'disabled' : ''}`}
               onClick={() => typeof page === 'number' && handlePageChange(page)}
-              disabled={page === '...'}
+              disabled={page === '...' || disabled}
               aria-label={page === '...' ? '更多页面' : `第 ${page} 页`}
               aria-current={page === currentPage ? 'page' : undefined}
             >
@@ -186,9 +195,9 @@ const Pagination: React.FC<PaginationProps> = ({
         {/* 下一页按钮 */}
         <button
           type="button"
-          className={`pagination-btn pagination-next ${currentPage === totalPages ? 'disabled' : ''}`}
+          className={`pagination-btn pagination-next ${currentPage === totalPages || disabled ? 'disabled' : ''}`}
           onClick={() => handlePageChange(currentPage + 1)}
-          disabled={currentPage === totalPages}
+          disabled={currentPage === totalPages || disabled}
           aria-label="下一页"
         >
           <span className="pagination-btn-icon">›</span>
@@ -205,8 +214,9 @@ const Pagination: React.FC<PaginationProps> = ({
           max={totalPages}
           value=""
           placeholder={currentPage.toString()}
+          disabled={disabled}
           onKeyDown={(e) => {
-            if (e.key === 'Enter') {
+            if (e.key === 'Enter' && !disabled) {
               const target = e.target as HTMLInputElement;
               const page = parseInt(target.value);
               if (page >= 1 && page <= totalPages) {

@@ -1006,10 +1006,51 @@
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.2);
   min-width: 100%;
+  min-height: 600px; /* 设置最小高度，防止数据加载时高度变化 */
+  position: relative;
 }
 
 .file-table {
   min-width: 1200px; /* 确保表格有最小宽度 */
+}
+
+/* 页面切换覆盖层样式 */
+.page-changing-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(5px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  z-index: 10;
+  border-radius: 20px;
+  animation: fadeIn 0.3s ease;
+}
+
+.page-changing-spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #e2e8f0;
+  border-top: 4px solid #667eea;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.page-changing-overlay span {
+  color: #4a5568;
+  font-size: 1rem;
+  font-weight: 500;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .file-table table {

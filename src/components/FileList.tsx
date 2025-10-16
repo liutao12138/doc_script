@@ -31,6 +31,10 @@ const FileList: React.FC = () => {
   const [total, setTotal] = useState<number>(0);
   const [apiStatus, setApiStatus] = useState<string>('检查中...');
   
+  // 滚动位置保持相关状态
+  const [scrollPosition, setScrollPosition] = useState<number>(0);
+  const [isPageChanging, setIsPageChanging] = useState<boolean>(false);
+  
   // 分页配置
   const paginationConfig: PaginationConfig = {
     pageSize,
@@ -119,6 +123,11 @@ const FileList: React.FC = () => {
   const loadFiles = async (page: number = 1) => {
     setLoading(true);
     setError(null);
+    setIsPageChanging(true);
+    
+    // 保存当前滚动位置
+    const currentScrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+    setScrollPosition(currentScrollPosition);
     
     try {
       const params = {
@@ -154,6 +163,15 @@ const FileList: React.FC = () => {
       setError(err instanceof Error ? err.message : '加载文件列表失败');
     } finally {
       setLoading(false);
+      setIsPageChanging(false);
+      
+      // 恢复滚动位置
+      setTimeout(() => {
+        window.scrollTo({
+          top: currentScrollPosition,
+          behavior: 'smooth'
+        });
+      }, 100);
     }
   };
 
@@ -161,6 +179,11 @@ const FileList: React.FC = () => {
   const loadFilesWithPageSize = async (page: number = 1, customPageSize: number) => {
     setLoading(true);
     setError(null);
+    setIsPageChanging(true);
+    
+    // 保存当前滚动位置
+    const currentScrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+    setScrollPosition(currentScrollPosition);
     
     try {
       const params = {
@@ -196,6 +219,15 @@ const FileList: React.FC = () => {
       setError(err instanceof Error ? err.message : '加载文件列表失败');
     } finally {
       setLoading(false);
+      setIsPageChanging(false);
+      
+      // 恢复滚动位置
+      setTimeout(() => {
+        window.scrollTo({
+          top: currentScrollPosition,
+          behavior: 'smooth'
+        });
+      }, 100);
     }
   };
 
@@ -220,11 +252,21 @@ const FileList: React.FC = () => {
   };
 
   const handlePageChange = (page: number) => {
+    // 防止重复点击
+    if (isPageChanging || loading) {
+      return;
+    }
+    
     updateCurrentPage(page);
     loadFiles(page);
   };
 
   const handlePageSizeChange = (newPageSize: number) => {
+    // 防止重复点击
+    if (isPageChanging || loading) {
+      return;
+    }
+    
     updatePageSize(newPageSize);
     updateCurrentPage(1); // 重置到第一页
     // 使用新的pageSize值调用loadFiles
@@ -819,6 +861,12 @@ const FileList: React.FC = () => {
             </div>
             
             <div className="file-table-container">
+              {isPageChanging && (
+                <div className="page-changing-overlay">
+                  <div className="page-changing-spinner"></div>
+                  <span>正在切换页面...</span>
+                </div>
+              )}
               <div className="file-table">
                 <table>
                 <thead>
@@ -1003,6 +1051,7 @@ const FileList: React.FC = () => {
               pageSizeOptions={paginationConfig.pageSizeOptions}
               onPageChange={handlePageChange}
               onPageSizeChange={handlePageSizeChange}
+              disabled={isPageChanging || loading}
             />
           </>
         )}
